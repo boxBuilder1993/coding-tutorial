@@ -15,7 +15,7 @@ from collections import deque
 from typing import Any, Callable, Iterable, Optional
 
 __all__ = [
-    "case",
+    "case", "output_of_solution",
     "ListNode", "TreeNode",
     "from_list", "to_list", "from_level_order", "to_level_order",
 ]
@@ -63,6 +63,22 @@ def case(name: str, actual: Any, expected: Any, compare: Any = "exact") -> bool:
         "expected": _repr(expected), "actual": _repr(actual),
     })
     return ok
+
+
+def output_of_solution() -> str:
+    """Import the learner's code as a script and return everything it printed.
+
+    For exercises on pages before functions are introduced: the solution is
+    plain top-level code and the checker inspects its output and its names.
+    The module is still importable afterwards as `solution`.
+    """
+    import contextlib
+    import io
+
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        importlib.import_module("solution")
+    return buf.getvalue()
 
 
 # ---------------------------------------------------------------------- structures
