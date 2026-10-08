@@ -23,7 +23,7 @@ async function setEditor(page: Page, editor: ReturnType<Page['locator']>, code: 
 }
 
 test('home loads, sidebar renders, Pyodide becomes ready', async ({ page }) => {
-  await page.goto('/#/')
+  await page.goto('#/')
   await expect(page.locator('.sidebar')).toContainText('Learn Python')
   await expect(page.locator('.sidebar')).toContainText('Algorithms')
   await expect(page.locator('.markdown h1')).toHaveText('Learn Python, then algorithms')
@@ -32,7 +32,7 @@ test('home loads, sidebar renders, Pyodide becomes ready', async ({ page }) => {
 })
 
 test('play block runs and shows output', async ({ page }) => {
-  await page.goto('/#/01-learn-python/01-values')
+  await page.goto('#/01-learn-python/01-values')
   await waitForPython(page)
   const first = page.locator('.play').first()
   await first.getByRole('button', { name: 'Run' }).click()
@@ -52,7 +52,7 @@ test('play block runs and shows output', async ({ page }) => {
 })
 
 test('exercise: starter fails, hints reveal, correct code passes and persists', async ({ page }) => {
-  await page.goto('/#/01-learn-python/01-values')
+  await page.goto('#/01-learn-python/01-values')
   await waitForPython(page)
   const card = page.locator('.exercise', { hasText: 'Fahrenheit to Celsius' })
   await card.getByRole('button', { name: 'Run tests' }).click()
@@ -75,7 +75,7 @@ test('exercise: starter fails, hints reveal, correct code passes and persists', 
 })
 
 test('exercise: missing definition and syntax error are explained', async ({ page }) => {
-  await page.goto('/#/problem/two-sum')
+  await page.goto('#/problem/two-sum')
   await waitForPython(page)
   const card = page.locator('.exercise')
   await setEditor(page, card.locator('.editor'), 'def two_sun(nums, target):\n    return [0, 1]\n')
@@ -90,7 +90,7 @@ test('exercise: missing definition and syntax error are explained', async ({ pag
 
 test('exercise: infinite loop is stopped by the time budget', async ({ page }) => {
   test.setTimeout(180_000)
-  await page.goto('/#/problem/greet')
+  await page.goto('#/problem/greet')
   await waitForPython(page)
   const card = page.locator('.exercise')
   await setEditor(page, card.locator('.editor'), 'def greet(name):\n    while True:\n        pass\n')
@@ -102,7 +102,7 @@ test('exercise: infinite loop is stopped by the time budget', async ({ page }) =
 })
 
 test('linked list helpers work in the browser', async ({ page }) => {
-  await page.goto('/#/problem/reverse-linked-list')
+  await page.goto('#/problem/reverse-linked-list')
   await waitForPython(page)
   const card = page.locator('.exercise')
   await setEditor(
@@ -116,9 +116,9 @@ test('linked list helpers work in the browser', async ({ page }) => {
 })
 
 test('problems list and settings render', async ({ page }) => {
-  await page.goto('/#/problems')
+  await page.goto('#/problems')
   await expect(page.locator('.problems-table tbody tr')).toHaveCount(4)
-  await page.goto('/#/settings')
+  await page.goto('#/settings')
   await expect(page.getByRole('button', { name: 'Export progress' })).toBeVisible()
   await page.screenshot({ path: `${SHOTS}/06-problems.png`, fullPage: true })
 })
