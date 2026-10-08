@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.idea/
+.DS_Store
+site/public/content/
+site/node_modules/
+site/dist/
+site/test-results/
+site/playwright-report/
