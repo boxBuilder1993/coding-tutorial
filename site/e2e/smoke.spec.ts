@@ -130,7 +130,7 @@ test('script-style drill: output is captured and names are inspected', async ({ 
 
 test('problems list and settings render', async ({ page }) => {
   await page.goto('#/problems')
-  await expect(page.locator('.problems-table tbody tr')).toHaveCount(11)
+  await expect(page.locator('.problems-table tbody tr')).toHaveCount(23)
   await page.goto('#/settings')
   await expect(page.getByRole('button', { name: 'Export progress' })).toBeVisible()
   await page.screenshot({ path: `${SHOTS}/06-problems.png`, fullPage: true })

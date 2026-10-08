@@ -11,3 +11,4 @@ prices, quantities, and a shopping list. The vocabulary stays the same so you
 can focus on the Python, not the story.
 
 1. [Getting started](01-getting-started): values, names, and functions.
+2. [Decisions and text](02-decisions-and-text): true and false, `if`, and strings.

@@ -82,4 +82,4 @@ created inside a function disappear when the function returns.
 
 :::problem celsius-to-fahrenheit
 
-Next: Module 2, Decisions and text. (Coming soon.)
+Next: [True and False](../../02-decisions-and-text/01-true-and-false).
