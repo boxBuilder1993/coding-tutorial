@@ -83,3 +83,11 @@ sorting for you to build from the description.
 - This is an early version. If something is wrong, confusing, or a check seems unfair, please say so: [open an issue on GitHub](https://github.com/boxBuilder1993/coding-tutorial/issues). Mention the page name.
 
 Ready? Start with [Getting started](01-learn-python/01-getting-started), which explains what programming is before you write any code yourself.
+
+## If this helped you
+
+The course is free and will stay free. If you get to the end and feel it
+was worth something, you can send whatever you like by UPI to
+**`shravan1993@okicici`**, or [open your UPI app with it filled in](upi://pay?pa=shravan1993@okicici&pn=Shravan&cu=INR)
+on a phone. Only if you want to, and only after it has been useful; nothing
+on this site depends on it. UPI works from Indian bank accounts.
