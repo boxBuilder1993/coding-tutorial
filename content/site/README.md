@@ -9,7 +9,10 @@ engineer:
 
 - **If you have been leaning on AI to write your code** and have noticed
   the syntax slipping, this is a place to get it back. No autocomplete, no
-  assistant: just you, a problem, and the checks.
+  assistant: just you, a problem, and the checks. If you are wondering
+  whether that still matters, read
+  [Why learn to code when AI can write it?](01-learn-python/01-getting-started/00-why-learn-to-code)
+  first.
 - **If you have interviews coming up**, the Practice section is 120
   problems that end with thirty classic methods, searching, sorting, stacks and
   queues working together, arrays and pointers, each written from a plain-words

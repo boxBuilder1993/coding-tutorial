@@ -61,9 +61,11 @@ reading is not programming, writing is.
 
 ## The pages in this section
 
-1. [Values and print](01-values-and-print)
-2. [Names](02-names)
-3. [How a program runs](03-how-a-program-runs)
-4. [Functions](04-functions)
+1. [Why learn to code when AI can write it?](00-why-learn-to-code)
+2. [Values and print](01-values-and-print)
+3. [Names](02-names)
+4. [How a program runs](03-how-a-program-runs)
+5. [Functions](04-functions)
 
-Ready? Start with [Values and print](01-values-and-print).
+Ready? Start with [Why learn to code when AI can write it?](00-why-learn-to-code),
+or skip straight to [Values and print](01-values-and-print).
