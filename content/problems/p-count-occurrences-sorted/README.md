@@ -1,7 +1,7 @@
 # Count in a sorted list
 
 In a sorted list, every copy of a value sits together in one block. To
-count them without walking the whole list, find the block's edges with two
+count them without walking the whole list, you can find the block's edges with two
 binary searches: one for the first position whose value is at least the
 target, and one for the first position whose value is greater than the
 target. The count is the difference.

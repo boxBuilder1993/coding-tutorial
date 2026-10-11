@@ -1,7 +1,7 @@
 # Binary search
 
-When a list is already sorted, you can find a value much faster than
-looking at every item. Keep two positions, `low` and `high`, marking the
+When a list is already sorted, you can find a value without looking at
+every item. Keep two positions, `low` and `high`, marking the
 part of the list that could still contain the target; at first that is the
 whole list. Look at the middle item. If it equals the target, you are done.
 If it is smaller than the target, the target can only be to the right, so

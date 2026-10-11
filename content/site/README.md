@@ -10,9 +10,10 @@ engineer:
 - **If you have been leaning on AI to write your code** and have noticed
   the syntax slipping, this is a place to get it back. No autocomplete, no
   assistant: just you, a problem, and the checks.
-- **If you have interviews coming up**, the Practice section is a hundred
-  problems that end with the classic methods, searching, sorting, merging and
-  two pointers, written from a plain-words description. Skip straight to it.
+- **If you have interviews coming up**, the Practice section is 120
+  problems that end with thirty classic methods, searching, sorting, stacks and
+  queues working together, arrays and pointers, each written from a plain-words
+  description. Skip straight to it.
 
 ```python
 print("Hello. Press Run to see this work.")
@@ -20,7 +21,7 @@ print("Hello. Press Run to see this work.")
 
 ## The goal
 
-By the end, you should be able to sit down with the 100 problems in the
+By the end, you should be able to sit down with the 120 problems in the
 [Practice](01-learn-python/05-practice) section and solve them without
 asking anyone for help. Not quickly, and not without mistakes, but on your
 own: reading a problem, working out which tool it needs, writing the code,
@@ -53,7 +54,7 @@ Work through the sections in order. Each builds on the one before.
 | 2 | [Decisions and text](01-learn-python/02-decisions-and-text) | Make a program behave differently depending on its input, and take text apart. |
 | 3 | [Collections and loops](01-learn-python/03-collections-and-loops) | Hold many values at once and do something with each of them. |
 | 4 | [Stacks, queues and priority queues](01-learn-python/04-stacks-queues-and-priority-queues) | Choose the right structure for "what comes out next". |
-| 5 | [Practice](01-learn-python/05-practice) | Reach for the right tool without being told which one. 100 mixed problems. |
+| 5 | [Practice](01-learn-python/05-practice) | Reach for the right tool without being told which one. 120 mixed problems. |
 
 Sections 1 to 4 are about 20 pages and take most people a few hours each.
 Section 5 is where it sticks: the problems are grouped by difficulty, not by

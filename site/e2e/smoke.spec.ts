@@ -181,7 +181,7 @@ test('tutor prompt carries the code and failing checks but never the reference',
 
 test('problems list and settings render', async ({ page }) => {
   await page.goto('#/problems')
-  await expect(page.locator('.problems-table tbody tr')).toHaveCount(152)
+  await expect(page.locator('.problems-table tbody tr')).toHaveCount(172)
   await page.goto('#/settings')
   await expect(page.getByRole('button', { name: 'Export progress' })).toBeVisible()
   await page.screenshot({ path: `${SHOTS}/06-problems.png`, fullPage: true })
