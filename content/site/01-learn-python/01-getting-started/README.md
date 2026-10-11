@@ -63,6 +63,7 @@ reading is not programming, writing is.
 
 1. [Values and print](01-values-and-print)
 2. [Names](02-names)
-3. [Functions](03-functions)
+3. [How a program runs](03-how-a-program-runs)
+4. [Functions](04-functions)
 
 Ready? Start with [Values and print](01-values-and-print).

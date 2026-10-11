@@ -52,7 +52,7 @@ test('play block runs and shows output', async ({ page }) => {
 })
 
 test('exercise: starter fails, hints reveal, correct code passes and persists', async ({ page }) => {
-  await page.goto('#/01-learn-python/01-getting-started/03-functions')
+  await page.goto('#/01-learn-python/01-getting-started/04-functions')
   await waitForPython(page)
   const card = page.locator('.exercise', { hasText: 'Triple' })
   await card.getByRole('button', { name: 'Run tests' }).click()
@@ -115,7 +115,7 @@ test('script-style drill: output is captured and names are inspected', async ({ 
 })
 
 test('typing and running do not scroll the page to the top', async ({ page }) => {
-  await page.goto('#/01-learn-python/01-getting-started/03-functions')
+  await page.goto('#/01-learn-python/01-getting-started/04-functions')
   await waitForPython(page)
   const card = page.locator('.exercise', { hasText: 'Change due' })
   await card.scrollIntoViewIfNeeded()

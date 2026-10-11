@@ -72,4 +72,4 @@ typo or a forgotten line.
 
 :::problem swap-names
 
-Next: [Functions](../03-functions).
+Next: [How a program runs](../03-how-a-program-runs).
