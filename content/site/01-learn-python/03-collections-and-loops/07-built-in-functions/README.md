@@ -65,6 +65,23 @@ print(sorted([40, 25, 2.5], reverse=True))
 `key=str.lower` sorts ignoring capitals; `key=len` sorts shortest first. The
 same `key` works for `min` and `max`: `max(items, key=len)` is the longest.
 
+The `key` is a function that is called on each item, and the results decide
+the order. When no ready-made function does what you want, write a tiny one
+inline with `lambda`. `lambda s: s.lower()` means "a function that takes `s`
+and gives back `s.lower()`":
+
+```python
+items = ["bread", "Apple", "milk"]
+print(sorted(items, key=lambda s: s.lower()))
+
+pairs = [("bread", 25), ("apple", 40), ("milk", 2.5)]
+print(sorted(pairs, key=lambda p: p[1]))
+print(max(pairs, key=lambda p: p[1]))
+```
+
+Sorting the pairs by price is the case where `lambda` earns its place: there
+is no built-in function that picks out the second value of a tuple.
+
 ## enumerate: position and value together
 
 When you need both the position and the item, `enumerate` gives them as a
