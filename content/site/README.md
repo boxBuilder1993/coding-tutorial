@@ -4,6 +4,16 @@ A free, self-paced course that starts from "I have never written a program"
 and builds up to solving classic programming problems. Everything runs in
 your browser: there is nothing to install and nothing to sign up for.
 
+It is written for beginners, but it is also for two kinds of experienced
+engineer:
+
+- **If you have been leaning on AI to write your code** and have noticed
+  the syntax slipping, this is a place to get it back. No autocomplete, no
+  assistant: just you, a problem, and the checks.
+- **If you have interviews coming up**, the Practice section is a hundred
+  problems that end with the classic methods, searching, sorting, merging and
+  two pointers, written from a plain-words description. Skip straight to it.
+
 ```python
 print("Hello. Press Run to see this work.")
 ```
