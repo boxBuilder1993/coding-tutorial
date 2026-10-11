@@ -151,6 +151,34 @@ test('search finds a lesson by a method name and navigates on Enter', async ({ p
   await expect(page.locator('.search-empty')).toContainText('Nothing matches')
 })
 
+test('tutor prompt carries the code and failing checks but never the reference', async ({ page }) => {
+  await page.goto('#/problem/p-two-sum-dict')
+  await waitForPython(page)
+  const card = page.locator('.exercise')
+  const text = () => card.locator('.tutor-text').inputValue()
+
+  // Before any run: the "not run yet" opening.
+  await card.getByRole('button', { name: 'What is this?' }).click()
+  expect(await text()).toContain('has not run the checks yet')
+  expect(await text()).toContain('strict but kind')
+
+  // A wrong solution: results and the "why is it not working" opening appear.
+  await setEditor(page, card.locator('.editor'), 'def two_sum(prices, target):\n    return (0, 1)\n')
+  await card.getByRole('button', { name: 'Run tests' }).click()
+  await expect(card.locator('.results-banner')).toContainText('checks passed')
+  const t = await text()
+  expect(t).toContain('return (0, 1)')
+  expect(t).toContain('FAIL  no pair')
+  expect(t).toContain('why they think their code is not working')
+  expect(t).not.toContain('seen = {}')          // the reference solution
+  expect(t).not.toContain('target - price in seen')
+  expect(t).toContain('=== Hints the student has already seen ===\nnone')
+
+  // Revealed hints are included.
+  await card.getByRole('button', { name: /Show hint 1/ }).click()
+  expect(await text()).toContain('1. seen = {} mapping price to index')
+})
+
 test('problems list and settings render', async ({ page }) => {
   await page.goto('#/problems')
   await expect(page.locator('.problems-table tbody tr')).toHaveCount(152)

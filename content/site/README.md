@@ -67,6 +67,7 @@ them, and how to think about new problems.
 ## Advice from people who have done this before
 
 - **Forgotten some syntax? Look it up in the lessons, not elsewhere.** The search box at the top of the sidebar finds pages by any word, including names like `popleft` or `sorted`. Going back to the page that taught it rebuilds the memory; a quick answer from somewhere else does not.
+- **Using an AI assistant? Make it a tutor.** Every exercise has a "Copy tutor prompt" button. Paste what it copies into your assistant and it will ask you questions instead of writing the answer. Asking it for the solution directly teaches you nothing.
 - **Type the code yourself.** Copying and pasting a reference solution teaches nothing. If you have to look at the reference, close it and write it from memory.
 - **Change the examples.** Every runnable block is an invitation. Break it on purpose and read the error.
 - **Do not skip the exercises.** Reading a page feels like understanding. The exercise is where you find out.

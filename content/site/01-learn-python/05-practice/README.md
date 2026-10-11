@@ -25,6 +25,16 @@ The problems are grouped by difficulty, not by topic:
 
 Skip anything that sticks and come back later. There is no gate.
 
+## If you have an AI assistant
+
+Use it as a tutor, not as an answer machine. Every exercise has a **Copy
+tutor prompt** button under the editor. It copies your code, your last
+results, and a set of instructions that make the assistant ask you
+questions and send you back to the lessons instead of handing you the
+solution. Paste it into whatever assistant you use, then answer its
+questions honestly. If it gives you code anyway, close it and come back.
+The goal is still a run through all hundred where you did not need it.
+
 1. [Warm-up 1](01-warm-up-1)
 2. [Warm-up 2](02-warm-up-2)
 3. [Warm-up 3](03-warm-up-3)

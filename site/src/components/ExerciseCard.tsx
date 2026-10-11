@@ -6,6 +6,8 @@ import { runner, useRunnerStatus, type TestResult } from '../runner/runner'
 import { CodeEditor } from './CodeEditor'
 import { Markdown } from './Markdown'
 import { Results } from './Results'
+import { TutorPrompt } from './TutorPrompt'
+import { buildTutorPrompt } from '../lib/tutorPrompt'
 
 interface Props {
   problem: Problem
@@ -160,6 +162,7 @@ export function ExerciseCard({ problem, layout }: Props) {
           <span className="hint-key">Ctrl/⌘ + Enter</span>
         </div>
         {result && <Results result={result} />}
+        <TutorPrompt prompt={buildTutorPrompt(problem, code, result, problem.hints.slice(0, prog.hintsUsed))} />
       </div>
     </section>
   )
