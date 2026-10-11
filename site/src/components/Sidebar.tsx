@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import type { TreeNode } from '../lib/content'
 import { useProgress } from '../lib/progress'
 import { siteHref, type Route } from '../lib/router'
+import { Search } from './Search'
 
 interface Props {
   tree: TreeNode
@@ -73,6 +74,7 @@ export function Sidebar({ tree, route, onNavigate }: Props) {
 
   return (
     <nav className="sidebar" aria-label="Contents">
+      <Search onNavigate={onNavigate} />
       <ul className="nav-root">
         <li className="nav-item depth-0">
           <div className={`nav-row ${current === '' ? 'current' : ''}`}>

@@ -132,6 +132,25 @@ test('typing and running do not scroll the page to the top', async ({ page }) =>
   expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(300)
 })
 
+test('search finds a lesson by a method name and navigates on Enter', async ({ page }) => {
+  await page.goto('#/')
+  const box = page.getByRole('searchbox', { name: 'Search lessons and problems' })
+  await box.fill('popleft')
+  const first = page.locator('.search-hit').first()
+  await expect(first).toContainText('Queues')
+  await expect(first).toContainText('lesson')
+  await box.press('Enter')
+  await expect(page).toHaveURL(/04-stacks-queues-and-priority-queues\/02-queues$/)
+  await expect(page.locator('.markdown h1')).toHaveText('Queues')
+  await expect(box).toHaveValue('')
+
+  // "/" focuses the box from the page, and nonsense gives a clear empty state.
+  await page.keyboard.press('/')
+  await expect(box).toBeFocused()
+  await box.fill('zzqxv')
+  await expect(page.locator('.search-empty')).toContainText('Nothing matches')
+})
+
 test('problems list and settings render', async ({ page }) => {
   await page.goto('#/problems')
   await expect(page.locator('.problems-table tbody tr')).toHaveCount(152)

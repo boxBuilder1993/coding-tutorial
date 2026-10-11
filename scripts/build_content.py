@@ -4,6 +4,7 @@
 Outputs (all under site/public/content/, which is generated and gitignored):
   tree.json          navigation tree built from content/site
   problems.json      parsed problems from content/problems
+  search.json        search index over pages and problems
   checker.py         copy of site/runner/checker.py
   site/**            copy of content/site (markdown)
   problems/**        copy of content/problems (markdown and check.py)
@@ -189,6 +190,48 @@ def verify_reference(problem: dict, folder: str) -> None:
         err(f"content/problems/{problem['id']}: reference fails check.py ({report['status']}) {detail} {report.get('error') or ''}".strip())
 
 
+# ---------------------------------------------------------------------- search
+
+def plain_text(md: str) -> str:
+    """Markdown to searchable text: keep code and prose, drop markup noise."""
+    md = DIRECTIVE.sub(" ", md)
+    md = re.sub(r"^```[^\n]*$", " ", md, flags=re.M)      # fence lines
+    md = re.sub(r"<[^>]+>", " ", md)                        # html
+    md = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", md)       # links -> text
+    md = re.sub(r"[#*_`|>]+", " ", md)                      # markup characters
+    md = re.sub(r"\s+", " ", md)
+    return md.strip()
+
+
+def headings_of(md: str) -> list[str]:
+    return [m.group(1).strip() for m in re.finditer(r"^#{2,3}\s+(.+?)\s*$", md, re.M)]
+
+
+def build_search(tree: dict, problems: dict[str, dict]) -> list[dict]:
+    entries: list[dict] = []
+    for node in walk_tree(tree):
+        readme = os.path.join(SITE_SRC, node["path"], "README.md") if node["path"] else os.path.join(SITE_SRC, "README.md")
+        md = read(readme) if os.path.exists(readme) else ""
+        # Embedded problems count as part of the page they appear on.
+        extra = " ".join(f"{problems[pid]['title']} {plain_text(problems[pid]['statement'])}" for pid in node["problems"] if pid in problems)
+        entries.append({
+            "kind": "page",
+            "id": node["path"],
+            "title": node["title"],
+            "headings": headings_of(md),
+            "text": (plain_text(md) + " " + extra).strip(),
+        })
+    for pid, pr in problems.items():
+        entries.append({
+            "kind": "problem",
+            "id": pid,
+            "title": pr["title"],
+            "headings": [],
+            "text": plain_text(pr["statement"] + " " + pr["starter"]),
+        })
+    return entries
+
+
 # ----------------------------------------------------------------------- main
 
 def main() -> int:
@@ -245,6 +288,8 @@ def main() -> int:
         json.dump(tree, fh, indent=2)
     with open(os.path.join(OUT, "problems.json"), "w", encoding="utf-8") as fh:
         json.dump(problems, fh, indent=2)
+    with open(os.path.join(OUT, "search.json"), "w", encoding="utf-8") as fh:
+        json.dump(build_search(tree, problems), fh)
 
     pages = sum(1 for _ in walk_tree(tree))
     print(f"ok: {pages} pages, {len(problems)} problems, {len(warnings)} warning(s) -> site/public/content/")

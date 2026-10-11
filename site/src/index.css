@@ -197,3 +197,23 @@ pre.static {
 /* ---------- tables */
 .problems-table { width: 100%; border-collapse: collapse; }
 .problems-table th, .problems-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+
+/* ---------- search */
+.search { position: relative; margin: 0 6px 12px; }
+.search-input {
+  width: 100%; font: inherit; font-size: 0.93em; padding: 7px 10px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--fg);
+}
+.search-input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.search-results {
+  position: absolute; left: 0; right: 0; top: calc(100% + 4px); z-index: 40;
+  max-height: 60vh; overflow-y: auto; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+.search-hit { display: block; padding: 8px 10px; color: var(--fg); border-top: 1px solid var(--border); }
+.search-hit:first-child { border-top: none; }
+.search-hit:hover, .search-hit.active { background: var(--bg-3); text-decoration: none; }
+.search-hit-title { font-weight: 600; display: flex; align-items: baseline; gap: 8px; }
+.search-kind { font-weight: 400; font-size: 0.75em; color: var(--fg-2); }
+.search-snippet { font-size: 0.82em; color: var(--fg-2); margin-top: 2px; line-height: 1.35; }
+.search-empty { padding: 10px; font-size: 0.9em; }
