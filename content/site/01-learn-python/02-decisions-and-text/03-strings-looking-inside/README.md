@@ -58,6 +58,26 @@ print(item[4:])
 print(item[-3:])
 ```
 
+Negative numbers work for `stop` too. `item[:-2]` means "everything except the
+last two characters", because `-2` is the position of the second-to-last
+character and the slice stops before it.
+
+```python
+item = "sourdough"
+print(item[:-2])
+print(item[1:-1])
+```
+
+A third number is the **step**: how far to jump each time. `item[::2]` takes
+every second character. A step of `-1` walks backwards, so `item[::-1]` is the
+whole string reversed.
+
+```python
+item = "sourdough"
+print(item[::2])
+print(item[::-1])
+```
+
 ## Is it in there?
 
 `in` asks whether one string appears inside another. It gives a boolean, so

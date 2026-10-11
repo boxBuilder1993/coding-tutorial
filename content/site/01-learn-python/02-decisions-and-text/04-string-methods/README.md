@@ -79,4 +79,4 @@ print("-".join(["apple", "bread"]))
 
 :::problem has-prefix
 
-Next: Module 3, Collections and loops. (Coming soon.)
+Next: [Lists](../../03-collections-and-loops/01-lists).
