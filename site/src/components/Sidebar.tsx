@@ -80,7 +80,7 @@ export function Sidebar({ tree, route, onNavigate }: Props) {
           <div className={`nav-row ${current === '' ? 'current' : ''}`}>
             <span className="disclosure-spacer" />
             <a href="#/" onClick={onNavigate} aria-current={current === '' ? 'page' : undefined}>
-              {tree.title}
+              Introduction
             </a>
           </div>
         </li>
