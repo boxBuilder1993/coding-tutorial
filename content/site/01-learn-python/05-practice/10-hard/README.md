@@ -22,4 +22,4 @@ Each problem here describes a classic method in plain words: a way of searching,
 
 :::problem p-first-duplicate
 
-That is the end of Learn Python. Next: [Algorithms](../../../02-algorithms).
+That is the end of Learn Python. The [Algorithms](../../../02-algorithms) section, which builds on these ten methods, is being written.

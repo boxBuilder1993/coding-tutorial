@@ -101,20 +101,6 @@ test('exercise: infinite loop is stopped by the time budget', async ({ page }) =
   await waitForPython(page)
 })
 
-test('linked list helpers work in the browser', async ({ page }) => {
-  await page.goto('#/problem/reverse-linked-list')
-  await waitForPython(page)
-  const card = page.locator('.exercise')
-  await setEditor(
-    page,
-    card.locator('.editor'),
-    'def reverse_list(head):\n    prev = None\n    while head:\n        nxt = head.next\n        head.next = prev\n        prev, head = head, nxt\n    return prev\n',
-  )
-  await card.getByRole('button', { name: 'Run tests' }).click()
-  await expect(card.locator('.results-banner')).toContainText('All 4 checks passed')
-  await page.screenshot({ path: `${SHOTS}/05-problem-split.png`, fullPage: true })
-})
-
 test('script-style drill: output is captured and names are inspected', async ({ page }) => {
   await page.goto('#/problem/update-stock')
   await waitForPython(page)
@@ -148,7 +134,7 @@ test('typing and running do not scroll the page to the top', async ({ page }) =>
 
 test('problems list and settings render', async ({ page }) => {
   await page.goto('#/problems')
-  await expect(page.locator('.problems-table tbody tr')).toHaveCount(153)
+  await expect(page.locator('.problems-table tbody tr')).toHaveCount(152)
   await page.goto('#/settings')
   await expect(page.getByRole('button', { name: 'Export progress' })).toBeVisible()
   await page.screenshot({ path: `${SHOTS}/06-problems.png`, fullPage: true })
