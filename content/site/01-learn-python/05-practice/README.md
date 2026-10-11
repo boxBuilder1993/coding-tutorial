@@ -23,3 +23,7 @@ Skip anything that sticks and come back later. There is no gate.
 1. [Warm-up 1](01-warm-up-1)
 2. [Warm-up 2](02-warm-up-2)
 3. [Warm-up 3](03-warm-up-3)
+4. [Standard 1](04-standard-1)
+5. [Standard 2](05-standard-2)
+6. [Standard 3](06-standard-3)
+7. [Standard 4](07-standard-4)

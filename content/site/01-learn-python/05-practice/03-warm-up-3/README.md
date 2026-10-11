@@ -20,4 +20,4 @@
 
 :::problem p-contains-milk
 
-Next: Standard 1. (Coming soon.)
+Next: [Standard 1](../04-standard-1).
