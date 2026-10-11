@@ -64,19 +64,22 @@ test('every page, block, reference and link', async ({ page, baseURL }) => {
   const report: string[] = []
   const embedded = new Set<string>()
 
-  await page.goto(base + '#/')
+  await page.goto(base)
   await expect(page.locator('.runner-pill')).toHaveText('Python ready', { timeout: 120_000 })
 
   for (const node of pages) {
     await test.step(node.path || 'home', async () => {
       const lines: string[] = [`## ${node.title}  (${node.path || 'home'})`]
-      await page.goto(base + (node.path ? '#/' + node.path : '#/'))
+      await page.goto(base + (node.path ? node.path + '/' : ''))
       await page.waitForSelector('.markdown')
+      // Each goto is a full load; wait for the runner again before running blocks.
+      await expect(page.locator('.runner-pill')).toHaveText('Python ready', { timeout: 120_000 })
 
       // Internal links must resolve.
-      const hrefs = await page.locator('.markdown a[href^="#/"]').evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''))
-      for (const h of hrefs) {
-        const target = h.replace(/^#\//, '')
+      const basePath = new URL(base).pathname
+      const hrefs = await page.locator('.markdown a').evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''))
+      for (const h of hrefs.filter((h) => h.startsWith(basePath) || h.startsWith('/'))) {
+        const target = h.slice(h.startsWith(basePath) ? basePath.length : 1).replace(/\/+$/, '')
         const ok =
           target === '' ||
           pagePaths.has(target) ||

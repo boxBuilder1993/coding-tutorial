@@ -23,7 +23,7 @@ async function setEditor(page: Page, editor: ReturnType<Page['locator']>, code: 
 }
 
 test('home loads, sidebar renders, Pyodide becomes ready', async ({ page }) => {
-  await page.goto('#/')
+  await page.goto('')
   await expect(page.locator('.sidebar')).toContainText('Learn Python')
   await expect(page.locator('.sidebar')).toContainText('All problems')
   await expect(page.locator('.markdown h1')).toHaveText('Learn Python')
@@ -32,7 +32,7 @@ test('home loads, sidebar renders, Pyodide becomes ready', async ({ page }) => {
 })
 
 test('play block runs and shows output', async ({ page }) => {
-  await page.goto('#/01-learn-python/01-getting-started/01-values-and-print')
+  await page.goto('01-learn-python/01-getting-started/01-values-and-print/')
   await waitForPython(page)
   const first = page.locator('.play').first()
   await first.getByRole('button', { name: 'Run' }).click()
@@ -52,7 +52,7 @@ test('play block runs and shows output', async ({ page }) => {
 })
 
 test('exercise: starter fails, hints reveal, correct code passes and persists', async ({ page }) => {
-  await page.goto('#/01-learn-python/01-getting-started/04-functions')
+  await page.goto('01-learn-python/01-getting-started/04-functions/')
   await waitForPython(page)
   const card = page.locator('.exercise', { hasText: 'Triple' })
   await card.getByRole('button', { name: 'Run tests' }).click()
@@ -60,6 +60,11 @@ test('exercise: starter fails, hints reveal, correct code passes and persists', 
   await expect(card.locator('.case.fail')).toHaveCount(4)
 
   await card.getByRole('button', { name: /Show hint 1/ }).click()
+  await expect(card.locator('.hints ol li')).toHaveCount(1)
+  // Opened hints can be hidden and shown again; the count used is kept.
+  await card.getByRole('button', { name: 'Hide hints' }).click()
+  await expect(card.locator('.hints ol li')).toHaveCount(0)
+  await card.getByRole('button', { name: 'Show the hint you opened' }).click()
   await expect(card.locator('.hints ol li')).toHaveCount(1)
 
   await setEditor(page, card.locator('.editor'), 'def triple(x):\n    return x * 3\n')
@@ -75,7 +80,7 @@ test('exercise: starter fails, hints reveal, correct code passes and persists', 
 })
 
 test('exercise: missing definition and syntax error are explained', async ({ page }) => {
-  await page.goto('#/problem/p-two-sum-dict')
+  await page.goto('problem/p-two-sum-dict/')
   await waitForPython(page)
   const card = page.locator('.exercise')
   await setEditor(page, card.locator('.editor'), 'def two_sun(nums, target):\n    return [0, 1]\n')
@@ -90,7 +95,7 @@ test('exercise: missing definition and syntax error are explained', async ({ pag
 
 test('exercise: infinite loop is stopped by the time budget', async ({ page }) => {
   test.setTimeout(180_000)
-  await page.goto('#/problem/triple')
+  await page.goto('problem/triple/')
   await waitForPython(page)
   const card = page.locator('.exercise')
   await setEditor(page, card.locator('.editor'), 'def triple(x):\n    while True:\n        pass\n')
@@ -102,7 +107,7 @@ test('exercise: infinite loop is stopped by the time budget', async ({ page }) =
 })
 
 test('script-style drill: output is captured and names are inspected', async ({ page }) => {
-  await page.goto('#/problem/update-stock')
+  await page.goto('problem/update-stock/')
   await waitForPython(page)
   const card = page.locator('.exercise')
   await card.getByRole('button', { name: 'Run tests' }).click()
@@ -115,7 +120,7 @@ test('script-style drill: output is captured and names are inspected', async ({ 
 })
 
 test('typing and running do not scroll the page to the top', async ({ page }) => {
-  await page.goto('#/01-learn-python/01-getting-started/04-functions')
+  await page.goto('01-learn-python/01-getting-started/04-functions/')
   await waitForPython(page)
   const card = page.locator('.exercise', { hasText: 'Change due' })
   await card.scrollIntoViewIfNeeded()
@@ -133,14 +138,14 @@ test('typing and running do not scroll the page to the top', async ({ page }) =>
 })
 
 test('search finds a lesson by a method name and navigates on Enter', async ({ page }) => {
-  await page.goto('#/')
+  await page.goto('')
   const box = page.getByRole('searchbox', { name: 'Search lessons and problems' })
   await box.fill('popleft')
   const first = page.locator('.search-hit').first()
   await expect(first).toContainText('Queues')
   await expect(first).toContainText('lesson')
   await box.press('Enter')
-  await expect(page).toHaveURL(/04-stacks-queues-and-priority-queues\/02-queues$/)
+  await expect(page).toHaveURL(/04-stacks-queues-and-priority-queues\/02-queues\/$/)
   await expect(page.locator('.markdown h1')).toHaveText('Queues')
   await expect(box).toHaveValue('')
 
@@ -152,7 +157,7 @@ test('search finds a lesson by a method name and navigates on Enter', async ({ p
 })
 
 test('tutor prompt carries the code and failing checks but never the reference', async ({ page }) => {
-  await page.goto('#/problem/p-two-sum-dict')
+  await page.goto('problem/p-two-sum-dict/')
   await waitForPython(page)
   const card = page.locator('.exercise')
   const text = () => card.locator('.tutor-text').inputValue()
@@ -181,7 +186,7 @@ test('tutor prompt carries the code and failing checks but never the reference',
 
 test('dark mode toggles the page and the editor, and persists', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'light' })
-  await page.goto('#/01-learn-python/01-getting-started/01-values-and-print')
+  await page.goto('01-learn-python/01-getting-started/01-values-and-print/')
   await page.waitForSelector('.cm-editor')
   const bg = () => page.evaluate(() => getComputedStyle(document.body).backgroundColor)
   const editorBg = () => page.evaluate(() => getComputedStyle(document.querySelector('.cm-editor')!).backgroundColor)
@@ -200,10 +205,27 @@ test('dark mode toggles the page and the editor, and persists', async ({ page })
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
 })
 
+test('path routing: in-app links push real URLs and old hash links redirect', async ({ page, baseURL }) => {
+  await page.goto('')
+  // Clicking a sidebar link changes the address without a full reload.
+  await page.evaluate(() => ((window as unknown as { __alive: boolean }).__alive = true))
+  await page.locator('.sidebar a', { hasText: 'Learn Python' }).first().click()
+  await expect(page).toHaveURL(`${baseURL}01-learn-python/`)
+  await expect(page.locator('.markdown h1')).toHaveText('Learn Python')
+  expect(await page.evaluate(() => (window as unknown as { __alive?: boolean }).__alive)).toBe(true)
+  // Back button works.
+  await page.goBack()
+  await expect(page).toHaveURL(baseURL!)
+  // A legacy hash URL lands on the path form.
+  await page.goto('#/01-learn-python/01-getting-started/02-names')
+  await expect(page).toHaveURL(`${baseURL}01-learn-python/01-getting-started/02-names/`)
+  await expect(page.locator('.markdown h1')).toHaveText('Names')
+})
+
 test('problems list and settings render', async ({ page }) => {
-  await page.goto('#/problems')
+  await page.goto('problems/')
   await expect(page.locator('.problems-table tbody tr')).toHaveCount(171)
-  await page.goto('#/settings')
+  await page.goto('settings/')
   await expect(page.getByRole('button', { name: 'Export progress' })).toBeVisible()
   await page.screenshot({ path: `${SHOTS}/06-problems.png`, fullPage: true })
 })

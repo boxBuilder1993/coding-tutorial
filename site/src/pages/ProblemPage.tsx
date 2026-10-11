@@ -1,5 +1,5 @@
 import { walkTree, type Content } from '../lib/content'
-import { siteHref } from '../lib/router'
+import { problemsHref, siteHref } from '../lib/router'
 import { ExerciseCard } from '../components/ExerciseCard'
 
 export function ProblemPage({ content, id }: { content: Content; id: string }) {
@@ -9,7 +9,7 @@ export function ProblemPage({ content, id }: { content: Content; id: string }) {
       <article className="page">
         <h1>Problem not found</h1>
         <p>
-          There is no problem called <code>{id}</code>. <a href="#/problems">See all problems</a>.
+          There is no problem called <code>{id}</code>. <a href={problemsHref()}>See all problems</a>.
         </p>
       </article>
     )
@@ -18,7 +18,7 @@ export function ProblemPage({ content, id }: { content: Content; id: string }) {
   return (
     <article className="page page-wide">
       <nav className="crumbs" aria-label="Breadcrumb">
-        <a href="#/problems">All problems</a>
+        <a href={problemsHref()}>All problems</a>
         {pages.length > 0 && (
           <>
             {' · appears in '}

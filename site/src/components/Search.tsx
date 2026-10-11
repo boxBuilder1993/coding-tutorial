@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { loadIndex, search, type SearchEntry, type SearchHit } from '../lib/search'
-import { problemHref, siteHref } from '../lib/router'
+import { navigate, problemHref, siteHref } from '../lib/router'
 
 export function Search({ onNavigate }: { onNavigate?: () => void }) {
   const [query, setQuery] = useState('')
@@ -41,7 +41,7 @@ export function Search({ onNavigate }: { onNavigate?: () => void }) {
   const hrefFor = (h: SearchHit) => (h.entry.kind === 'page' ? siteHref(h.entry.id) : problemHref(h.entry.id))
 
   const go = (h: SearchHit) => {
-    window.location.hash = hrefFor(h)
+    navigate(hrefFor(h))
     setQuery('')
     onNavigate?.()
   }

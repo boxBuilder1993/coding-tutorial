@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { fetchPage, findNode, walkTree, type Content } from '../lib/content'
 import { useProgress } from '../lib/progress'
-import { siteHref } from '../lib/router'
+import { hrefFromHash, siteHref } from '../lib/router'
 import { Markdown } from '../components/Markdown'
 
 export function SitePage({ content, path }: { content: Content; path: string }) {
@@ -28,7 +28,7 @@ export function SitePage({ content, path }: { content: Content; path: string }) 
       <article className="page">
         <h1>Page not found</h1>
         <p>
-          There is no page at <code>{path}</code>. <a href="#/">Go home</a>.
+          There is no page at <code>{path}</code>. <a href={siteHref('')}>Go home</a>.
         </p>
       </article>
     )
@@ -39,13 +39,15 @@ export function SitePage({ content, path }: { content: Content; path: string }) 
   const prev = idx > 0 ? flat[idx - 1] : null
   const next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null
   const crumbs = path ? path.split('/').map((_, i, parts) => parts.slice(0, i + 1).join('/')) : []
-  const resume = path === '' && progress.lastRoute && progress.lastRoute !== '#/' ? progress.lastRoute : null
+  // lastRoute may be a legacy "#/..." value from before path routing.
+  const last = progress.lastRoute.startsWith('#') ? hrefFromHash(progress.lastRoute) : progress.lastRoute
+  const resume = path === '' && last && last !== siteHref('') ? last : null
 
   return (
     <article className="page">
       {crumbs.length > 1 && (
         <nav className="crumbs" aria-label="Breadcrumb">
-          <a href="#/">Home</a>
+          <a href={siteHref('')}>Home</a>
           {crumbs.slice(0, -1).map((p) => (
             <span key={p}>
               {' / '}

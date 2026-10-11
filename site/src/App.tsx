@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { loadContent, type Content } from './lib/content'
 import { ProgressProvider, useProgress } from './lib/progress'
-import { parseRoute, useHash } from './lib/router'
+import { parseRoute, siteHref, usePath } from './lib/router'
 import { useRunnerStatus } from './runner/runner'
 import { useTheme } from './lib/theme'
 import { Sidebar } from './components/Sidebar'
@@ -31,14 +31,14 @@ function ThemeButton() {
 }
 
 function Shell({ content }: { content: Content }) {
-  const hash = useHash()
-  const route = useMemo(() => parseRoute(hash), [hash])
+  const path = usePath()
+  const route = useMemo(() => parseRoute(path), [path])
   const { setLastRoute } = useProgress()
   const [drawer, setDrawer] = useState(false)
 
   // Runs only when the URL changes, never on re-renders caused by typing or running.
   useEffect(() => {
-    setLastRoute(hash)
+    setLastRoute(window.location.pathname)
     window.scrollTo(0, 0)
     document.title = route.kind === 'site' && route.path === '' ? content.tree.title : `${titleFor()} · ${content.tree.title}`
     function titleFor() {
@@ -58,7 +58,7 @@ function Shell({ content }: { content: Content }) {
       return t
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hash])
+  }, [path])
 
   let page
   switch (route.kind) {
@@ -81,7 +81,7 @@ function Shell({ content }: { content: Content }) {
         <button type="button" className="menu" aria-label="Toggle contents" onClick={() => setDrawer((d) => !d)}>
           ☰
         </button>
-        <a className="brand" href="#/">
+        <a className="brand" href={siteHref('')}>
           {content.tree.title}
         </a>
         <RunnerPill />

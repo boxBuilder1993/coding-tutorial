@@ -149,15 +149,18 @@ case("does not reuse an element", len(set(idx)), 2)
 
 ## 3. Website
 
-Routes, hash-based.
+Routes are real paths under the site base, so every page has its own URL and
+its own HTML file (see §5, pre-rendering). Navigation within the app uses
+the History API without reloading. Old `#/...` links are rewritten to the
+path form in the browser and never appear in the sitemap or canonical tags.
 
 | Route | Page |
 |-------|------|
-| `#/` | `content/site/README.md` |
-| `#/<path>` | The site page at `content/site/<path>/README.md`, e.g. `#/01-learn-python/02-lists` |
-| `#/problem/<id>` | Standalone problem page |
-| `#/problems` | Generated list of every problem in the library, with solved status |
-| `#/settings` | Export, import, reset progress |
+| `/` | `content/site/README.md` |
+| `/<path>/` | The site page at `content/site/<path>/README.md`, e.g. `/01-learn-python/02-lists/` |
+| `/problem/<id>/` | Standalone problem page |
+| `/problems/` | Generated list of every problem in the library, with solved status |
+| `/settings/` | Export, import, reset progress (served, but `noindex`) |
 
 Layout
 
@@ -205,7 +208,7 @@ Loading
 ```json
 {
   "version": 1,
-  "lastRoute": "#/01-learn-python/02-lists",
+  "lastRoute": "/01-learn-python/02-lists/",
   "problems": {
     "two-sum": {
       "status": "not-started|in-progress|solved",
@@ -239,9 +242,20 @@ Loading
    and copy `content/` into `site/public/content/` so the app fetches markdown
    and checkers as static files.
 
-GitHub Actions on push to `main`: run the build script, build the Vite app,
-deploy `site/dist` to Pages. Vite `base` is the repository path. A failing
-content build blocks deployment.
+Pre-rendering, `site/scripts/prerender.mjs`, runs after `vite build`. For
+every site page, problem page and the problems index it writes
+`dist/<path>/index.html`: the built shell with a `<title>`, meta
+description (first paragraph), canonical link, Open Graph tags, and the
+page's markdown rendered to HTML inside `#root`, embedded problems included.
+Search engines and link previews read that; the app replaces it on load. It
+also writes `sitemap.xml` (every URL once, path form only, settings
+excluded), `robots.txt`, and a `noindex` `404.html`. `SITE_URL` provides the
+absolute site address.
+
+GitHub Actions on push to `main`: run the build script, build the Vite app
+with pre-rendering, run the Playwright projects (smoke, sweep, and the
+no-JavaScript pre-render checks), deploy `site/dist` to Pages. Vite `base`
+is the repository path. A failing check blocks deployment.
 
 ## 6. App stack
 

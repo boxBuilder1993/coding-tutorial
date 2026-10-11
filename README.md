@@ -29,14 +29,24 @@ Makefile                       the entry point for all of the below
 1. Content validation. Every page and problem is parsed, every reference
    solution is run against its `check.py` under CPython, and every
    `:::problem` reference must resolve.
-2. TypeScript typecheck and production build.
+2. TypeScript typecheck and production build. The build pre-renders an
+   `index.html` for every page and problem (`site/scripts/prerender.mjs`),
+   with title, description, canonical and Open Graph tags and the page text
+   in the body, plus `sitemap.xml`, `robots.txt` and `404.html`. Search
+   engines and link previews see complete pages; the app takes over on load.
+   `SITE_URL` sets the absolute site address used in canonical links and the
+   sitemap (CI sets it from the repository name).
 3. Playwright smoke tests: loading, running a block, solving an exercise,
-   error messages, the time budget, search, the tutor prompt, dark mode.
+   error messages, the time budget, search, the tutor prompt, dark mode,
+   path routing and the redirect of old `#/` links.
 4. A content sweep that visits every page in a real browser, runs every code
    block, submits every reference solution to its exercise, and follows every
    internal link. A block that is meant to error is tagged
    ```` ```python expect-error ```` and the sweep checks that it does. The
    sweep writes a report to `review/sweep.md`.
+5. Pre-render checks that load the built pages with JavaScript disabled and
+   assert the text, title, description and canonical link are present, and
+   that the sitemap lists every URL exactly once in path form.
 
 ```bash
 make check     # all of the above
@@ -45,8 +55,12 @@ make sweep     # content sweep only
 make content   # content validation only
 ```
 
-Playwright starts the dev server itself. To run the browser checks against
-the live site instead: `E2E_BASE_URL=https://boxbuilder1993.github.io/coding-tutorial/ npx playwright test` from `site/`.
+Playwright starts the dev server and the preview server itself. To run the
+browser checks against the live site instead:
+`E2E_BASE_URL=https://boxbuilder1993.github.io/coding-tutorial/ npx playwright test` from `site/`.
+
+URLs are path-based (`/01-learn-python/02-decisions-and-text/`); every page
+has a real file behind it. Old `#/...` links redirect in the browser.
 
 ## Local development
 

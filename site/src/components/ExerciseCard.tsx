@@ -21,6 +21,7 @@ export function ExerciseCard({ problem, layout }: Props) {
   const [result, setResult] = useState<TestResult | null>(null)
   const [running, setRunning] = useState(false)
   const [showApproach, setShowApproach] = useState(false)
+  const [hintsOpen, setHintsOpen] = useState(true)
   const { status } = useRunnerStatus()
   const saveTimer = useRef<number | null>(null)
 
@@ -98,18 +99,34 @@ export function ExerciseCard({ problem, layout }: Props) {
         {problem.hints.length > 0 && (
           <div className="hints">
             <h4>Hints</h4>
-            <ol>
-              {problem.hints.slice(0, prog.hintsUsed).map((h, i) => (
-                <li key={i}>
-                  <Markdown source={h} pagePath="" runnable={false} />
-                </li>
-              ))}
-            </ol>
-            {!allHintsUsed && (
-              <button type="button" className="linkish" onClick={revealHint}>
-                Show hint {prog.hintsUsed + 1} of {problem.hints.length}
-              </button>
+            {hintsOpen && (
+              <ol>
+                {problem.hints.slice(0, prog.hintsUsed).map((h, i) => (
+                  <li key={i}>
+                    <Markdown source={h} pagePath="" runnable={false} />
+                  </li>
+                ))}
+              </ol>
             )}
+            <div className="hint-actions">
+              {prog.hintsUsed > 0 && (
+                <button type="button" className="linkish" onClick={() => setHintsOpen((o) => !o)}>
+                  {hintsOpen ? 'Hide hints' : `Show ${prog.hintsUsed === 1 ? 'the hint' : `${prog.hintsUsed} hints`} you opened`}
+                </button>
+              )}
+              {!allHintsUsed && (
+                <button
+                  type="button"
+                  className="linkish"
+                  onClick={() => {
+                    setHintsOpen(true)
+                    revealHint()
+                  }}
+                >
+                  Show hint {prog.hintsUsed + 1} of {problem.hints.length}
+                </button>
+              )}
+            </div>
           </div>
         )}
 

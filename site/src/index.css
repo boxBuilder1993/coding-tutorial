@@ -251,3 +251,6 @@ pre.static {
 .theme-btn { padding: 2px 8px; font-size: 1em; line-height: 1; background: var(--bg); }
 .theme-options { display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0 16px; }
 .theme-options label { display: flex; align-items: center; gap: 6px; }
+
+/* ---------- hint actions */
+.hint-actions { display: flex; gap: 12px; flex-wrap: wrap; }

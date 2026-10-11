@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { TreeNode } from '../lib/content'
 import { useProgress } from '../lib/progress'
-import { siteHref, type Route } from '../lib/router'
+import { problemsHref, settingsHref, siteHref, type Route } from '../lib/router'
 import { Search } from './Search'
 
 interface Props {
@@ -79,7 +79,7 @@ export function Sidebar({ tree, route, onNavigate }: Props) {
         <li className="nav-item depth-0">
           <div className={`nav-row ${current === '' ? 'current' : ''}`}>
             <span className="disclosure-spacer" />
-            <a href="#/" onClick={onNavigate} aria-current={current === '' ? 'page' : undefined}>
+            <a href={siteHref('')} onClick={onNavigate} aria-current={current === '' ? 'page' : undefined}>
               Introduction
             </a>
           </div>
@@ -90,13 +90,13 @@ export function Sidebar({ tree, route, onNavigate }: Props) {
         <li className="nav-item depth-0">
           <div className={`nav-row ${route.kind === 'problems' ? 'current' : ''}`}>
             <span className="disclosure-spacer" />
-            <a href="#/problems" onClick={onNavigate}>All problems</a>
+            <a href={problemsHref()} onClick={onNavigate}>All problems</a>
           </div>
         </li>
         <li className="nav-item depth-0">
           <div className={`nav-row ${route.kind === 'settings' ? 'current' : ''}`}>
             <span className="disclosure-spacer" />
-            <a href="#/settings" onClick={onNavigate}>Settings</a>
+            <a href={settingsHref()} onClick={onNavigate}>Settings</a>
           </div>
         </li>
       </ul>
