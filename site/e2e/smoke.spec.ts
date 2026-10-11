@@ -128,6 +128,24 @@ test('script-style drill: output is captured and names are inspected', async ({ 
   await expect(card.locator('.results .output')).toHaveCount(0)
 })
 
+test('typing and running do not scroll the page to the top', async ({ page }) => {
+  await page.goto('#/01-learn-python/01-getting-started/03-functions')
+  await waitForPython(page)
+  const card = page.locator('.exercise', { hasText: 'Change due' })
+  await card.scrollIntoViewIfNeeded()
+  const before = await page.evaluate(() => window.scrollY)
+  expect(before).toBeGreaterThan(300)
+
+  await card.locator('.cm-content').click()
+  await page.keyboard.type('# note')
+  await page.waitForTimeout(600) // past the autosave debounce
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(300)
+
+  await card.getByRole('button', { name: 'Run tests' }).click()
+  await expect(card.locator('.results-banner')).toBeVisible()
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(300)
+})
+
 test('problems list and settings render', async ({ page }) => {
   await page.goto('#/problems')
   await expect(page.locator('.problems-table tbody tr')).toHaveCount(44)

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { loadContent, type Content } from './lib/content'
 import { ProgressProvider, useProgress } from './lib/progress'
 import { parseRoute, useHash } from './lib/router'
@@ -21,10 +21,11 @@ function RunnerPill() {
 
 function Shell({ content }: { content: Content }) {
   const hash = useHash()
-  const route = parseRoute(hash)
+  const route = useMemo(() => parseRoute(hash), [hash])
   const { setLastRoute } = useProgress()
   const [drawer, setDrawer] = useState(false)
 
+  // Runs only when the URL changes, never on re-renders caused by typing or running.
   useEffect(() => {
     setLastRoute(hash)
     window.scrollTo(0, 0)
@@ -45,7 +46,8 @@ function Shell({ content }: { content: Content }) {
       }
       return t
     }
-  }, [hash, route, content, setLastRoute])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hash])
 
   let page
   switch (route.kind) {
