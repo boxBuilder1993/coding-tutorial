@@ -47,8 +47,7 @@ print(list(range(10, 0, -3)))
 
 `range` is not a list; it only produces each number when the loop asks for
 it, which is why `print(range(5))` shows `range(0, 5)` and `list(...)` is
-needed to see the values. You may see `xrange` in old tutorials: that was
-Python 2 and no longer exists.
+needed to see the values.
 
 ## sorted, with a twist
 

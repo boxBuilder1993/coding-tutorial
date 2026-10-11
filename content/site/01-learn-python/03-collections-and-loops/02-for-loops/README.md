@@ -70,13 +70,6 @@ for i in range(3, 0, -1):
 print("Go!")
 ```
 
-Old tutorials and Python 2 code use `xrange`. It no longer exists; `range`
-does the same job. Run this to see the error you would get:
-
-```python
-for i in xrange(3):
-    print(i)
-```
 
 ## Looping over the characters of a string
 
