@@ -16,7 +16,7 @@ The problems are grouped by difficulty, not by topic:
 | Warm-up | 3 | One idea, a line or a short loop |
 | Standard | 4 | Two ideas combined |
 | Stretch | 2 | Several ideas, or a small program |
-| Hard | 1 | Needs an insight, or careful edge cases |
+| Hard | 1 | Classic methods described in words for you to implement: searching, sorting, merging |
 
 Skip anything that sticks and come back later. There is no gate.
 
@@ -27,3 +27,6 @@ Skip anything that sticks and come back later. There is no gate.
 5. [Standard 2](05-standard-2)
 6. [Standard 3](06-standard-3)
 7. [Standard 4](07-standard-4)
+8. [Stretch 1](08-stretch-1)
+9. [Stretch 2](09-stretch-2)
+10. [Hard](10-hard)

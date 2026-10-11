@@ -20,4 +20,4 @@
 
 :::problem p-above-average
 
-Next: Stretch 1. (Coming soon.)
+Next: [Stretch 1](../08-stretch-1).
