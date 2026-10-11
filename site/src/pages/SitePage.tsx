@@ -5,16 +5,18 @@ import { hrefFromHash, siteHref } from '../lib/router'
 import { Markdown } from '../components/Markdown'
 
 export function SitePage({ content, path }: { content: Content; path: string }) {
-  const [md, setMd] = useState<string | null>(null)
+  // Keep the markdown and the path it belongs to together, so a page is
+  // never rendered with another page's text during navigation.
+  const [loaded, setLoaded] = useState<{ path: string; text: string } | null>(null)
   const [error, setError] = useState<string | null>(null)
   const { progress } = useProgress()
+  const md = loaded?.path === path ? loaded.text : null
 
   useEffect(() => {
     let alive = true
-    setMd(null)
     setError(null)
     fetchPage(path).then(
-      (t) => alive && setMd(t),
+      (t) => alive && setLoaded({ path, text: t }),
       (e) => alive && setError(e instanceof Error ? e.message : String(e)),
     )
     return () => {
@@ -44,7 +46,7 @@ export function SitePage({ content, path }: { content: Content; path: string }) 
   const resume = path === '' && last && last !== siteHref('') ? last : null
 
   return (
-    <article className="page">
+    <article className="page" data-path={path}>
       {crumbs.length > 1 && (
         <nav className="crumbs" aria-label="Breadcrumb">
           <a href={siteHref('')}>Home</a>

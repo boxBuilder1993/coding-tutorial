@@ -35,17 +35,31 @@ jobs:
       - name: Typecheck
         working-directory: site
         run: npx tsc -b
+      - name: Playwright version
+        id: pw
+        working-directory: site
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+      - name: Cache Playwright browser
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
       - name: Install Playwright browser
         working-directory: site
-        run: npx playwright install --with-deps chromium
+        run: |
+          if [ "${{ steps.pw-cache.outputs.cache-hit }}" = "true" ]; then
+            npx playwright install-deps chromium
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Site address
+        run: |
+          echo "VITE_BASE=/${{ github.event.repository.name }}/" >> "$GITHUB_ENV"
+          echo "SITE_URL=$(echo 'https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/' | tr 'A-Z' 'a-z')" >> "$GITHUB_ENV"
       - name: Build site (with pre-rendered pages, sitemap and robots)
         working-directory: site
-        env:
-          VITE_BASE: /${{ github.event.repository.name }}/
-          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
-        run: |
-          export SITE_URL="$(echo "$SITE_URL" | tr 'A-Z' 'a-z')"
-          npm run build
+        run: npm run build
       - name: Browser checks (smoke tests, content sweep, pre-rendered pages)
         working-directory: site
         run: npx playwright test

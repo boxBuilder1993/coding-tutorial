@@ -70,10 +70,18 @@ test('every page, block, reference and link', async ({ page, baseURL }) => {
   for (const node of pages) {
     await test.step(node.path || 'home', async () => {
       const lines: string[] = [`## ${node.title}  (${node.path || 'home'})`]
-      await page.goto(base + (node.path ? node.path + '/' : ''))
-      await page.waitForSelector('.markdown')
-      // Each goto is a full load; wait for the runner again before running blocks.
-      await expect(page.locator('.runner-pill')).toHaveText('Python ready', { timeout: 120_000 })
+      // Navigate in-app (a real link click handled by the router) rather than
+      // a full page load, so Pyodide stays loaded across all pages.
+      const href = new URL(base).pathname + (node.path ? node.path + '/' : '')
+      await page.evaluate((h) => {
+        const a = document.createElement('a')
+        a.href = h
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+      }, href)
+      // Wait for this page's own content (pages can share a title).
+      await page.waitForSelector(`article.page[data-path="${node.path}"] .markdown`, { timeout: 15_000 })
 
       // Internal links must resolve.
       const basePath = new URL(base).pathname

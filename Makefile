@@ -1,4 +1,4 @@
-.PHONY: help content dev build test sweep check clean
+.PHONY: help content dev build test sweep check clean stop-servers
 
 SITE := site
 NPM  := npm --prefix $(SITE)
@@ -25,13 +25,19 @@ dev: content $(SITE)/node_modules
 build: content $(SITE)/node_modules
 	$(NPM) run build
 
-test: content $(SITE)/node_modules
+# Playwright starts its own servers on 5173 and 4173; clear any left over
+# from an interrupted run so they cannot serve a stale base path or content.
+stop-servers:
+	-pkill -f "vite --port 5173" 2>/dev/null
+	-pkill -f "vite preview --port 4173" 2>/dev/null
+
+test: content $(SITE)/node_modules stop-servers
 	cd $(SITE) && npx playwright test --project smoke
 
-sweep: content $(SITE)/node_modules
+sweep: content $(SITE)/node_modules stop-servers
 	cd $(SITE) && npx playwright test --project sweep
 
-check: content $(SITE)/node_modules
+check: content $(SITE)/node_modules stop-servers
 	cd $(SITE) && npx tsc -b
 	$(NPM) run build
 	cd $(SITE) && npx playwright test
