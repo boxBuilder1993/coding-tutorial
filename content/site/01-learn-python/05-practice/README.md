@@ -5,6 +5,11 @@ This section is a hundred short problems that mix everything from Modules 1
 to 4 with no labels: nothing tells you whether a problem wants a dictionary,
 a slice or a stack. Working that out is the exercise.
 
+This is the goal of the whole course: being able to solve all hundred on
+your own, without asking anyone. Hints and reference solutions are here,
+and using them is fine while you learn, but the finish line is a run
+through every problem where you did not need them.
+
 You can start here at any time, but the problems assume you have been
 through the four modules. If one stumps you, the first hint names the tool
 and you can go back to its page.

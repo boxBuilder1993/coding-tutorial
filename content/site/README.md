@@ -8,6 +8,15 @@ your browser: there is nothing to install and nothing to sign up for.
 print("Hello. Press Run to see this work.")
 ```
 
+## The goal
+
+By the end, you should be able to sit down with the 100 problems in the
+[Practice](01-learn-python/05-practice) section and solve them without
+asking anyone for help. Not quickly, and not without mistakes, but on your
+own: reading a problem, working out which tool it needs, writing the code,
+and fixing it until the checks pass. Everything before Practice exists to
+get you there.
+
 ## How the course works
 
 Every page is a short lesson with code you can run and change. Read a little,
