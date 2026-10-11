@@ -1,3 +1,7 @@
+---
+title: Stacks in Python: append and pop on a list
+description: Last in, first out with a plain list: push, pop, peek, reverse with a stack, and match brackets.
+---
 # Stacks
 
 A **stack** is a pile. You put things on the top and take things off the

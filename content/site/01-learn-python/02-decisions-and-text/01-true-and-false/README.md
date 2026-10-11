@@ -1,3 +1,7 @@
+---
+title: Python booleans: True, False, comparisons, and, or, not
+description: Comparisons like == and >=, combining them with and, or and not, and writing functions that return True or False.
+---
 # True and False
 
 Programs constantly ask questions. Is the stock empty? Is the order big

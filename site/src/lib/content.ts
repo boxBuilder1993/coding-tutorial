@@ -1,6 +1,10 @@
 export interface TreeNode {
   path: string
   title: string
+  /** Search-facing title from the page's optional front block; falls back to title. */
+  seoTitle?: string
+  /** Hand-written description from the page's optional front block. */
+  description?: string
   problems: string[]
   links: string[]
   children: TreeNode[]

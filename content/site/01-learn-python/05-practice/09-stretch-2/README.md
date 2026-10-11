@@ -1,3 +1,7 @@
+---
+title: Python practice problems: Stretch 2
+description: Ten Python exercises at stretch level with instant checks in the browser. Part of a free beginner's course.
+---
 # Stretch 2
 
 :::problem p-invert-groups

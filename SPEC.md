@@ -40,7 +40,20 @@ content/
 - Navigation is the directory tree. Display order is the folder name's leading
   numeric prefix; the prefix is stripped for display.
 - Page title is the first `#` heading in the README, else the folder name.
-- Body is standard markdown (CommonMark plus tables). No frontmatter.
+- Body is standard markdown (CommonMark plus tables).
+- A page may start with an optional front block for search engines only:
+
+  ```
+  ---
+  title: Python lists: create, index, slice, append
+  description: One sentence shown in search results.
+  ---
+  ```
+
+  `title` is the search-facing `<title>` and social title; the visible
+  heading and sidebar still use the `#` line. `description` replaces the
+  automatic first-paragraph description. No other keys are allowed; the
+  build strips the block so the app and search index never see it.
 - Every fenced block with info string `python` is runnable in its own sandbox,
   rendered with a Run button and an output area. `python static` renders
   read-only.

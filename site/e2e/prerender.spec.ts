@@ -21,9 +21,17 @@ test('a lesson page is complete without JavaScript', async ({ page, baseURL }) =
   const site = expectedSite(baseURL)
   const res = await page.goto('01-learn-python/01-getting-started/02-names/')
   expect(res?.status()).toBe(200)
-  await expect(page).toHaveTitle(/^Names · /)
+  // The search-facing title and description come from the page's front block.
+  await expect(page).toHaveTitle('Python variables: naming values and updating them · Learn Python')
   const description = await page.locator('meta[name="description"]').getAttribute('content')
-  expect(description).toMatch(/A name refers to a value/)
+  expect(description).toMatch(/^How to give a value a name in Python/)
+  // The front block itself never reaches the page.
+  await expect(page.locator('body')).not.toContainText('description:')
+  // Structured data marks the page as a lesson of the course.
+  const ld = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? '{}')
+  expect(ld['@type']).toBe('LearningResource')
+  expect(ld.learningResourceType).toBe('Lesson')
+  expect(ld.isPartOf.name).toBe('Learn Python')
   const canonical = await page.locator('link[rel="canonical"]').getAttribute('href')
   expect(canonical).toBe(`${site}01-learn-python/01-getting-started/02-names/`)
   expect(canonical).not.toContain('#')
@@ -40,13 +48,17 @@ test('a lesson page is complete without JavaScript', async ({ page, baseURL }) =
 test('a problem page and the home page are complete without JavaScript', async ({ page, baseURL }) => {
   const site = expectedSite(baseURL)
   await page.goto('problem/p-binary-search/')
-  await expect(page).toHaveTitle(/^Binary search · /)
+  await expect(page).toHaveTitle(/^Binary search \(Python exercise\) · /)
   await expect(page.locator('body')).toContainText('Keep two positions')
   await page.goto('')
   await expect(page).toHaveTitle('Learn Python')
   const og = await page.locator('meta[property="og:title"]').getAttribute('content')
   expect(og).toBe('Learn Python')
+  expect(await page.locator('meta[name="description"]').getAttribute('content')).toMatch(/^Free Python course that runs in your browser/)
   expect(await page.locator('link[rel="canonical"]').getAttribute('href')).toBe(site)
+  const ld = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? '{}')
+  expect(ld['@type']).toBe('Course')
+  expect(ld.isAccessibleForFree).toBe(true)
 })
 
 test('sitemap lists every page once, in path form, and robots points at it', async ({ request, baseURL }) => {

@@ -1,3 +1,7 @@
+---
+title: Why learn to code when AI can write it?
+description: AI assistants write code fast and sound confident when wrong. Why reading and writing Python yourself is the skill that makes those tools safe to use.
+---
 # Why learn to code when AI can write it?
 
 A fair question. An AI assistant will write a working Python program from a

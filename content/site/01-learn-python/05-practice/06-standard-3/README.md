@@ -1,3 +1,7 @@
+---
+title: Python practice problems: Standard 3
+description: Ten Python exercises at standard level with instant checks in the browser. Part of a free beginner's course.
+---
 # Standard 3
 
 :::problem p-digit-sum

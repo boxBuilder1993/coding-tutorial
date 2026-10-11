@@ -1,3 +1,7 @@
+---
+title: Python practice problems: Standard 4
+description: Ten Python exercises at standard level with instant checks in the browser. Part of a free beginner's course.
+---
 # Standard 4
 
 :::problem p-receipt-lines

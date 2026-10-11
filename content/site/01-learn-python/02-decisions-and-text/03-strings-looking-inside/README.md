@@ -1,3 +1,7 @@
+---
+title: Python string indexing and slicing: [0], [-1], [2:5], [::-1]
+description: Read any part of a Python string: len, indexing from 0 and from the end, slicing with start, stop and step, and checking with in.
+---
 # Strings: looking inside
 
 A string is a sequence of characters, and Python lets you look at any part

@@ -1,3 +1,7 @@
+---
+title: Queues in Python with collections.deque
+description: First in, first out: why list.pop(0) is the wrong tool, deque with append and popleft, maxlen, and the queue loop.
+---
 # Queues
 
 A **queue** is a line at the counter. People join at the back and are served

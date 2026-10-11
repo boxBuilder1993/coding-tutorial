@@ -1,3 +1,7 @@
+---
+title: Python list methods: insert, remove, pop, sort, and copying lists
+description: insert, remove, pop, index, count, sort and sorted, and the surprise when two names refer to one list.
+---
 # More list operations
 
 Lists have a set of methods for adding, removing and rearranging. Most

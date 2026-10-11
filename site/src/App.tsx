@@ -50,7 +50,7 @@ function Shell({ content }: { content: Content }) {
       while (stack.length) {
         const n = stack.pop()!
         if (n.path === route.path) {
-          t = n.title
+          t = n.seoTitle ?? n.title
           break
         }
         stack.push(...n.children)

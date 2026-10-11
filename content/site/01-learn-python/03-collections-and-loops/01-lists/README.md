@@ -1,3 +1,7 @@
+---
+title: Python lists: create, index, slice, append
+description: Make a list, read items by position, slice it like a string, test membership with in, and change it with append.
+---
 # Lists
 
 A **list** holds many values in order. You write one with square brackets and

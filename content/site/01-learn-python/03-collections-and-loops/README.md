@@ -1,3 +1,7 @@
+---
+title: Python lists, loops, dictionaries, tuples and sets
+description: Hold many values and do something with each: lists, for and while loops, dictionaries, tuples, sets, and the built-in functions that work on them.
+---
 # Collections and loops
 
 A single name holds a single value. Real programs deal with many: every item

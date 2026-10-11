@@ -1,3 +1,7 @@
+---
+title: How a Python program runs: memory, names and the processor
+description: A simple picture of what happens when Python runs your code: values on shelves, names as labels, and a processor stepping one line at a time.
+---
 # How a program runs
 
 You have written a few programs now. This page is a short pause to build

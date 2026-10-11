@@ -92,7 +92,35 @@ function render(md) {
   return marked.parse(md, { gfm: true })
 }
 
-function html({ url, title, description, body, noindex = false }) {
+/** Structured data (schema.org JSON-LD) for a page. */
+function jsonLd({ url, title, description, kind }) {
+  const course = {
+    '@type': 'Course',
+    name: SITE_TITLE,
+    description: 'A free, self-paced Python course that runs in the browser: lessons with runnable examples and 120 practice problems.',
+    url: siteUrl,
+    provider: { '@type': 'Organization', name: SITE_TITLE, url: siteUrl },
+    isAccessibleForFree: true,
+    inLanguage: 'en',
+    hasCourseInstance: [{ '@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT20H' }],
+    offers: [{ '@type': 'Offer', price: 0, priceCurrency: 'USD', category: 'Free' }],
+  }
+  if (kind === 'home') return { '@context': 'https://schema.org', ...course }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LearningResource',
+    name: title,
+    description,
+    url,
+    learningResourceType: kind === 'problem' ? 'Exercise' : 'Lesson',
+    educationalLevel: 'Beginner',
+    isAccessibleForFree: true,
+    inLanguage: 'en',
+    isPartOf: { '@type': 'Course', name: SITE_TITLE, url: siteUrl },
+  }
+}
+
+function html({ url, title, description, body, noindex = false, kind = 'page' }) {
   const fullTitle = title === SITE_TITLE ? SITE_TITLE : `${title} · ${SITE_TITLE}`
   const head = [
     `<title>${escapeHtml(fullTitle)}</title>`,
@@ -104,7 +132,10 @@ function html({ url, title, description, body, noindex = false }) {
     `<meta property="og:description" content="${escapeHtml(description)}" />`,
     `<meta property="og:url" content="${url}" />`,
     `<meta name="twitter:card" content="summary" />`,
-  ].join('\n    ')
+    noindex ? '' : `<script type="application/ld+json">${JSON.stringify(jsonLd({ url, title, description, kind })).replace(/</g, '\\u003c')}</script>`,
+  ]
+    .filter(Boolean)
+    .join('\n    ')
   return template
     .replace(/<title>[^<]*<\/title>/, head)
     .replace('<div id="root"></div>', `<div id="root"><main class="main"><article class="page"><div class="markdown">${body}</div></article></main></div>`)
@@ -118,11 +149,18 @@ function writePage(relPath, markup) {
 
 const urls = []
 
-// Site pages.
+// Site pages. The search-facing title and hand-written description come from
+// the page's optional front block (parsed by build_content.py into tree.json).
 for (const node of flatten(tree)) {
   const md = pageMarkdown(node)
   const url = node.path ? `${siteUrl}${node.path}/` : siteUrl
-  const markup = html({ url, title: node.title, description: describe(md), body: render(md) })
+  const markup = html({
+    url,
+    title: node.path ? (node.seoTitle ?? node.title) : SITE_TITLE,
+    description: node.description ?? describe(md),
+    body: render(md),
+    kind: node.path ? 'page' : 'home',
+  })
   if (node.path) writePage(node.path, markup)
   else writeFileSync(join(dist, 'index.html'), markup)
   urls.push(url)
@@ -132,7 +170,7 @@ for (const node of flatten(tree)) {
 for (const pr of Object.values(problems)) {
   const url = `${siteUrl}problem/${pr.id}/`
   const md = rewriteLinks(`# ${pr.title}\n\n${pr.statement.replace(/^#\s+[^\n]*\n+/, '')}\n\n\`\`\`python\n${pr.starter}\n\`\`\`\n`, '')
-  writePage(`problem/${pr.id}`, html({ url, title: pr.title, description: describe(md), body: render(md) }))
+  writePage(`problem/${pr.id}`, html({ url, title: `${pr.title} (Python exercise)`, description: describe(md), body: render(md), kind: 'problem' }))
   urls.push(url)
 }
 

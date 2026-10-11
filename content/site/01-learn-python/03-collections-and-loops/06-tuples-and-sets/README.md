@@ -1,3 +1,7 @@
+---
+title: Python tuples and sets: unpacking, uniqueness, membership
+description: Tuples for values that belong together, unpacking and the one-line swap, and sets for uniqueness and fast membership tests.
+---
 # Tuples and sets
 
 Two more structures. Each does one job that lists and dicts do badly.

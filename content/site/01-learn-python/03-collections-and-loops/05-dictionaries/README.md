@@ -1,3 +1,7 @@
+---
+title: Python dictionaries: keys, values, get, and counting
+description: Look values up by key, add and change entries, handle missing keys with get, loop with items(), and count things.
+---
 # Dictionaries
 
 A list finds things by position. A **dictionary** finds things by a **key**

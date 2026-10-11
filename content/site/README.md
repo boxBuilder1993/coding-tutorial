@@ -1,3 +1,6 @@
+---
+description: Free Python course that runs in your browser: no install, no sign-up. Lessons with runnable examples, then 120 practice problems to make it stick.
+---
 # Learn Python
 
 A free, self-paced course that starts from "I have never written a program"

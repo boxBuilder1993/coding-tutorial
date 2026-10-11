@@ -1,3 +1,7 @@
+---
+title: Python built-in functions: len, range, sorted, enumerate, zip
+description: The built-ins worth knowing by heart: abs, round, min, max, sum, int, float, str, range, sorted with key and lambda, enumerate and zip.
+---
 # Built-in functions
 
 Python comes with a small set of functions that are always available, no

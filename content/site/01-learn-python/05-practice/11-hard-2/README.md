@@ -1,3 +1,7 @@
+---
+title: Python exercises: stacks, queues and heaps working together
+description: A queue from two stacks, a min-stack, postfix evaluation, sliding window maximum, top-k frequent, merging k sorted lists, and more.
+---
 # Hard 2: Structures working together
 
 Each problem here combines two of the structures you know, a stack with another stack, a dictionary with a queue, a heap with a counter, to do something neither could do alone. As before, the method is described in words; your job is to build it. Any correct solution passes, including a plain-loop one; the described method is what the problem is there to teach.

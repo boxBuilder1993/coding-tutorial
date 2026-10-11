@@ -1,3 +1,7 @@
+---
+title: Python print, strings, numbers and arithmetic
+description: Your first Python: print text and numbers, the difference between a string and a number, and arithmetic with + - * / // and %.
+---
 # Values and print
 
 A program is a list of instructions. Python reads them top to bottom and does

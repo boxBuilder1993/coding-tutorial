@@ -1,3 +1,7 @@
+---
+title: Learn Python from scratch, in your browser
+description: A beginner's Python course in five sections: values and functions, decisions and text, collections and loops, stacks and queues, then 120 practice problems.
+---
 # Learn Python
 
 A track for people who have never programmed. Each page introduces one idea,

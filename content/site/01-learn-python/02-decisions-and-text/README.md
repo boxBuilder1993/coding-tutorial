@@ -1,3 +1,7 @@
+---
+title: Python decisions and text: if statements and strings
+description: Booleans and comparisons, if / elif / else, and strings as a data structure: indexing, slicing, and the methods you will use most.
+---
 # Decisions and text
 
 Module 1 programs always do the same thing. This module adds the ability to

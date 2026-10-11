@@ -1,3 +1,7 @@
+---
+title: Getting started with Python: what programming is
+description: What a program is, what a programming language is, and why Python. Run your first Python program in the browser before writing any code yourself.
+---
 # Getting started
 
 A computer does nothing on its own. It follows instructions, one after

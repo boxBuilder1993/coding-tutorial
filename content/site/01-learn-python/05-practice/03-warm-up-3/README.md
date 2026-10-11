@@ -1,3 +1,7 @@
+---
+title: Python practice problems: Warm up 3
+description: Ten Python exercises at warm level with instant checks in the browser. Part of a free beginner's course.
+---
 # Warm-up 3
 
 :::problem p-abs-difference

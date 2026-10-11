@@ -1,3 +1,7 @@
+---
+title: 120 Python practice problems, from warm-up to hard
+description: Mixed Python exercises with instant checks in the browser, grouped by difficulty rather than topic, ending with classic searching and sorting methods.
+---
 # Practice
 
 Reading about a tool and reaching for it unprompted are different skills.

@@ -1,3 +1,7 @@
+---
+title: Python string methods: upper, strip, replace, split, f-strings
+description: The string methods you use every day in Python, why strings cannot be changed in place, f-strings for building text, and a first look at split and join.
+---
 # String methods
 
 Strings come with built-in operations called **methods**. You call a method

@@ -65,15 +65,55 @@ def sort_key(folder: str):
     return (0, int(m.group(1)), folder) if m else (1, 0, folder)
 
 
+# ------------------------------------------------------------- front block
+
+FRONT_KEYS = {"title", "description"}
+
+
+def split_front(md: str, where: str) -> tuple[dict[str, str], str]:
+    """Parse an optional block at the top of a page:
+
+        ---
+        title: Lists in Python: create, index, slice and append
+        description: One sentence for search results.
+        ---
+
+    Only `title` (search-facing) and `description` are allowed. The block is
+    stripped from what the app and search index see; the page's visible
+    heading is still its first `#` line.
+    """
+    if not md.startswith("---\n"):
+        return {}, md
+    end = md.find("\n---\n", 4)
+    if end < 0:
+        err(f"{where}: front block is not closed with ---")
+        return {}, md
+    meta: dict[str, str] = {}
+    for line in md[4:end].splitlines():
+        if not line.strip():
+            continue
+        key, sep, value = line.partition(":")
+        key = key.strip()
+        if not sep or key not in FRONT_KEYS:
+            err(f"{where}: front block line not understood: {line!r} (allowed: title, description)")
+            continue
+        meta[key] = value.strip()
+    if "description" in meta and len(meta["description"]) > 160:
+        warn(f"{where}: description is {len(meta['description'])} characters; search results cut at about 155")
+    return meta, md[end + len("\n---\n"):]
+
+
 # ------------------------------------------------------------------ site tree
 
 def build_tree(dirpath: str, rel: str) -> dict:
     readme = os.path.join(dirpath, "README.md")
+    where = f"content/site/{rel or '.'}"
     if not os.path.exists(readme):
-        err(f"site page missing README.md: content/site/{rel or '.'}")
+        err(f"site page missing README.md: {where}")
         md = ""
     else:
         md = read(readme)
+    meta, md = split_front(md, where)
     node = {
         "path": rel,
         "title": title_of(md, display_name(os.path.basename(dirpath)) if rel else "Home"),
@@ -81,6 +121,10 @@ def build_tree(dirpath: str, rel: str) -> dict:
         "links": LINK.findall(md),
         "children": [],
     }
+    if "title" in meta:
+        node["seoTitle"] = meta["title"]
+    if "description" in meta:
+        node["description"] = meta["description"]
     for child in sorted(os.listdir(dirpath), key=sort_key):
         full = os.path.join(dirpath, child)
         if os.path.isdir(full) and not child.startswith("."):
@@ -211,7 +255,7 @@ def build_search(tree: dict, problems: dict[str, dict]) -> list[dict]:
     entries: list[dict] = []
     for node in walk_tree(tree):
         readme = os.path.join(SITE_SRC, node["path"], "README.md") if node["path"] else os.path.join(SITE_SRC, "README.md")
-        md = read(readme) if os.path.exists(readme) else ""
+        _, md = split_front(read(readme) if os.path.exists(readme) else "", node["path"] or ".")
         # Embedded problems count as part of the page they appear on.
         extra = " ".join(f"{problems[pid]['title']} {plain_text(problems[pid]['statement'])}" for pid in node["problems"] if pid in problems)
         entries.append({
@@ -282,6 +326,13 @@ def main() -> int:
         shutil.rmtree(OUT)
     os.makedirs(OUT)
     shutil.copytree(SITE_SRC, os.path.join(OUT, "site"))
+    # The app fetches these copies; strip the front block so it never renders.
+    for dirpath, _dirs, files in os.walk(os.path.join(OUT, "site")):
+        if "README.md" in files:
+            target = os.path.join(dirpath, "README.md")
+            _, body = split_front(read(target), target)
+            with open(target, "w", encoding="utf-8") as fh:
+                fh.write(body)
     shutil.copytree(PROBLEMS_SRC, os.path.join(OUT, "problems"))
     shutil.copy(CHECKER, os.path.join(OUT, "checker.py"))
     with open(os.path.join(OUT, "tree.json"), "w", encoding="utf-8") as fh:

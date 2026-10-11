@@ -1,3 +1,7 @@
+---
+title: Python for loops: lists, range, and accumulating a result
+description: Loop over a list, build a total or find the biggest value, loop over numbers with range, and know which lines repeat.
+---
 # For loops
 
 A `for` loop runs a block once for each item in a list. The name after `for`

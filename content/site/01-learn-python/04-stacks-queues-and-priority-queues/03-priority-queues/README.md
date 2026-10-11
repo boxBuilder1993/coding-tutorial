@@ -1,3 +1,7 @@
+---
+title: Priority queues in Python with heapq
+description: Always take the smallest: heappush, heappop, tuples for priorities, heapify, nsmallest and nlargest.
+---
 # Priority queues
 
 Sometimes the order things come out is neither "most recent" nor "oldest"

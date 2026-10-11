@@ -1,3 +1,7 @@
+---
+title: Python practice problems: Warm up 1
+description: Ten Python exercises at warm level with instant checks in the browser. Part of a free beginner's course.
+---
 # Warm-up 1
 
 :::problem p-double-price

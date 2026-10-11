@@ -1,3 +1,7 @@
+---
+title: Python practice problems: Stretch 1
+description: Ten Python exercises at stretch level with instant checks in the browser. Part of a free beginner's course.
+---
 # Stretch 1
 
 :::problem p-parse-receipt

@@ -1,3 +1,7 @@
+---
+title: Python functions: def, parameters, return and indentation
+description: Define a function with def, pass parameters, return a result, and understand blocks and indentation. Why return is not print.
+---
 # Functions
 
 So far every program runs once, top to bottom. A **function** is a set of

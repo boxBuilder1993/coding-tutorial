@@ -1,3 +1,7 @@
+---
+title: Python if, elif and else explained
+description: How if, else and elif choose between paths, why the order of conditions matters, and returning early from inside an if.
+---
 # Making decisions
 
 A boolean on its own only reports. `if` lets the program **act** on it: run

@@ -1,3 +1,7 @@
+---
+title: Stacks, queues and priority queues in Python
+description: Three structures defined by what comes out next: a list as a stack, collections.deque as a queue, and heapq as a priority queue.
+---
 # Stacks, queues and priority queues
 
 Lists, dictionaries and sets are about *holding* things. The three structures

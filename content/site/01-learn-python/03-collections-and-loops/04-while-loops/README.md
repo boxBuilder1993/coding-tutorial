@@ -1,3 +1,7 @@
+---
+title: Python while loops, break, and infinite loops
+description: Repeat while a condition holds, count with a while loop, see an infinite loop on purpose, and leave early with break.
+---
 # While loops
 
 A `for` loop runs once per item. A `while` loop runs **as long as a condition

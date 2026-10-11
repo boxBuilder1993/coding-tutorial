@@ -1,3 +1,7 @@
+---
+title: Python variables: naming values and updating them
+description: How to give a value a name in Python, change it, update it from itself with += and -=, and what a NameError means.
+---
 # Names
 
 Typing the same value over and over gets old. A **name** refers to a value so

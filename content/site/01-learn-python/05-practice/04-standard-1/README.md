@@ -1,3 +1,7 @@
+---
+title: Python practice problems: Standard 1
+description: Ten Python exercises at standard level with instant checks in the browser. Part of a free beginner's course.
+---
 # Standard 1
 
 :::problem p-line-totals
