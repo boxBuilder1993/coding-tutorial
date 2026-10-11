@@ -148,7 +148,7 @@ test('typing and running do not scroll the page to the top', async ({ page }) =>
 
 test('problems list and settings render', async ({ page }) => {
   await page.goto('#/problems')
-  await expect(page.locator('.problems-table tbody tr')).toHaveCount(44)
+  await expect(page.locator('.problems-table tbody tr')).toHaveCount(53)
   await page.goto('#/settings')
   await expect(page.getByRole('button', { name: 'Export progress' })).toBeVisible()
   await page.screenshot({ path: `${SHOTS}/06-problems.png`, fullPage: true })

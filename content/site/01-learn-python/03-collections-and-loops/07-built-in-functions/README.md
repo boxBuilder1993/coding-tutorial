@@ -120,4 +120,4 @@ That last line builds a dictionary from two lists in one step.
 
 :::problem pair-up
 
-Next: Module 4, Putting it together. (Coming soon.)
+Next: [Stacks](../../04-stacks-queues-and-priority-queues/01-stacks).

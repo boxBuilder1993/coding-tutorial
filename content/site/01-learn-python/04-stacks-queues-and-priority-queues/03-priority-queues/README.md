@@ -1,0 +1,91 @@
+# Priority queues
+
+Sometimes the order things come out is neither "most recent" nor "oldest"
+but "most important". A **priority queue** always gives you the smallest
+value it holds, whatever order the values went in. Urgent orders first,
+cheapest option first, nearest deadline first.
+
+You could keep a list and call `min` each time, but `min` looks at every
+item, and removing it shifts the rest. The standard library's `heapq` module
+keeps a list arranged so that the smallest item is always at position 0 and
+both adding and removing are fast.
+
+```python
+import heapq
+
+prices = []
+heapq.heappush(prices, 40)
+heapq.heappush(prices, 2.5)
+heapq.heappush(prices, 25)
+print(prices[0])
+
+print(heapq.heappop(prices))
+print(heapq.heappop(prices))
+print(heapq.heappop(prices))
+```
+
+`heappush` adds a value. `heappop` removes and returns the smallest.
+`prices[0]` peeks at the smallest without removing it. Do not use `append`
+or `sort` on a list you are treating as a heap; only the `heapq` functions
+keep it arranged correctly.
+
+If you print the list between pushes you will see it is not sorted. It has a
+special arrangement called a **heap** that only promises the smallest is
+first. That is enough.
+
+## Priorities with data attached
+
+To attach information to a priority, push tuples. Tuples compare by their
+first value, so `(priority, item)` is ordered by priority. Smaller numbers
+come out first; if you want "higher priority first", use negative numbers.
+
+```python
+import heapq
+
+orders = []
+heapq.heappush(orders, (3, "bread"))
+heapq.heappush(orders, (1, "wedding cake"))
+heapq.heappush(orders, (2, "sandwiches"))
+
+while orders:
+    priority, item = heapq.heappop(orders)
+    print(priority, item)
+```
+
+If two priorities tie, Python compares the second values, so the items must
+be comparable with each other. Strings and numbers are fine. When they are
+not, add a counter as the second value and the item third.
+
+## Starting from a list
+
+`heapify` turns an existing list into a heap in place. `nsmallest` and
+`nlargest` give the k smallest or largest without emptying it.
+
+```python
+import heapq
+
+prices = [40, 25, 2.5, 60, 15]
+heapq.heapify(prices)
+print(prices[0])
+
+print(heapq.nsmallest(2, prices))
+print(heapq.nlargest(2, prices))
+```
+
+## Which one?
+
+| Comes out first | Structure | Operations |
+|-----------------|-----------|------------|
+| Most recently added | stack: a list | `append`, `pop` |
+| Oldest | queue: a `deque` | `append`, `popleft` |
+| Smallest | priority queue: `heapq` on a list | `heappush`, `heappop` |
+
+## Try it
+
+:::problem next-urgent
+
+:::problem cheapest-k
+
+:::problem process-by-priority
+
+Next: Module 5. (Coming soon.)
