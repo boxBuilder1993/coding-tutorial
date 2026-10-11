@@ -52,7 +52,7 @@ before the call, and does not run again when `greet()` is called.
 
 Getting the spaces wrong is an error. Run this and read the message:
 
-```python
+```python expect-error
 def greet():
 print("Hello")
 ```

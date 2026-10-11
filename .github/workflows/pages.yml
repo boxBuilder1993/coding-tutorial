@@ -29,13 +29,23 @@ jobs:
           node-version: '22'
           cache: npm
           cache-dependency-path: site/package-lock.json
+      - name: Install dependencies
+        working-directory: site
+        run: npm ci
+      - name: Typecheck
+        working-directory: site
+        run: npx tsc -b
+      - name: Install Playwright browser
+        working-directory: site
+        run: npx playwright install --with-deps chromium
+      - name: Browser checks (smoke tests and content sweep)
+        working-directory: site
+        run: npx playwright test
       - name: Build site
         working-directory: site
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
-        run: |
-          npm ci
-          npm run build
+        run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

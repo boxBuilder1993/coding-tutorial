@@ -1,86 +1,73 @@
-# DSA Coding Tutorial
+# Learn Python
 
-A browser-based, self-paced course that teaches Python from zero.
-Each topic has concept notes, a set of problems with hints, a stub you fill in,
-a reference solution, and tests that tell you when you got it right.
+A browser-based, self-paced course that teaches Python from zero: four
+modules of lessons with runnable examples and exercises, then 120 practice
+problems. Python runs in the browser via Pyodide, so learners install
+nothing. Live at https://boxbuilder1993.github.io/coding-tutorial/
 
-Zero dependencies: Python 3.10+ and the standard library. Clone and go.
+The design is in [SPEC.md](SPEC.md). In short: the site is a markdown tree,
+exercises are a library of problems each with a Python checker, and every
+runnable code block is its own sandbox.
 
-## Quick start
+## Layout
+
+```
+content/site/**/README.md      site pages; folder = page, numeric prefix = order
+content/problems/<id>/          README.md (statement, Starter, Hints, Approach, Reference) + check.py
+site/                          React + Vite app; e2e/ holds the Playwright tests
+site/runner/checker.py         the `case` API used by every check.py
+scripts/build_content.py       validates content, verifies references, emits site/public/content/
+scripts/gen_practice.py        generates problem folders from a compact spec module
+.github/workflows/pages.yml    checks, builds and deploys to GitHub Pages on push to main
+Makefile                       the entry point for all of the below
+```
+
+## Checks
+
+`make check` runs everything CI runs:
+
+1. Content validation. Every page and problem is parsed, every reference
+   solution is run against its `check.py` under CPython, and every
+   `:::problem` reference must resolve.
+2. TypeScript typecheck and production build.
+3. Playwright smoke tests: loading, running a block, solving an exercise,
+   error messages, the time budget, search, the tutor prompt, dark mode.
+4. A content sweep that visits every page in a real browser, runs every code
+   block, submits every reference solution to its exercise, and follows every
+   internal link. A block that is meant to error is tagged
+   ```` ```python expect-error ```` and the sweep checks that it does. The
+   sweep writes a report to `review/sweep.md`.
 
 ```bash
-git clone <this repo> && cd coding-tutorial
-make test                       # scoreboard of every problem
-make test T=02-arrays-and-hashing          # one topic
-make test T=02-arrays-and-hashing/problems/two-sum   # one problem
-make test-ref                   # prove the reference solutions pass
-make progress                   # regenerate PROGRESS.md
+make check     # all of the above
+make test      # smoke tests only
+make sweep     # content sweep only
+make content   # content validation only
 ```
 
-No `make`? Every target is a one-line Python command; see the [Makefile](Makefile).
+Playwright starts the dev server itself. To run the browser checks against
+the live site instead: `E2E_BASE_URL=https://boxbuilder1993.github.io/coding-tutorial/ npx playwright test` from `site/`.
 
-## How to work a problem
+## Local development
 
-1. Read the topic `README.md` first. It explains the pattern, when to reach for it,
-   and the template code you will reuse again and again.
-2. Open `problems/<slug>/problem.md`. Try the problem for 20 to 30 minutes before
-   opening any hint. Hints are collapsed so you will not see them by accident.
-3. Write your code in `solution.py`. Run the tests for just that problem.
-4. Compare with `reference.py`. Look for differences in approach, not just style.
-5. Write the complexity in a comment at the top of your solution. Saying it out
-   loud is the part interviews actually test.
-6. Come back in a week and redo it from scratch. Spaced repetition beats volume.
-
-## Learning path
-
-Follow the numbered folders in order. Each builds on the previous one.
-The full roadmap with suggested pacing is in [CURRICULUM.md](CURRICULUM.md).
-
-| # | Topic | Core idea |
-|---|-------|-----------|
-| 01 | [Complexity analysis](01-complexity-analysis/) | Big-O, how to reason about time and space |
-| 02 | [Arrays and hashing](02-arrays-and-hashing/) | Trade memory for time with hash maps and sets |
-| 03 | [Two pointers and sliding window](03-two-pointers-and-sliding-window/) | Linear scans that replace nested loops |
-| 04 | [Stacks and queues](04-stacks-and-queues/) | LIFO/FIFO, monotonic stacks |
-| 05 | [Linked lists](05-linked-lists/) | Pointer manipulation, dummy heads, fast/slow |
-| 06 | [Binary search](06-binary-search/) | Halving a search space, including over answers |
-| 07 | [Recursion and backtracking](07-recursion-and-backtracking/) | Choose, explore, un-choose |
-| 08 | [Trees](08-trees/) | DFS/BFS, recursion on structure, BSTs |
-| 09 | [Heaps and priority queues](09-heaps-and-priority-queues/) | Top-k, k-way merge, scheduling |
-| 10 | [Graphs](10-graphs/) | BFS, DFS, topological sort, union-find, shortest paths |
-| 11 | [Dynamic programming](11-dynamic-programming/) | Overlapping subproblems, memo to table |
-| 12 | [Greedy and intervals](12-greedy-and-intervals/) | Local choice, sort then sweep |
-| 13 | [Tries and strings](13-tries-and-strings/) | Prefix trees, string matching |
-| 14 | [Bit manipulation](14-bit-manipulation/) | Masks, XOR tricks, bit counting |
-
-## Repo layout
-
-```
-dsa_kit/            shared helpers: ListNode/TreeNode converters, test loader
-scripts/            run_tests.py (scoreboard + PROGRESS.md), new_problem.py (scaffold)
-templates/problem/  files copied by new_problem.py
-NN-topic/
-  README.md         concept notes, patterns, pitfalls, problem list
-  problems/<slug>/
-    problem.md      statement, examples, collapsed hints and approach
-    solution.py     YOUR code (starts as a stub raising NotImplementedError)
-    reference.py    a clean, explained reference solution
-    test_solution.py
-```
-
-## Using this with a group
-
-- Fork it. Each person works in their own fork so `solution.py` files do not collide.
-- Keep `main` as the problem bank. Solutions live in forks or personal branches.
-- Run `make progress` and commit `PROGRESS.md` to share where you are.
-- Add problems with `make new TOPIC=06-binary-search NAME="Search Insert Position"`.
-  See [CONTRIBUTING.md](CONTRIBUTING.md) for the quality bar.
-- Pair up: one person solves, the other reviews against the "Before you code"
-  checklist in the problem file.
-
-## Resetting a problem
+Requires Python 3.10+ and Node 20+. First time: `cd site && npx playwright install chromium`.
 
 ```bash
-cp templates/problem/solution.py 02-arrays-and-hashing/problems/two-sum/solution.py
+make dev       # validates content, then serves http://localhost:5173
 ```
-Then fix the function signature from `problem.md`. Or just `git checkout` the file.
+
+Re-run `make content` after editing content; the dev server serves its output.
+If the server stops seeing new content after a rebuild, restart it.
+
+## Writing content
+
+- A page is a folder with a `README.md` under `content/site`. The numeric
+  prefix orders it; the first `#` heading is its title. Every ```` ```python ````
+  fence is runnable; ```` ```python static ```` is read-only; ```` ```python expect-error ````
+  is runnable and expected to fail.
+- A problem is `content/problems/<id>/README.md` with the level-2 headings
+  `Starter`, `Hints`, `Approach`, `Reference` in that order, plus a `check.py`
+  that imports from `solution` and calls `case(...)`. Embed it in a page with
+  a line `:::problem <id>`, or link to it with `[text](problem:<id>)`.
+- The build fails if a reference solution does not pass its own checker, and
+  `make check` fails if it does not pass in the browser either.

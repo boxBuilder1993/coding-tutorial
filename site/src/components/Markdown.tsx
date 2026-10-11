@@ -33,7 +33,7 @@ function makeComponents(pagePath: string, runnable: boolean): Components {
       const meta: string = codeEl?.data?.meta ?? ''
       const text = hastText(codeEl).replace(/\n$/, '')
       if (runnable && lang === 'python' && !/\bstatic\b/.test(meta)) {
-        return <PlayBlock code={text} />
+        return <PlayBlock code={text} expectError={/\bexpect-error\b/.test(meta)} />
       }
       return (
         <pre className={`static ${lang ? 'lang-' + lang : ''}`}>

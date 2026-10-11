@@ -55,7 +55,7 @@ When you get there, come back to this picture.
 Because the processor goes top to bottom and never looks ahead, a name has
 to be given a value *before* the line that uses it. Run this:
 
-```python
+```python expect-error
 print(total)
 total = 100
 ```

@@ -56,7 +56,7 @@ Use names that say what the value is. `unit_price` beats `x`.
 
 Using a name before it exists is an error. Run this and read the message:
 
-```python
+```python expect-error
 print(total)
 ```
 

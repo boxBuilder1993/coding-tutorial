@@ -3,7 +3,13 @@ import { runner, useRunnerStatus, type RunResult } from '../runner/runner'
 import { CodeEditor } from './CodeEditor'
 import { ErrorView, OutputView } from './Output'
 
-export function PlayBlock({ code: initial }: { code: string }) {
+interface Props {
+  code: string
+  /** The lesson expects this block to raise an error; the sweep checks that it does. */
+  expectError?: boolean
+}
+
+export function PlayBlock({ code: initial, expectError = false }: Props) {
   const [code, setCode] = useState(initial)
   const [result, setResult] = useState<RunResult | null>(null)
   const [running, setRunning] = useState(false)
@@ -24,7 +30,7 @@ export function PlayBlock({ code: initial }: { code: string }) {
   const lines = Math.max(2, initial.split('\n').length)
 
   return (
-    <div className="play">
+    <div className="play" data-expect-error={expectError ? 'true' : undefined}>
       <CodeEditor value={code} onChange={setCode} onRun={run} minLines={lines} ariaLabel="Example code" />
       <div className="toolbar">
         {running ? (

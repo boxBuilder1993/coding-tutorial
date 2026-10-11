@@ -86,7 +86,7 @@ print(sorted(items, reverse=True))
 A list that mixes numbers and strings cannot be sorted at all. Python has no
 rule for whether `"apple"` is less than `40`, so it refuses:
 
-```python
+```python expect-error
 mixed = ["apple", 40, "bread"]
 mixed.sort()
 ```
