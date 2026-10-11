@@ -3,7 +3,7 @@
 A browser-based, self-paced course that teaches Python from zero: four
 modules of lessons with runnable examples and exercises, then 120 practice
 problems. Python runs in the browser via Pyodide, so learners install
-nothing. Live at https://boxbuilder1993.github.io/coding-tutorial/
+nothing. Live at https://learntocodehumans.org/
 
 The design is in [SPEC.md](SPEC.md). In short: the site is a markdown tree,
 exercises are a library of problems each with a Python checker, and every
@@ -57,7 +57,12 @@ make content   # content validation only
 
 Playwright starts the dev server and the preview server itself. To run the
 browser checks against the live site instead:
-`E2E_BASE_URL=https://boxbuilder1993.github.io/coding-tutorial/ npx playwright test` from `site/`.
+`E2E_BASE_URL=https://learntocodehumans.org/ npx playwright test` from `site/`.
+
+The custom domain is set by `site/public/CNAME`, which ends up in the deploy
+and tells GitHub Pages which host to serve; the DNS records live at the
+registrar (four `A` records to GitHub's Pages addresses for the apex, a
+`CNAME` from `www` to the github.io host).
 
 URLs are path-based (`/01-learn-python/02-decisions-and-text/`); every page
 has a real file behind it. Old `#/...` links redirect in the browser.

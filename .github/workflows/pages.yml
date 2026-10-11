@@ -53,10 +53,12 @@ jobs:
           else
             npx playwright install --with-deps chromium
           fi
+      # The site is served at a custom domain (site/public/CNAME), so it lives
+      # at the root path. GitHub redirects the old github.io address to it.
       - name: Site address
         run: |
-          echo "VITE_BASE=/${{ github.event.repository.name }}/" >> "$GITHUB_ENV"
-          echo "SITE_URL=$(echo 'https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/' | tr 'A-Z' 'a-z')" >> "$GITHUB_ENV"
+          echo "VITE_BASE=/" >> "$GITHUB_ENV"
+          echo "SITE_URL=https://$(cat site/public/CNAME)/" >> "$GITHUB_ENV"
       - name: Build site (with pre-rendered pages, sitemap and robots)
         working-directory: site
         run: npm run build
