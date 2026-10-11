@@ -88,4 +88,4 @@ print(heapq.nlargest(2, prices))
 
 :::problem process-by-priority
 
-Next: Module 5. (Coming soon.)
+Next: [Practice](../../05-practice).
