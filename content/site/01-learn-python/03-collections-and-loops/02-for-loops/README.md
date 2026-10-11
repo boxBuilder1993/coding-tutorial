@@ -39,15 +39,43 @@ print(biggest)
 
 ## Looping over numbers
 
-`range(n)` produces the numbers from 0 up to but not including `n`.
-`range(a, b)` goes from `a` to `b - 1`.
+`range` produces a run of numbers to loop over. With one argument it starts
+at 0 and stops **before** that number, so `range(3)` gives 0, 1, 2.
 
 ```python
 for i in range(3):
     print(i)
+```
 
+With two arguments, the first is where to start. `range(1, 4)` gives 1, 2, 3:
+it starts at 1 and still stops before 4. The same half-open rule as slicing.
+
+```python
 for i in range(1, 4):
     print("Box", i)
+
+for year in range(2020, 2024):
+    print(year)
+```
+
+A third argument is the step. `range(0, 20, 5)` gives 0, 5, 10, 15. A negative
+step counts down, and then the start must be the larger number.
+
+```python
+for i in range(0, 20, 5):
+    print(i)
+
+for i in range(3, 0, -1):
+    print(i)
+print("Go!")
+```
+
+Old tutorials and Python 2 code use `xrange`. It no longer exists; `range`
+does the same job. Run this to see the error you would get:
+
+```python
+for i in xrange(3):
+    print(i)
 ```
 
 ## Looping over the characters of a string
