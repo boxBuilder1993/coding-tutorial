@@ -9,8 +9,43 @@ for item in items:
     print("Buying", item)
 ```
 
-Three iterations, one per item. The indented block is the loop body; code
-after it, unindented, runs once the loop is finished.
+Three iterations, one per item.
+
+## Which lines repeat?
+
+The `for` line ends with a colon and owns a block, exactly like `def` and
+`if`. Every line indented under it runs once per item. The first line that
+is **not** indented is outside the loop and runs once, after the loop has
+finished.
+
+```python
+items = ["apple", "bread", "milk"]
+for item in items:
+    print("Buying", item)
+    print("...added to basket")
+print("Checkout")
+```
+
+Two lines inside the loop, so six lines of output, then `Checkout` once.
+Move `print("Checkout")` four spaces to the right and run again: it becomes
+part of the block and prints three times.
+
+Blocks can sit inside blocks. An `if` inside a loop is indented four spaces
+further than the `for`, and its own lines four spaces further still:
+
+```python
+prices = [40, 25, 60]
+for price in prices:
+    if price > 30:
+        print(price, "is expensive")
+    print("checked", price)
+print("done")
+```
+
+Read the indentation as nesting: `print(price, "is expensive")` belongs to
+the `if`, which belongs to the `for`. `print("checked", price)` belongs to
+the `for` only, so it runs for every price. `print("done")` belongs to
+nothing and runs once.
 
 ## Accumulating a result
 
