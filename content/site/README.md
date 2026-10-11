@@ -50,7 +50,7 @@ Work through the sections in order. Each builds on the one before.
 
 | | Section | What you will be able to do afterwards |
 |---|---|---|
-| 1 | [Getting started](01-learn-python/01-getting-started) | Show values, name them, and wrap steps into functions you can reuse. |
+| 1 | [Getting started](01-learn-python/01-getting-started) | Understand what a program is, show values, name them, and wrap steps into functions you can reuse. |
 | 2 | [Decisions and text](01-learn-python/02-decisions-and-text) | Make a program behave differently depending on its input, and take text apart. |
 | 3 | [Collections and loops](01-learn-python/03-collections-and-loops) | Hold many values at once and do something with each of them. |
 | 4 | [Stacks, queues and priority queues](01-learn-python/04-stacks-queues-and-priority-queues) | Choose the right structure for "what comes out next". |
@@ -80,4 +80,4 @@ them, and how to think about new problems.
 - The first time you press Run, Python itself has to download, which takes a few seconds. After that it is instant.
 - This is an early version. If something is wrong, confusing, or a check seems unfair, please say so: [open an issue on GitHub](https://github.com/boxBuilder1993/coding-tutorial/issues). Mention the page name.
 
-Ready? Start with [Values and print](01-learn-python/01-getting-started/01-values-and-print).
+Ready? Start with [Getting started](01-learn-python/01-getting-started), which explains what programming is before the first line of code.

@@ -10,7 +10,7 @@ The examples use a small shop throughout: items like `apple` and `bread`,
 prices, quantities, and a shopping list. The vocabulary stays the same so you
 can focus on the Python, not the story.
 
-1. [Getting started](01-getting-started): values, names, and functions.
+1. [Getting started](01-getting-started): what programming is, values, names, and functions.
 2. [Decisions and text](02-decisions-and-text): true and false, `if`, and strings.
 3. [Collections and loops](03-collections-and-loops): lists, loops, dictionaries, tuples and sets.
 4. [Stacks, queues and priority queues](04-stacks-queues-and-priority-queues): three structures defined by the order things come out.
