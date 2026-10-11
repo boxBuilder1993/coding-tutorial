@@ -179,6 +179,27 @@ test('tutor prompt carries the code and failing checks but never the reference',
   expect(await text()).toContain('1. seen = {} mapping price to index')
 })
 
+test('dark mode toggles the page and the editor, and persists', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' })
+  await page.goto('#/01-learn-python/01-getting-started/01-values-and-print')
+  await page.waitForSelector('.cm-editor')
+  const bg = () => page.evaluate(() => getComputedStyle(document.body).backgroundColor)
+  const editorBg = () => page.evaluate(() => getComputedStyle(document.querySelector('.cm-editor')!).backgroundColor)
+  const lightBg = await bg()
+  const lightEditor = await editorBg()
+
+  await page.getByRole('button', { name: 'Switch to dark mode' }).click()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  expect(await bg()).not.toBe(lightBg)
+  expect(await editorBg()).not.toBe(lightEditor)
+  await page.screenshot({ path: `${SHOTS}/07-dark.png`, fullPage: false })
+
+  await page.reload()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await page.getByRole('button', { name: 'Switch to light mode' }).click()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+})
+
 test('problems list and settings render', async ({ page }) => {
   await page.goto('#/problems')
   await expect(page.locator('.problems-table tbody tr')).toHaveCount(171)

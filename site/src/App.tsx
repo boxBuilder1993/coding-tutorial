@@ -3,6 +3,7 @@ import { loadContent, type Content } from './lib/content'
 import { ProgressProvider, useProgress } from './lib/progress'
 import { parseRoute, useHash } from './lib/router'
 import { useRunnerStatus } from './runner/runner'
+import { useTheme } from './lib/theme'
 import { Sidebar } from './components/Sidebar'
 import { SitePage } from './pages/SitePage'
 import { ProblemPage } from './pages/ProblemPage'
@@ -16,6 +17,16 @@ function RunnerPill() {
     <span className={`runner-pill ${status}`} title={message ?? undefined}>
       {label}
     </span>
+  )
+}
+
+function ThemeButton() {
+  const { choice, dark, set } = useTheme()
+  const next = choice === 'system' ? (dark ? 'light' : 'dark') : choice === 'dark' ? 'light' : 'dark'
+  return (
+    <button type="button" className="theme-btn" onClick={() => set(next)} aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'} title={dark ? 'Light mode' : 'Dark mode'}>
+      {dark ? '☀' : '☾'}
+    </button>
   )
 }
 
@@ -74,6 +85,7 @@ function Shell({ content }: { content: Content }) {
           {content.tree.title}
         </a>
         <RunnerPill />
+        <ThemeButton />
       </header>
       <Sidebar tree={content.tree} route={route} onNavigate={() => setDrawer(false)} />
       {drawer && <div className="scrim" onClick={() => setDrawer(false)} />}

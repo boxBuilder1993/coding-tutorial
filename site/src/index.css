@@ -18,8 +18,10 @@
   --topbar-h: 48px;
   color-scheme: light dark;
 }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #15171c;
     --bg-2: #1c1f26;
     --bg-3: #262a33;
@@ -35,6 +37,21 @@
     --warn: #e0b35a;
   }
 }
+:root[data-theme="dark"] {
+    --bg: #15171c;
+    --bg-2: #1c1f26;
+    --bg-3: #262a33;
+    --fg: #e6e8ee;
+    --fg-2: #9aa1b2;
+    --border: #2f343f;
+    --accent: #6c9cff;
+    --accent-fg: #0d1117;
+    --pass: #4cc38a;
+    --pass-bg: #163123;
+    --fail: #ff7b7b;
+    --fail-bg: #3a1f22;
+    --warn: #e0b35a;
+  }
 
 * { box-sizing: border-box; }
 html, body, #root { margin: 0; height: 100%; }
@@ -229,3 +246,8 @@ pre.static {
   padding: 10px; border: 1px solid var(--border); border-radius: 8px;
   background: var(--bg); color: var(--fg); resize: vertical;
 }
+
+/* ---------- theme switch */
+.theme-btn { padding: 2px 8px; font-size: 1em; line-height: 1; background: var(--bg); }
+.theme-options { display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0 16px; }
+.theme-options label { display: flex; align-items: center; gap: 6px; }

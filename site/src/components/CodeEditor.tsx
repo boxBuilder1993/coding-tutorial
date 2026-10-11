@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react'
-import { EditorState, Prec } from '@codemirror/state'
+import { Compartment, EditorState, Prec } from '@codemirror/state'
 import { EditorView, keymap } from '@codemirror/view'
 import { indentWithTab } from '@codemirror/commands'
 import { indentUnit } from '@codemirror/language'
 import { python } from '@codemirror/lang-python'
 import { basicSetup } from 'codemirror'
+import { oneDark } from '@codemirror/theme-one-dark'
+import { isDark, subscribeTheme } from '../lib/theme'
 
 interface Props {
   value: string
@@ -19,6 +21,7 @@ export function CodeEditor({ value, onChange, onRun, minLines = 4, ariaLabel }: 
   const view = useRef<EditorView | null>(null)
   const onChangeRef = useRef(onChange)
   const onRunRef = useRef(onRun)
+  const themeComp = useRef(new Compartment())
   onChangeRef.current = onChange
   onRunRef.current = onRun
 
@@ -39,6 +42,7 @@ export function CodeEditor({ value, onChange, onRun, minLines = 4, ariaLabel }: 
       doc: value,
       extensions: [
         basicSetup,
+        themeComp.current.of(isDark() ? oneDark : []),
         python(),
         indentUnit.of('    '),
         keymap.of([indentWithTab]),
@@ -55,7 +59,11 @@ export function CodeEditor({ value, onChange, onRun, minLines = 4, ariaLabel }: 
     })
     view.current = new EditorView({ state, parent: host.current })
     if (ariaLabel) view.current.contentDOM.setAttribute('aria-label', ariaLabel)
+    const unsubscribe = subscribeTheme(() => {
+      view.current?.dispatch({ effects: themeComp.current.reconfigure(isDark() ? oneDark : []) })
+    })
     return () => {
+      unsubscribe()
       view.current?.destroy()
       view.current = null
     }

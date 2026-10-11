@@ -2,12 +2,14 @@ import { useRef, useState } from 'react'
 import { useProgress } from '../lib/progress'
 import { PYODIDE_VERSION } from '../runner/pyodide.worker'
 import { useRunnerStatus } from '../runner/runner'
+import { useTheme, type ThemeChoice } from '../lib/theme'
 
 export function SettingsPage() {
   const { exportJson, importJson, reset, progress } = useProgress()
   const [message, setMessage] = useState<string | null>(null)
   const file = useRef<HTMLInputElement>(null)
   const { status, message: runnerMessage } = useRunnerStatus()
+  const theme = useTheme()
 
   const doExport = () => {
     const blob = new Blob([exportJson()], { type: 'application/json' })
@@ -38,6 +40,16 @@ export function SettingsPage() {
   return (
     <article className="page">
       <h1>Settings</h1>
+
+      <h2>Appearance</h2>
+      <div className="theme-options" role="radiogroup" aria-label="Theme">
+        {(['system', 'light', 'dark'] as ThemeChoice[]).map((t) => (
+          <label key={t}>
+            <input type="radio" name="theme" value={t} checked={theme.choice === t} onChange={() => theme.set(t)} />
+            {t === 'system' ? 'Match my system' : t === 'light' ? 'Light' : 'Dark'}
+          </label>
+        ))}
+      </div>
 
       <h2>Progress</h2>
       <p className="muted">
