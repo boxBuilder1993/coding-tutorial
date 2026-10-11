@@ -9,7 +9,7 @@ for item in items:
     print("Buying", item)
 ```
 
-Three iterations, one per item.
+Three rounds, one per item.
 
 ## Which lines repeat?
 
@@ -49,8 +49,8 @@ nothing and runs once.
 
 ## Accumulating a result
 
-The most common loop shape: start with an empty result, add to it each time
-round, use it at the end.
+The most common loop shape: start with a starting value, such as 0 for a
+total, add to it each time round, and use it at the end.
 
 ```python
 prices = [40, 25, 2.5]
@@ -61,7 +61,8 @@ print("Total:", total)
 ```
 
 `total` must be created before the loop. Inside, `total += price` updates it.
-The same shape counts things, builds strings, or finds the biggest value:
+The same shape counts things, builds strings, or finds the biggest value.
+This one starts from the first price, so it assumes the list is not empty:
 
 ```python
 prices = [40, 25, 60, 2.5]
@@ -108,7 +109,7 @@ print("Go!")
 
 ## Looping over the characters of a string
 
-A string is a sequence too, so `for` walks through its characters.
+A string is a run of characters, so `for` can walk through those too.
 
 ```python
 for ch in "bread":

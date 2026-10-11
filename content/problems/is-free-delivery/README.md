@@ -18,8 +18,8 @@ def is_free_delivery(total):
 
 ## Hints
 
-1. A comparison already gives `True` or `False`. Return it directly.
-2. "50 or more" is `total >= 50`.
+1. The page's `is_in_stock` returned `quantity > 0` with no `if`. Which comparison says "50 or more"?
+2. `return total >= 50`. The comparison already gives `True` or `False`.
 
 ## Approach
 

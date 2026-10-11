@@ -58,8 +58,9 @@ print("eggs" in items)
 
 ## Lists can change
 
-Unlike strings, lists can be modified in place. `append` adds an item at the
-end. Assigning to a position replaces what is there.
+Unlike strings, lists can be changed after you make them, without making a
+new list. `append` adds an item at the end. Assigning to a position replaces
+what is there.
 
 ```python
 items = ["apple", "bread"]
@@ -70,7 +71,7 @@ items[0] = "pear"
 print(items)
 ```
 
-`append` returns nothing; it changes the list it was called on. A common
+`append` returns nothing, which Python shows as `None`; it changes the list it was called on. A common
 mistake is `items = items.append("milk")`, which sets `items` to `None`.
 
 ## Try it

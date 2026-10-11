@@ -2,7 +2,8 @@
 
 Write `reverse_items(items)` that returns a new list with the items in
 reverse order, by pushing every item onto a stack and then popping them all
-off. Do not use slicing or `reverse` for this one; the point is the stack.
+off. Leave `items` unchanged. Slicing or `reverse` would also work; the
+point here is to practise the stack.
 
 ```static
 reverse_items(["apple", "bread", "milk"])  ->  ["milk", "bread", "apple"]

@@ -1,14 +1,17 @@
 # First duplicate
 
-To find the first value that repeats, remember every value you have seen so
-far. Walk the list; the first value that is already in your memory is the
-answer. A set makes "is it in my memory" fast no matter how much you have seen.
+To find the first repeat, remember every value you have seen so far. Walk
+the list; the first value that is already in your memory is the answer. A
+set is the natural place to keep that memory.
 
 Write `first_duplicate(items)` that returns the first item which has
-appeared earlier in the list, or `None` if every item is different.
+appeared earlier in the list, or `None` if every item is different. "First"
+means the item whose second appearance comes earliest, so for `[1, 2, 2, 1]`
+the answer is `2`, not `1`.
 
 ```static
 first_duplicate(["milk", "bread", "milk", "bread"])  ->  "milk"
+first_duplicate([1, 2, 2, 1])                        ->  2
 first_duplicate([1, 2, 3])                           ->  None
 ```
 

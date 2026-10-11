@@ -1,10 +1,12 @@
 # Two largest
 
-Write `top_two(prices)` that returns the two largest numbers from a list of
-at least two, largest first, using `heapq`.
+Write `top_two(prices)` that returns the two largest values from a list of
+at least two, largest first, using `heapq`. A repeated value counts each
+time it appears.
 
 ```static
 top_two([40, 25, 2.5, 60])  ->  [60, 40]
+top_two([5, 5, 1])          ->  [5, 5]
 ```
 
 ## Starter

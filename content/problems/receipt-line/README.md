@@ -6,7 +6,8 @@ Three apples at 40 each. Print the total on one line, exactly like this:
 Total: 120
 ```
 
-Let Python do the multiplication. Do not type `120` yourself.
+Let Python do the multiplication rather than typing `120` yourself; that is
+the skill being practised.
 
 ## Starter
 

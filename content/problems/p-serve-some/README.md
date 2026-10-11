@@ -1,8 +1,9 @@
 # Serve some customers
 
 `arrivals` is a list of names in arrival order. Write `remaining(arrivals, n)`
-that serves the first `n` customers from a queue and returns a list of who
-is still waiting. If `n` is more than the number of customers, nobody is left.
+that serves the first `n` customers from a `deque` and returns a list of who
+is still waiting. If `n` is more than the number of customers, nobody is
+left. Leave `arrivals` itself unchanged.
 
 ```static
 remaining(["Ada", "Grace", "Linus"], 2)  ->  ["Linus"]

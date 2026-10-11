@@ -35,7 +35,10 @@ and it uses the space at the start of each line to decide. This is called
    editor, pressing Tab inserts four spaces for you.
 3. The group ends at the first line that goes back to the earlier level.
 
-The group of owned lines is called a **block**. Watch the difference here:
+The group of owned lines is called a **block**. One more thing before the
+example: writing `def` only *stores* the function. Its block runs later,
+each time the function is called, not at the point where it is written.
+Watch the difference here:
 
 ```python
 def greet():
@@ -46,9 +49,10 @@ print("This line is not part of greet")
 greet()
 ```
 
-The two indented prints are the block, so calling `greet()` prints them
-both. The unindented line is outside the block, so it runs on its own,
-before the call, and does not run again when `greet()` is called.
+The output is three lines, in this order: `This line is not part of greet`,
+then `Hello`, then `Welcome to the shop`. The unindented line is outside
+the block, so it runs first, on its own. The two indented prints are the
+block, and they run only when `greet()` is called on the last line.
 
 Getting the spaces wrong is an error. Run this and read the message:
 
@@ -58,8 +62,9 @@ print("Hello")
 ```
 
 `IndentationError: expected an indented block` means Python saw the colon
-and then found no indented lines. You will see the same error if you mix
-different amounts of spaces inside one block. Stick to four, every time.
+and then found no indented lines. Mixing different amounts of spaces inside
+one block gives a similar `IndentationError` with a different message.
+Stick to four, every time.
 
 You will meet blocks again with `if` and loops. The rules are identical:
 colon, four spaces, back out to end the block.

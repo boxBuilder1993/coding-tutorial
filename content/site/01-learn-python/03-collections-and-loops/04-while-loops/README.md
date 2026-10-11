@@ -56,7 +56,9 @@ while i < len(prices):
     i += 1
 ```
 
-`break` works in `for` loops too.
+`break` works in `for` loops too. Inside a function there is a second way
+out: `return` ends the whole function at once, loop included, which is
+often the neatest way to write "return the first one that matches".
 
 ## Which loop?
 

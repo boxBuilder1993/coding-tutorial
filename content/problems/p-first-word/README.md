@@ -1,10 +1,12 @@
 # First word
 
 Write `first_word(sentence)` that returns the first word of a sentence.
-Words are separated by spaces, and the sentence has at least one word.
+Words are separated by spaces, the sentence has at least one word, and
+there may be extra spaces before the first word.
 
 ```static
 first_word("fresh bread daily")  ->  "fresh"
+first_word("   apple pie")       ->  "apple"
 ```
 
 ## Starter
@@ -21,7 +23,7 @@ def first_word(sentence):
 
 ## Approach
 
-`split` gives a list of words; take position 0.
+`split()` with no argument skips any leading spaces and gives a list of words; take position 0. `split(" ")` would give an empty first piece for the second example.
 
 ## Reference
 

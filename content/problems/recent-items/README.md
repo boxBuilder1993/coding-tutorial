@@ -28,7 +28,7 @@ def last_n(items, n):
 
 ## Approach
 
-`maxlen` does the work. Slicing with `items[-n:]` is the direct way, but it breaks for `n == 0`, and the deque version works on streams of unknown length.
+`maxlen` does the work. Slicing with `items[-n:]` is the direct way, but it breaks for `n == 0`, and the deque version also works when items arrive one at a time and you never hold the whole list.
 
 ## Reference
 

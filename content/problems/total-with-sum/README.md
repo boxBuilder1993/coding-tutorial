@@ -18,8 +18,8 @@ def average(prices):
 
 ## Hints
 
-1. `sum(prices) / len(prices)` is the average.
-2. `round(value, 2)` rounds to two decimal places.
+1. An average is the total divided by how many there are. Two built-ins from the page give you those.
+2. `round(sum(prices) / len(prices), 2)`
 
 ## Approach
 

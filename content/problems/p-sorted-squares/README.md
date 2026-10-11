@@ -7,7 +7,8 @@ compare their squares, write the larger into the **last** free slot of the
 result, and move that position inward. Fill the result from the back.
 
 Write `sorted_squares(nums)` that returns a new sorted list of the
-squares. Do not use `sort` or `sorted`.
+squares. The point is to practise filling from both ends rather than call
+`sort` or `sorted`.
 
 ```static
 sorted_squares([-4, -1, 0, 3, 10])  ->  [0, 1, 9, 16, 100]

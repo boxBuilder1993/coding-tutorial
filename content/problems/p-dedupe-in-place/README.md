@@ -8,8 +8,9 @@ writer's position and advance the writer. At the end, the first `writer`
 items are the unique values.
 
 Write `dedupe(sorted_nums)` that rearranges the list so its first part
-holds the unique values in order, and returns how many there are. Do not
-build a new list or use a set.
+holds the unique values in order, and returns how many there are. The
+point is to practise the reader-and-writer method rather than build a new
+list or use a set.
 
 ```static
 nums = [1, 1, 2, 3, 3, 3]
@@ -25,8 +26,8 @@ def dedupe(sorted_nums):
 
 ## Hints
 
-1. `write = 1` if the list is non-empty; `for read in range(1, len(sorted_nums))`.
-2. `if sorted_nums[read] != sorted_nums[write - 1]: sorted_nums[write] = sorted_nums[read]; write += 1`.
+1. Keep a `write` position that only moves forward when you keep a value. The first value is always kept, so `write` starts at 1 and the reader starts at position 1.
+2. For each `read` position: if the value there differs from the last kept value, which is at `write - 1`, copy it to position `write` and add one to `write`.
 
 ## Approach
 

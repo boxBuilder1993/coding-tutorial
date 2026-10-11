@@ -17,8 +17,8 @@ def valid_codes(codes):
 
 ## Hints
 
-1. Check the length, the dash position, and each character's group with `in` and string methods.
-2. `code[:3] == code[:3].upper()` with letters, `code[3] == "-"`, and digits in `code[4:]`.
+1. Check the length and the dash position first, then look at each character of the two parts in turn.
+2. Every character of `code[:3]` must be in `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"` and every character of `code[4:]` in `"0123456789"`. A loop with `in` over each part does it.
 
 ## Approach
 

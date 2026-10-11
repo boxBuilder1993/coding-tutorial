@@ -26,7 +26,7 @@ def selection_sort(nums):
 
 ## Approach
 
-The inner loop is a find-the-smallest loop over a shrinking suffix. One swap per outer iteration.
+The inner loop is a find-the-smallest loop over the rest of the list, which gets shorter each time. One swap per round of the outer loop.
 
 ## Reference
 

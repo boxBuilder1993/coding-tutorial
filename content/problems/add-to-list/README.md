@@ -1,7 +1,8 @@
 # Add to the list
 
 Write `add_item(items, item)` that adds `item` to the end of the list
-`items` and returns the list.
+`items` and returns it. Change the list you are given rather than building
+a new one; the checks look at the original list afterwards.
 
 ```static
 add_item(["apple"], "bread")  ->  ["apple", "bread"]

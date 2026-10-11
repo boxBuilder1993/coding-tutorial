@@ -1,9 +1,10 @@
 # Top k most frequent
 
 Find the `k` values that appear most often in a list. Count each value
-with a dictionary, then pick the `k` entries with the largest counts.
-`heapq.nlargest` can do the picking if you give it a `key` that reads the
-count from each `(value, count)` pair.
+with a dictionary, then rank the `(value, count)` pairs: highest count
+first, and when counts tie, the smaller value first. `sorted` or
+`heapq.nsmallest` can do the ranking if you give them a `key` that returns
+`(-count, value)`; the minus sign makes bigger counts come first.
 
 Write `most_frequent(items, k)` that returns the `k` most frequent values
 as a list, most frequent first. Ties are broken by the value itself in

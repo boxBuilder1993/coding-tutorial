@@ -1,12 +1,14 @@
 # Balanced brackets, two kinds
 
 Write `balanced(text)` that returns `True` if every `(` and `[` is closed
-by the matching `)` or `]` in the right order. Other characters are ignored.
+by the matching `)` or `]` in the right order, and no closer appears
+without an opener before it. Other characters are ignored.
 
 ```static
 balanced("([])")   ->  True
 balanced("([)]")   ->  False
 balanced("((")     ->  False
+balanced("())")    ->  False
 ```
 
 ## Starter
@@ -23,7 +25,7 @@ def balanced(text):
 
 ## Approach
 
-Same as the one-kind version, plus a lookup so `]` only matches `[`.
+Push every opener. On a closer, pop and compare with the opener it needs; an empty stack or a mismatch means unbalanced. Balanced only if the stack is empty at the end.
 
 ## Reference
 

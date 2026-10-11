@@ -22,7 +22,7 @@ def names_by_priority(orders):
 
 ## Approach
 
-Tuples sort by their first element, so plain `sorted` gives priority order. Then collect the second elements.
+Tuples compare position by position, so with distinct priorities the first element decides and plain `sorted` gives priority order. Then collect the second elements.
 
 ## Reference
 

@@ -20,7 +20,7 @@ def serving_order(arrivals):
 ## Hints
 
 1. Two deques, one for VIPs and one for everyone else, each in arrival order.
-2. Serve the whole VIP deque first, then the other; or a single deque with `appendleft` and a VIP count.
+2. Serve the whole VIP deque first, then the other: `list(vips) + list(others)`.
 
 ## Approach
 

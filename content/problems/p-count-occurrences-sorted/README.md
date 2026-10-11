@@ -1,20 +1,23 @@
 # Count in a sorted list
 
-In a sorted list, every copy of a value sits together in one block. To
-count them without walking the whole list, you can find the block's edges with two
-binary searches: one for the first position whose value is at least the
-target, and one for the first position whose value is greater than the
-target. The count is the difference.
+In a sorted list of whole numbers, every copy of a value sits together in
+one block. You can count them without walking the whole list by finding the
+two edges of the block.
 
-Each search works like this: keep `low` and `high` as the range of
-candidate positions, with `high` one past the end. While `low < high`, look
-at the middle; if the middle value satisfies the condition ("at least the
-target" or "greater than the target"), the answer is at the middle or to
-its left, so set `high = mid`; otherwise set `low = mid + 1`. When the loop
-ends, `low` is the answer.
+First, a helper: `first_at_least(nums, value)` returns the first position
+whose value is at least `value`, or the length of the list if there is
+none. It works like this. Keep `low` and `high` as the range of candidate
+positions, with `high` starting one past the end. While `low < high`, look
+at the middle position. If the value there is at least `value`, the answer
+is at the middle or to its left, so set `high = mid`. Otherwise it must be
+to the right, so set `low = mid + 1`. When the loop ends, `low` is the
+answer.
 
-Write `count_sorted(sorted_nums, target)` that returns how many times
-`target` appears. Do not use `count`.
+Now the count: `first_at_least(nums, target)` is where the block starts,
+and `first_at_least(nums, target + 1)` is where it ends, so the count is
+the difference. Write `count_sorted(sorted_nums, target)` that returns how
+many times `target` appears. The point is to practise the search rather
+than call `count`.
 
 ```static
 count_sorted([1, 2, 2, 2, 3, 5], 2)  ->  3
@@ -35,7 +38,7 @@ def count_sorted(sorted_nums, target):
 
 ## Approach
 
-The "first position satisfying a condition" search with `high = mid` is the form that generalises to many problems. Calling it with `target` and `target + 1` brackets the block.
+The "first position where something becomes true" search, with `high = mid`, is the same loop shape many other searches use. Calling it with `target` and `target + 1` finds both ends of the block.
 
 ## Reference
 

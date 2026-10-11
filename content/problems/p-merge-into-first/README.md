@@ -8,7 +8,8 @@ last real value of `a` with the last value of `b`, put the larger in the
 last slot, and move inward.
 
 Write `merge_into(a, m, b)` where `m` is how many real values `a` has at
-the start. Modify `a` in place and return it.
+the start, so `len(a)` is always `m + len(b)`. Modify `a` in place and
+return it.
 
 ```static
 merge_into([1, 3, 5, 0, 0], 3, [2, 4])  ->  [1, 2, 3, 4, 5]

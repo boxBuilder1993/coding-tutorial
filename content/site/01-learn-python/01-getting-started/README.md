@@ -36,7 +36,7 @@ multiply two numbers and show the result. You do not need to understand
 the details yet; the next pages teach them one at a time.
 
 Python is used for websites, data analysis, science, automation, and as
-the first language in most universities. The skills transfer: once you can
+the first language taught in many universities. The skills transfer: once you can
 think in one language, picking up another is weeks, not years.
 
 ## The computer is literal

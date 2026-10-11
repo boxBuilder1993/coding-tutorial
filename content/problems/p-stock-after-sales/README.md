@@ -2,7 +2,8 @@
 
 `stock` maps items to quantities and `sales` is a list of item names, one
 per item sold. Write `after_sales(stock, sales)` that reduces each sold
-item's quantity by one and returns the dictionary. Every sold item is in stock.
+item's quantity by one, changing `stock` itself, and returns it. Every sold
+item is in stock.
 
 ```static
 after_sales({"apple": 3, "bread": 2}, ["apple", "bread", "apple"])  ->  {"apple": 1, "bread": 1}

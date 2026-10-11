@@ -18,7 +18,7 @@ def transpose(table):
 ## Hints
 
 1. Loop over column positions and collect that position from every row.
-2. `for c in range(len(table[0])): column = [row[c] for row in table]`, or an inner `for` loop.
+2. `for c in range(len(table[0])):` start an empty `column`, then an inner loop `for row in table:` appends `row[c]` to it; append the finished column to the result.
 
 ## Approach
 

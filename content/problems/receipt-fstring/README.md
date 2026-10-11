@@ -8,6 +8,9 @@ receipt_line("bread", 3, 40)   ->  "3 x bread = 120"
 receipt_line("milk", 2, 2.5)   ->  "2 x milk = 5.0"
 ```
 
+The total is written the way Python prints it, so `2 * 2.5` appears as
+`5.0`, not `5`.
+
 ## Starter
 
 ```python

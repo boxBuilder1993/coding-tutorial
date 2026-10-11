@@ -24,11 +24,11 @@ def longest_unique(text):
 ## Hints
 
 1. `seen = set()`, `left = 0`, `best = 0`; `for right, ch in enumerate(text):`.
-2. `while ch in seen: seen.remove(text[left]); left += 1`, then `seen.add(ch)` and `best = max(best, right - left + 1)`.
+2. While `ch` is already in `seen`, remove `text[left]` from the set and move `left` on by one. Then add `ch` to the set and record `right - left + 1` if it beats `best`.
 
 ## Approach
 
-The window only ever grows on the right and shrinks on the left, so each character enters and leaves the set at most once.
+The left side only ever moves right, so the window never has to start over from the beginning.
 
 ## Reference
 

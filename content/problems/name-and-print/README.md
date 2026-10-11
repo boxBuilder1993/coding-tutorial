@@ -1,7 +1,8 @@
 # Name and print
 
 Create a name `item` that refers to the text `bread`, then print the line
-`You bought bread` using the name, not by typing the word again.
+`You bought bread` using the name rather than typing the word again; that
+is the skill being practised.
 
 ```static
 You bought bread

@@ -1,6 +1,6 @@
-# Hard 3: Arrays and pointers
+# Hard 3: Lists and positions
 
-These problems move one or two positions through a list in a disciplined way: from both ends inward, a reader ahead of a writer, or a window that grows on the right and shrinks on the left. Several ask you to change the list in place rather than build a new one, and the checks confirm the same list was modified. Any correct solution passes; the described method is what each problem teaches.
+These problems move one or two positions through a list in a disciplined way: from both ends inward, a reader ahead of a writer, or a window that grows on the right and shrinks on the left. (Programmers often call such a position a *pointer*; here it just means an index you move.) Several ask you to change the list in place rather than build a new one, and the checks confirm that the list you were given ends up changed. Any correct solution passes; the described method is what each problem teaches.
 
 :::problem p-two-sum-sorted
 

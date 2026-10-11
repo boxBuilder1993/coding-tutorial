@@ -1,7 +1,8 @@
 # Contains milk?
 
-Write `has_milk(order)` that returns `True` if the word `milk` appears
-anywhere in the order text, in any mix of capitals.
+Write `has_milk(order)` that returns `True` if the letters `milk` appear
+anywhere in the order text, in any mix of capitals. (So `"milkshake"`
+counts too.)
 
 ```static
 has_milk("2 x Milk, 1 x bread")  ->  True

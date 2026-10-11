@@ -17,8 +17,8 @@ def change_due(paid, cost):
 
 ## Hints
 
-1. Change is what was paid minus what it cost.
-2. Order matters: `paid - cost`, not `cost - paid`.
+1. Which of the two numbers do you take away from which?
+2. `return paid - cost`. Order matters: `cost - paid` gives a negative answer.
 
 ## Approach
 

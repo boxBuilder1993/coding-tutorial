@@ -1,10 +1,12 @@
 # Rotate the line
 
-Write `rotate(line, k)` that moves the front person of a `deque` to the back
-`k` times and returns the deque. `k` may be larger than the line.
+Write `rotate(line, k)` that moves the front person of a `deque` to the back,
+`k` times over, and returns the same deque, changed in place. `k` may be
+larger than the line, or zero.
 
 ```static
 rotate(deque(["a", "b", "c"]), 1)  ->  deque(["b", "c", "a"])
+rotate(deque(["a", "b", "c"]), 3)  ->  deque(["a", "b", "c"])
 rotate(deque(["a", "b", "c"]), 4)  ->  deque(["b", "c", "a"])
 ```
 
@@ -19,12 +21,12 @@ def rotate(line, k):
 
 ## Hints
 
-1. A `for` over `range(k)` doing `popleft` then `append`.
-2. Guard for an empty deque, or use `line.rotate(-k)` which handles everything.
+1. Moving one person from the front to the back is two deque operations. Repeat them `k` times.
+2. `for _ in range(k): line.append(line.popleft())`, with a check for an empty deque first, since `popleft` on an empty one is an error.
 
 ## Approach
 
-`k` single rotations in a loop. `deque.rotate(-k)` is the built-in equivalent.
+`k` single moves in a loop. The empty-deque guard is the part most people forget.
 
 ## Reference
 

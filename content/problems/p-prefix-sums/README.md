@@ -5,9 +5,9 @@ answered from one precomputed table. Build `prefix` where `prefix[0]` is 0
 and `prefix[i]` is the sum of the first `i` items. Then the sum of items
 from position `i` up to and including `j` is `prefix[j + 1] - prefix[i]`.
 
-Write `range_sums(nums, queries)` where each query is a tuple `(i, j)`.
-Return the list of answers. Build the prefix table once; do not re-add the
-items for every query.
+Write `range_sums(nums, queries)` where each query is a tuple `(i, j)` with
+`0 <= i <= j < len(nums)`. Return the list of answers. The point is to
+build the prefix table once rather than re-add the items for every query.
 
 ```static
 range_sums([2, 4, 6, 8], [(0, 1), (1, 3), (2, 2)])  ->  [6, 18, 6]

@@ -1,11 +1,11 @@
 # Two sum in one pass
 
 Given a list of prices and a target, find two different positions whose
-prices add up to the target. Checking every pair works but is slow for long
-lists. A faster way: walk the list once, and for each price ask "have I
-already seen the price that would complete this pair?" A dictionary from
-price to position answers that instantly. If the answer is no, record the
-current price and move on.
+prices add up to the target. Checking every pair works. There is also a
+way that walks the list only once: for each price ask "have I already seen
+the price that would complete this pair?" A dictionary from price to
+position answers that directly. If the answer is no, record the current
+price and move on.
 
 Write `two_sum(prices, target)` that returns the two positions as a tuple
 `(earlier, later)`, or `None` if no pair works. Exactly one pair works when
@@ -30,7 +30,7 @@ def two_sum(prices, target):
 
 ## Approach
 
-One pass with a dictionary of what has been seen. The order of check-then-store is what makes `[3, 3]` with target 6 work and `[3]` not.
+One pass with a dictionary of what has been seen. Checking before storing is what makes `[3, 3]` with target 6 work and `[3]` not: a price is never paired with itself.
 
 ## Reference
 

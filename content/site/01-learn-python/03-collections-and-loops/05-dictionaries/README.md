@@ -37,7 +37,8 @@ print(prices.get("milk"))
 print(prices.get("milk", 0))
 ```
 
-`get` with no default returns `None`. `get(key, 0)` returns 0 when the key is
+`in` checks the keys, not the values: `40 in prices` is `False` here. `get`
+with no default returns `None`. `get(key, 0)` returns 0 when the key is
 missing, which is exactly what counting needs.
 
 ## Removing
@@ -62,8 +63,10 @@ for item, price in prices.items():
     print(f"{item} costs {price}")
 ```
 
-`keys()` and `values()` give just one side. Entries come out in the order
-they were added.
+Each round of the second loop hands over one `(key, value)` pair, and
+writing two names after `for` splits the pair into them. The next page
+covers this splitting, called unpacking, in full. `keys()` and `values()`
+give just one side. Entries come out in the order they were added.
 
 ## Counting things
 

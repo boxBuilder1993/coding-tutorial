@@ -53,7 +53,7 @@ for ch in word:
 
 reversed_word = ""
 while stack:
-    reversed_word += stack.pop()
+    reversed_word = reversed_word + stack.pop()
 print(reversed_word)
 ```
 

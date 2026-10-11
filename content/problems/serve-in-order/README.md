@@ -2,7 +2,9 @@
 
 `arrivals` is a list of customer names in the order they joined the line.
 Write `serve_all(arrivals)` that uses a `deque` to serve them one at a time
-from the front, and returns a list of the names in the order they were served.
+from the front, and returns a list of the names in the order they were
+served. Do not change `arrivals` itself; the starter copies it into a deque
+for you.
 
 ```static
 serve_all(["Ada", "Grace", "Linus"])  ->  ["Ada", "Grace", "Linus"]

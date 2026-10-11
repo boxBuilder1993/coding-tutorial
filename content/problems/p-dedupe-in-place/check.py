@@ -12,3 +12,9 @@ case("all duplicates prefix", alldup[:1], [2])
 distinct = [1, 2, 3]
 case("already unique", dedupe(distinct), 3)
 case("already unique list unchanged", distinct, [1, 2, 3])
+tail = [1, 2, 2, 2]
+case("run at the end count", dedupe(tail), 2)
+case("run at the end prefix", tail[:2], [1, 2])
+pairs = [1, 1, 2, 2, 3]
+case("several runs count", dedupe(pairs), 3)
+case("several runs prefix", pairs[:3], [1, 2, 3])

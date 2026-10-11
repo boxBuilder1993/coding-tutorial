@@ -52,11 +52,16 @@ price = 40
 
 print(quantity > 0 and price < 50)
 print(quantity > 5 or price < 50)
-print(not quantity > 0)
+print(not (quantity > 0))
 ```
 
 Read `quantity > 0 and price < 50` as "quantity is positive and price is
-under 50". Python checks each side, then combines them.
+under 50". Python works out the left side first, and only looks at the
+right side if it still needs to: for `and`, a false left side already
+settles it; for `or`, a true left side does.
+
+The parentheses in `not (quantity > 0)` are optional, because `not` applies
+to the whole comparison, but they make it clear what is being flipped.
 
 ## Functions that answer questions
 

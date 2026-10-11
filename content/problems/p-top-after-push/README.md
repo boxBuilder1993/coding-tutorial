@@ -21,7 +21,7 @@ def push_and_peek(stack, item):
 
 ## Approach
 
-Push, then peek with `[-1]`. Returning `item` directly would also be correct but misses the point.
+Push, then peek with `[-1]`. Returning `item` directly gives the same answer, but the push still has to happen: the checks look at the stack afterwards.
 
 ## Reference
 

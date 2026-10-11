@@ -34,7 +34,7 @@ Every page is a short lesson with code you can run and change. Read a little,
 press **Run**, change the code, run it again. You learn by watching what
 happens, not by memorising.
 
-Each lesson ends with a few short **exercises**. You write your answer in the
+Most lessons end with a few short **exercises**. You write your answer in the
 box, press **Run tests**, and the page tells you which checks passed. Keep
 going until they all do. If you are stuck, open a hint; they get more
 specific one at a time, and the full approach and a reference solution unlock
@@ -58,7 +58,7 @@ Work through the sections in order. Each builds on the one before.
 
 Sections 1 to 4 are about 20 pages and take most people a few hours each.
 Section 5 is where it sticks: the problems are grouped by difficulty, not by
-topic, and the last ten describe classic methods like binary search and
+topic, and the last thirty describe classic methods like binary search and
 sorting for you to build from the description.
 
 ## Advice from people who have done this before
@@ -76,4 +76,4 @@ sorting for you to build from the description.
 - The first time you press Run, Python itself has to download, which takes a few seconds. After that it is instant.
 - This is an early version. If something is wrong, confusing, or a check seems unfair, please say so: [open an issue on GitHub](https://github.com/boxBuilder1993/coding-tutorial/issues). Mention the page name.
 
-Ready? Start with [Getting started](01-learn-python/01-getting-started), which explains what programming is before the first line of code.
+Ready? Start with [Getting started](01-learn-python/01-getting-started), which explains what programming is before you write any code yourself.

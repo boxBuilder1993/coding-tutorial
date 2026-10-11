@@ -21,8 +21,8 @@ def first_over(prices, limit):
 
 ## Hints
 
-1. Inside the loop, if `prices[i] > limit`, you have the answer: return `i` right away.
-2. If the loop finishes without returning, nothing matched, so `-1` is returned after it.
+1. Inside the loop, compare `prices[i]` with `limit`. The first time the comparison is true, you have the answer, and nothing after that matters.
+2. `if prices[i] > limit: return i`. A `return` inside the loop ends the function at once. If the loop finishes without returning, nothing matched, and the `-1` after the loop is returned.
 
 ## Approach
 

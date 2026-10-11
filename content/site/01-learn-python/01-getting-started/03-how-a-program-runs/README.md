@@ -14,9 +14,11 @@ huge set of shelves. When your program says `price = 40`, Python puts the
 value 40 on a free shelf and sticks a label on it that reads `price`.
 
 The **processor** is the part that does things. It reads your program one
-instruction at a time, from the top, does what that instruction says, and
-moves to the next. It never skips ahead, never looks back, and never
-stops to wonder what you meant.
+instruction at a time, starting from the top, does exactly what that
+instruction says, and moves on. It never stops to wonder what you meant.
+(Soon you will meet lines that send it somewhere else, such as calling a
+function or repeating a loop. Even then it only ever does one instruction
+at a time.)
 
 Everything you have seen so far is these two parts working together: the
 processor steps through your lines, and each line puts values on shelves,
@@ -37,7 +39,7 @@ print(price)
 On the first line, 40 goes on a shelf and the `price` label is attached to
 it. On the third line, 45 goes on a different shelf, and the label is
 **moved** to point at the new one. Nobody refers to the old 40 any more,
-so Python clears that shelf.
+so Python is free to reuse that shelf.
 
 The same thing happens with `price = price + 5`: the processor reads the
 value `price` points at, adds 5, puts the result on a new shelf, and moves
@@ -52,8 +54,8 @@ When you get there, come back to this picture.
 
 ## Why order matters
 
-Because the processor goes top to bottom and never looks ahead, a name has
-to be given a value *before* the line that uses it. Run this:
+Because the processor does one line at a time and never looks ahead, a name
+has to be given a value *before* the line that uses it runs. Run this:
 
 ```python expect-error
 print(total)
@@ -73,7 +75,7 @@ once will work a million times, and the computer will not get tired or
 make a mistake on the ten-thousandth repeat.
 
 It also never gets bored, which is a problem when you tell it to repeat
-forever. In the loops section you will write a program that never
+forever. Later, in the section on loops, you will write a program that never
 finishes, on purpose, and this site will stop it after ten seconds. That
 is not the processor failing. It is the processor doing exactly what it
 was told.

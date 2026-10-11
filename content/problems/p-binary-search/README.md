@@ -10,7 +10,7 @@ before the middle. Repeat until the two positions cross, which means the
 target is not there.
 
 Write `binary_search(sorted_items, target)` that returns the position of
-`target` in a sorted list, or `-1`.
+`target` in a sorted list with no repeated values, or `-1`.
 
 ```static
 binary_search([2, 5, 8, 12, 16, 23], 12)  ->  3

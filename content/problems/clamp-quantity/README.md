@@ -30,7 +30,7 @@ if q > 20: return 20
 return q
 ```
 
-Python also has `min` and `max`: `max(1, min(q, 20))` does the same in one line.
+Later in the course you will meet the built-in functions `min` and `max`, which let this be written as `max(1, min(q, 20))`.
 
 ## Reference
 

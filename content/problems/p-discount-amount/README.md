@@ -5,9 +5,10 @@ orders pay full price. Write `to_pay(total)` that returns the amount to pay,
 rounded to two decimal places.
 
 ```static
-to_pay(120)  ->  96.0
-to_pay(60)   ->  54.0
-to_pay(20)   ->  20
+to_pay(120)    ->  96.0
+to_pay(60)     ->  54.0
+to_pay(77.77)  ->  69.99
+to_pay(20)     ->  20      (20.0 is fine too)
 ```
 
 ## Starter

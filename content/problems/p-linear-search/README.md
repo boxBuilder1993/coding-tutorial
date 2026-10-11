@@ -5,8 +5,8 @@ turn, from the first to the last, and stop as soon as you see what you are
 looking for. If you reach the end without seeing it, it is not there.
 
 Write `linear_search(items, target)` that returns the position of the first
-item equal to `target`, or `-1` if there is none. Do not use `index` or `in`;
-write the loop yourself.
+item equal to `target`, or `-1` if there is none. The point is to write the
+loop yourself rather than call the `index` method or test `target in items`.
 
 ```static
 linear_search(["milk", "bread", "eggs"], "bread")  ->  1

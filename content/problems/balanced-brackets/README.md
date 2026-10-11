@@ -1,8 +1,8 @@
-# Balanced brackets
+# Balanced parentheses
 
 Write `balanced(text)` that returns `True` if every `(` in `text` is closed
-by a later `)` in the right order, and `False` otherwise. Other characters
-can be ignored.
+by a later `)` in the right order, and `False` otherwise. Only round
+brackets count; every other character, including `[` and `{`, is ignored.
 
 ```static
 balanced("(a + b) * (c)")  ->  True

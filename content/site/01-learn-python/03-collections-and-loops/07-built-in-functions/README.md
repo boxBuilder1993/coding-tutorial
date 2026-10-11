@@ -9,6 +9,7 @@ are the rest worth knowing by heart.
 ```python
 print(abs(-7))
 print(round(2.567, 2))
+print(round(2.7))
 print(round(2.5))
 print(min(40, 25, 2.5))
 print(max([40, 25, 2.5]))
@@ -17,9 +18,15 @@ print(sum([40, 25, 2.5]))
 
 `min`, `max` and `sum` take a list, or several separate values for `min` and
 `max`. `round` with one argument gives a whole number; with two, it rounds to
-that many decimal places. `sum` only works on numbers.
+that many decimal places. One surprise: a value exactly halfway, like `2.5`,
+rounds to the nearest **even** number, so `round(2.5)` is `2` and
+`round(3.5)` is `4`. `sum` only works on numbers.
 
 ## Converting between types
+
+Python has names for its kinds of value: a whole number is an `int`, a
+number with a decimal point is a `float`, and text is a `str`. Each name is
+also a function that converts to that kind.
 
 ```python
 print(int("42") + 1)
@@ -27,11 +34,12 @@ print(float("2.5") * 2)
 print(str(120) + " total")
 print(int(3.9))
 print(type(3.9))
+print(type("milk"))
 ```
 
 `int` on a decimal number drops the fraction rather than rounding. `type`
-tells you what kind of value you have, which is handy when something is not
-behaving as expected.
+tells you what kind of value you have, printed as `<class 'float'>` and so
+on, which is handy when something is not behaving as expected.
 
 ## range, properly
 
@@ -39,6 +47,7 @@ behaving as expected.
 two are start and stop, three add a step.
 
 ```python
+print(range(5))
 print(list(range(5)))
 print(list(range(2, 6)))
 print(list(range(0, 20, 5)))
@@ -52,7 +61,10 @@ needed to see the values.
 ## sorted, with a twist
 
 `sorted` returns a new sorted list from anything you can loop over. A `key`
-argument tells it what to sort by.
+argument tells it what to sort by: you hand it a function, and `sorted`
+calls that function on each item and orders by the results. Notice there
+are no parentheses after `len` below. You are passing the function itself,
+not calling it; `sorted` does the calling.
 
 ```python
 items = ["bread", "Apple", "milk"]
@@ -62,13 +74,15 @@ print(sorted(items, key=len))
 print(sorted([40, 25, 2.5], reverse=True))
 ```
 
-`key=str.lower` sorts ignoring capitals; `key=len` sorts shortest first. The
-same `key` works for `min` and `max`: `max(items, key=len)` is the longest.
+`key=len` sorts shortest first. `key=str.lower` sorts ignoring capitals;
+`str.lower` is the `lower` method looked up on the `str` type, so it can be
+handed over like any function. The same `key` works for `min` and `max`:
+`max(items, key=len)` is the longest. `heapq.nsmallest` and `nlargest`,
+which you meet in the next section, accept `key` in the same way.
 
-The `key` is a function that is called on each item, and the results decide
-the order. When no ready-made function does what you want, write a tiny one
-inline with `lambda`. `lambda s: s.lower()` means "a function that takes `s`
-and gives back `s.lower()`":
+When no ready-made function does what you want, write a tiny one inline
+with `lambda`. `lambda s: s.lower()` means "a function that takes `s` and
+gives back `s.lower()`":
 
 ```python
 items = ["bread", "Apple", "milk"]

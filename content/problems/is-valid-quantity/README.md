@@ -20,7 +20,7 @@ def is_valid_quantity(q):
 
 ## Hints
 
-1. Two conditions must both hold. Combine them with `and`.
+1. There are two limits. Write each as its own comparison, then think about how to require both.
 2. `q >= 1 and q <= 20`
 
 ## Approach

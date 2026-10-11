@@ -14,4 +14,4 @@ can focus on the Python, not the story.
 2. [Decisions and text](02-decisions-and-text): true and false, `if`, and strings.
 3. [Collections and loops](03-collections-and-loops): lists, loops, dictionaries, tuples and sets.
 4. [Stacks, queues and priority queues](04-stacks-queues-and-priority-queues): three structures defined by the order things come out.
-5. [Practice](05-practice): a hundred mixed problems to make all of it stick.
+5. [Practice](05-practice): 120 mixed problems to make all of it stick.

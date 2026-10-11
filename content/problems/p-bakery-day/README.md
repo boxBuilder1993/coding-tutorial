@@ -1,9 +1,11 @@
 # A day at the bakery
 
-Orders arrive as `(priority, name)` tuples with distinct priorities, and the
-bakery makes one order per hour, always the most urgent one waiting. Write
-`schedule(orders, hours)` that returns the names made in the first `hours`
-hours, in order. If the bakery runs out of orders early, the list is shorter.
+All of the day's orders are waiting when the bakery opens, as
+`(priority, name)` tuples with distinct priorities, where a smaller number
+means more urgent. The bakery makes one order per hour, always the most
+urgent one still waiting. Write `schedule(orders, hours)` that returns the
+names made in the first `hours` hours, in order. If the bakery runs out of
+orders early, the list is shorter.
 
 ```static
 schedule([(3, "bread"), (1, "cake"), (2, "rolls")], 2)  ->  ["cake", "rolls"]
@@ -26,7 +28,7 @@ def schedule(orders, hours):
 
 ## Approach
 
-A heap holds the waiting orders; each hour pops the smallest priority. Two stop conditions, like the pop-several problem.
+A heap holds the waiting orders; each hour pops the smallest priority. The loop has two stop conditions: the hours are used up, or the heap is empty.
 
 ## Reference
 

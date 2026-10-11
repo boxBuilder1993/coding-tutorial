@@ -1,7 +1,7 @@
 # Names
 
-Typing the same value over and over gets old. A **name** keeps a value so you
-can use it again. You create one with `=`.
+Typing the same value over and over gets old. A **name** refers to a value so
+you can use it again. You create one with `=`.
 
 ```python
 price = 40

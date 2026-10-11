@@ -1,8 +1,8 @@
 # Apply a price change
 
 Write `set_price(prices, item, price)` that stores `price` under `item` in
-the dictionary, adding the item if it is new or replacing the old price, and
-returns the dictionary.
+the dictionary you are given, adding the item if it is new or replacing the
+old price, and returns that same dictionary. Do not build a new one.
 
 ```static
 set_price({"apple": 40}, "bread", 25)  ->  {"apple": 40, "bread": 25}

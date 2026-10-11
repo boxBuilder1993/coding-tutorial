@@ -1,7 +1,9 @@
 # Update stock
 
 The shop starts the day with 10 loaves of bread. It sells 3. Starting from the
-code below, reduce `stock` by 3 without typing `7` anywhere, then print it.
+code below, reduce `stock` by 3 and then print it. Let Python do the
+subtraction rather than typing `7` yourself; that is the skill being
+practised.
 
 ```static
 7

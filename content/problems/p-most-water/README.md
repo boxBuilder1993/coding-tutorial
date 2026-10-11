@@ -3,10 +3,11 @@
 `heights` lists the heights of vertical walls at positions 0, 1, 2, and so
 on. Pick two walls; the water they could hold between them is the distance
 between them times the shorter wall's height. Find the most water any pair
-can hold. Start with the two outermost walls. The only way a narrower pair
-could hold more is if it is taller, and the shorter wall is the limit, so
-move the shorter wall's position inward and try again. Stop when the
-positions meet.
+can hold. Start with the two outermost walls. Moving inward makes the pair
+narrower, so a narrower pair can only hold more if its shorter wall is
+taller than the current shorter wall. Keeping the current shorter wall can
+never help, so move that wall's position inward and try again. Stop when
+the positions meet.
 
 Write `most_water(heights)` for a list with at least two walls.
 

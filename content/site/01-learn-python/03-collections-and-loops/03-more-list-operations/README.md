@@ -75,7 +75,9 @@ print(prices)
 
 Strings sort alphabetically, but every capital letter comes before every
 lowercase one, so `"Milk"` sorts ahead of `"apple"`. `reverse=True` sorts
-descending.
+descending. That is an option passed by name, which is how Python handles
+settings a function does not always need; `prices.sort(reverse=True)`
+works the same way.
 
 ```python
 items = ["bread", "Milk", "apple"]
@@ -104,7 +106,8 @@ alias.append("milk")
 print(original)
 ```
 
-To get an independent copy, slice the whole thing or call `list()`:
+To get an independent copy, slice the whole thing with `[:]`, or pass the
+list to `list()`, which builds a new list from anything you can loop over:
 
 ```python
 original = ["apple", "bread"]
@@ -112,6 +115,11 @@ copy = original[:]
 copy.append("milk")
 print(original)
 print(copy)
+
+another = list(original)
+another.append("eggs")
+print(original)
+print(another)
 ```
 
 Strings and numbers never have this problem because they cannot be changed

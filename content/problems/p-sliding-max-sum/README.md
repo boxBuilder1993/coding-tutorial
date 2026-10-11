@@ -1,4 +1,4 @@
-# Best three days
+# Best stretch of days
 
 `daily` is a list of daily sales. Write `best_window(daily, k)` that returns
 the largest total over any `k` consecutive days. The list has at least `k` days.
@@ -21,7 +21,7 @@ def best_window(daily, k):
 
 ## Approach
 
-The slicing version is fine here. The sliding version, `window += daily[i] - daily[i - k]`, avoids re-summing and reappears in the algorithms track.
+The slicing version is fine here. The sliding version, `window += daily[i] - daily[i - k]`, keeps one running total instead of re-summing each window.
 
 ## Reference
 

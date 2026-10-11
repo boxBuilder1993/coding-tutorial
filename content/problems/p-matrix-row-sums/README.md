@@ -19,8 +19,8 @@ def shelf_report(grid):
 
 ## Hints
 
-1. `sum` per row; nested loops or `zip(*grid)` per column; `max` over the row totals with `index`.
-2. Column totals: `for c in range(len(grid[0])): total = sum(row[c] for row in grid)` or an inner loop.
+1. `sum` per row; nested loops per column; `max` over the row totals, then `index` to find where it is.
+2. Column totals: `for c in range(len(grid[0])):` start `total = 0`, then an inner loop `for row in grid:` adds `row[c]` to it.
 
 ## Approach
 

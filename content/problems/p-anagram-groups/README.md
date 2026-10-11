@@ -18,7 +18,7 @@ def anagram_groups(words):
 ## Hints
 
 1. A dictionary keyed by the sorted letters of each word.
-2. `key = "".join(sorted(word))`; group with the "create the list if new" pattern; then `sorted(groups.values())`.
+2. `key = "".join(sorted(word))`; then `if key not in groups: groups[key] = []` before appending; finally `sorted(groups.values(), key=lambda g: g[0])` orders the groups by their first word.
 
 ## Approach
 

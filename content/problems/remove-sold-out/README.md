@@ -1,11 +1,13 @@
 # Remove a sold-out item
 
 Write `remove_item(items, item)` that removes `item` from the list if it is
-there, and leaves the list alone if it is not. Return the list.
+there, and leaves the list alone if it is not. If `item` appears more than
+once, remove only the first one. Change the list itself and return it.
 
 ```static
 remove_item(["apple", "bread", "milk"], "bread")  ->  ["apple", "milk"]
 remove_item(["apple", "milk"], "eggs")            ->  ["apple", "milk"]
+remove_item(["a", "b", "a"], "a")                 ->  ["b", "a"]
 ```
 
 ## Starter

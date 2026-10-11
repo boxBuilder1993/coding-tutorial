@@ -19,6 +19,10 @@ Indexing and slicing work as for lists, but a tuple **cannot be changed**: no
 `append`, no assigning to a position. That is the point. A tuple says "these
 go together and this is the complete set".
 
+The parentheses are optional when writing a tuple; it is the commas that
+make it one. `pair = "bread", 25` means the same thing. And `tuple(...)`
+turns a list into a tuple, just as `list(...)` turns a tuple into a list.
+
 ## Unpacking
 
 A tuple's values can be pulled out into separate names in one line.
@@ -30,8 +34,10 @@ print(item)
 print(price)
 ```
 
-This is also how a function returns two things, and it is the one-line swap
-promised back in the Names page:
+This is also how a function returns two things, and it gives a one-line
+swap, which you may remember doing with a temporary name in the Names
+exercises. (`min` and `max` below pick the smallest and largest of a list;
+the next page covers them properly.)
 
 ```python
 def cheapest_and_dearest(prices):
@@ -45,8 +51,6 @@ a, b = b, a
 print(a, b)
 ```
 
-The parentheses are optional when writing a tuple; the commas make it one.
-
 ## Sets: no duplicates, fast membership
 
 A **set** holds values with no order and no repeats. Build one with curly
@@ -59,8 +63,10 @@ print(unique)
 print(len(unique))
 ```
 
-Adding a value already present does nothing. `in` is fast however big the set
-grows, which is why sets are the answer to "have I seen this before?".
+Because a set has no order, the order it prints in can differ from the
+order you added things, and even from one run to the next. Adding a value
+already present does nothing. Sets are the natural answer to "have I seen
+this before?".
 
 ```python
 seen = set()

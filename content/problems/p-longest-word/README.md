@@ -1,7 +1,8 @@
 # Longest word
 
-Write `longest_word(sentence)` that returns the longest word in a sentence
-with at least one word. On a tie, return the first.
+`sentence` has at least one word, separated by spaces. Write
+`longest_word(sentence)` that returns its longest word. On a tie, return
+the first.
 
 ```static
 longest_word("fresh sourdough bread")  ->  "sourdough"

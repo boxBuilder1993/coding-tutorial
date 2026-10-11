@@ -29,7 +29,7 @@ def merge_all(lists):
 
 ## Approach
 
-The heap never holds more than one entry per list, and its smallest is always the overall smallest remaining item. The list number in the tuple breaks ties so that unequal values are never compared with each other.
+The heap never holds more than one entry per list, and its smallest is always the overall smallest remaining item. The list number in the tuple breaks ties when two front values are equal, so the heap never has to compare anything beyond the value and the list number.
 
 ## Reference
 

@@ -2,7 +2,7 @@
 
 Write `median(prices)` that returns the median of a non-empty list: the
 middle value when sorted, or the average of the two middle values when the
-count is even.
+count is even. Do not change the list you are given.
 
 ```static
 median([40, 2.5, 25])      ->  25

@@ -22,7 +22,8 @@ item = "  bread  "
 print(item.strip())
 ```
 
-`strip` removes spaces from both ends. Useful for cleaning up what people type.
+`strip` removes spaces from both ends, and other blank characters such as
+tabs and line breaks. Useful for cleaning up what people type.
 
 ```python
 item = "sourdough bread"
@@ -61,13 +62,16 @@ way to build output from now on.
 
 ## Splitting text into pieces
 
-`split` breaks a string at spaces into a **list** of pieces, and `join` puts
-pieces back together with a separator. Lists are the subject of the next
-module, so for now just see what they look like:
+`split()` breaks a string into a **list** of pieces wherever there is blank
+space, treating any run of spaces as one break. Give it a separator, like
+`split("-")`, to break at that character instead. `join` puts pieces back
+together with a separator. Lists are the subject of the next module, so for
+now just see what they look like:
 
 ```python
-line = "apple bread milk"
+line = "apple  bread milk"
 print(line.split())
+print("BRD-001-A".split("-"))
 print("-".join(["apple", "bread"]))
 ```
 

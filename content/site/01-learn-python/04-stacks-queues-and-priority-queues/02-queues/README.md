@@ -49,9 +49,9 @@ print(len(line))
 
 ## Only the last few
 
-`deque(maxlen=n)` keeps at most `n` items. Adding to a full one silently
-drops the item at the other end. That is exactly "the last three things that
-happened".
+`deque(maxlen=n)` keeps at most `n` items. Adding at the back of a full one
+silently drops the item at the front, the oldest. That is exactly "the last
+three things that happened".
 
 ```python
 from collections import deque
@@ -65,8 +65,9 @@ for item in ["apple", "bread", "milk", "eggs", "flour"]:
 ## The queue loop
 
 The standard shape: while the queue is not empty, take from the front, deal
-with it, and possibly add new things to the back. It is how you process work
-that generates more work.
+with it, and possibly add new things to the back. An empty `deque` counts as
+`False`, just like an empty list, so `while orders:` runs until it is
+drained. It is how you process work that generates more work.
 
 ```python
 from collections import deque

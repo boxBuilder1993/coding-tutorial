@@ -22,7 +22,7 @@ def above_average(prices):
 
 ## Approach
 
-Two passes: one for the average, one to count. Computing the average inside the loop would repeat the work.
+Two passes: compute the average once, before the loop, then count.
 
 ## Reference
 

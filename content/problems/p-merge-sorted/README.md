@@ -28,7 +28,7 @@ def merge(a, b):
 
 ## Approach
 
-The two-pointer merge. Using `<=` when comparing keeps equal values from `a` before those from `b`.
+One position in each list, always taking the smaller of the two front values. Using `<=` when comparing keeps equal values from `a` before those from `b`.
 
 ## Reference
 

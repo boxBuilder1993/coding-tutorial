@@ -1,4 +1,4 @@
-# Is it sorted?
+# Is it ascending?
 
 Write `is_ascending(nums)` that returns `True` if each number is greater
 than or equal to the one before it. Empty and single-item lists count as sorted.

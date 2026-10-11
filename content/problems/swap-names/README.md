@@ -8,7 +8,8 @@ on one line, `first` then `second`.
 bread apple
 ```
 
-Do this using only the names. Do not write `"bread"` or `"apple"` again.
+Do this using only the names, without writing `"bread"` or `"apple"` again;
+moving values between names is the skill being practised.
 
 ## Starter
 

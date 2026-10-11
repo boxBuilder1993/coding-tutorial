@@ -1,7 +1,9 @@
 # Smallest with a heap
 
 Write `smallest(nums)` that returns the smallest number in a non-empty
-list using `heapq`, without changing the list.
+list, without changing the list. `min` would do it; the point here is
+practice with `heapq`. Remember that `heapify` rearranges the list it is
+given, so if you use it, work on a copy.
 
 ```static
 smallest([40, 25, 2.5])  ->  2.5

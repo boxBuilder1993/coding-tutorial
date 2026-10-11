@@ -21,8 +21,8 @@ def move_zeros(nums):
 
 ## Hints
 
-1. `write = 0`; `for x in nums: if x != 0: nums[write] = x; write += 1`.
-2. Then `for i in range(write, len(nums)): nums[i] = 0`.
+1. Keep a `write` position starting at 0. Loop over the values; each non-zero value goes to `nums[write]`, and then `write` moves on by one.
+2. After that loop, every position from `write` to the end gets a zero: `for i in range(write, len(nums))`.
 
 ## Approach
 

@@ -5,7 +5,8 @@ front and one at the back. Swap the two items, then move the front position
 one step right and the back one step left. Stop when they meet or cross.
 
 Write `reverse_in_place(items)` that reverses the list in place using this
-method and returns it. Do not use slicing, `reverse` or `reversed`.
+method and returns it. The point is to practise the two moving positions
+rather than call `reverse` or use slicing.
 
 ```static
 reverse_in_place([1, 2, 3, 4])  ->  [4, 3, 2, 1]
@@ -25,7 +26,7 @@ def reverse_in_place(items):
 
 ## Approach
 
-Two pointers closing in. For odd lengths the middle item stays put without special handling.
+Two positions moving towards each other. For odd lengths the middle item stays put without special handling.
 
 ## Reference
 
