@@ -10,29 +10,38 @@ items = ["apple", "bread", "milk"]
 items.insert(1, "eggs")
 print(items)
 
-items.remove("bread")
-print(items)
-
 last = items.pop()
 print(last)
 print(items)
 ```
 
 `insert(position, value)` puts a value at a position, shifting the rest along.
-`remove(value)` deletes the first matching value, and raises an error if it is
-not there. `pop()` removes and **returns** the last item; `pop(0)` removes the
-first.
+`pop()` removes and **returns** the last item; `pop(0)` removes the first.
+
+`remove(value)` deletes the **first** matching value only. If the value
+appears twice, the second one stays. Removing a value that is not there is an
+error.
+
+```python
+items = ["apple", "bread", "apple", "milk"]
+items.remove("apple")
+print(items)
+```
 
 ## Finding and counting
 
+`index` also stops at the first match. `count` looks at the whole list.
+
 ```python
-items = ["apple", "bread", "milk", "apple"]
-print(items.index("bread"))
+items = ["apple", "bread", "apple", "milk"]
+print(items.index("apple"))
+print(items.index("apple", 1))
 print(items.count("apple"))
 ```
 
-`index` gives the position of the first match. Check with `in` first if the
-value might be absent, because `index` raises an error when it is.
+`items.index("apple", 1)` starts searching from position 1, which is how you
+find the second occurrence. Check with `in` first if the value might be
+absent, because `index` raises an error when it is.
 
 ## Sorting and reversing
 
