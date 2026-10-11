@@ -38,7 +38,10 @@ content/
 
 - A folder is a page. Folders nest without limit. Every folder has a `README.md`.
 - Navigation is the directory tree. Display order is the folder name's leading
-  numeric prefix; the prefix is stripped for display.
+  numeric prefix. The prefix is stripped from both the display name and the
+  URL: `01-learn-python/02-names/` is served at `/learn-python/names/`. The
+  build fails if two folders would map to the same URL. Addresses with the
+  prefixes still present are redirected in the browser.
 - Page title is the first `#` heading in the README, else the folder name.
 - Body is standard markdown (CommonMark plus tables).
 - A page may start with an optional front block for search engines only:
@@ -261,9 +264,11 @@ every site page, problem page and the problems index it writes
 description (first paragraph), canonical link, Open Graph tags, and the
 page's markdown rendered to HTML inside `#root`, embedded problems included.
 Search engines and link previews read that; the app replaces it on load. It
-also writes `sitemap.xml` (every URL once, path form only, settings
-excluded), `robots.txt`, and a `noindex` `404.html`. `SITE_URL` provides the
-absolute site address.
+also writes `sitemap.xml` (every canonical URL once with a `lastmod` taken
+from the page's last git commit; settings excluded), `robots.txt`, and a
+`noindex` `404.html`. A problem page's canonical link points at the first
+lesson that embeds it, so problem pages are not in the sitemap. `SITE_URL`
+provides the absolute site address.
 
 GitHub Actions on push to `main`: run the build script, build the Vite app
 with pre-rendering, run the Playwright projects (smoke, sweep, and the

@@ -1,5 +1,8 @@
 export interface TreeNode {
+  /** Folder path under content/site, with ordering prefixes, e.g. "01-learn-python/02-names". Used to fetch the markdown. */
   path: string
+  /** URL path, prefixes stripped, e.g. "learn-python/names". Used for routes and links. */
+  url: string
   title: string
   /** Search-facing title from the page's optional front block; falls back to title. */
   seoTitle?: string
@@ -64,7 +67,7 @@ export function* walkTree(node: TreeNode): Generator<TreeNode> {
 }
 
 export function findNode(tree: TreeNode, path: string): TreeNode | undefined {
-  for (const n of walkTree(tree)) if (n.path === path) return n
+  for (const n of walkTree(tree)) if (n.url === path) return n
   return undefined
 }
 

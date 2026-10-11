@@ -32,7 +32,7 @@ test('home loads, sidebar renders, Pyodide becomes ready', async ({ page }) => {
 })
 
 test('play block runs and shows output', async ({ page }) => {
-  await page.goto('01-learn-python/01-getting-started/01-values-and-print/')
+  await page.goto('learn-python/getting-started/values-and-print/')
   await waitForPython(page)
   const first = page.locator('.play').first()
   await first.getByRole('button', { name: 'Run' }).click()
@@ -52,7 +52,7 @@ test('play block runs and shows output', async ({ page }) => {
 })
 
 test('exercise: starter fails, hints reveal, correct code passes and persists', async ({ page }) => {
-  await page.goto('01-learn-python/01-getting-started/04-functions/')
+  await page.goto('learn-python/getting-started/functions/')
   await waitForPython(page)
   const card = page.locator('.exercise', { hasText: 'Triple' })
   await card.getByRole('button', { name: 'Run tests' }).click()
@@ -120,7 +120,7 @@ test('script-style drill: output is captured and names are inspected', async ({ 
 })
 
 test('typing and running do not scroll the page to the top', async ({ page }) => {
-  await page.goto('01-learn-python/01-getting-started/04-functions/')
+  await page.goto('learn-python/getting-started/functions/')
   await waitForPython(page)
   const card = page.locator('.exercise', { hasText: 'Change due' })
   await card.scrollIntoViewIfNeeded()
@@ -145,7 +145,7 @@ test('search finds a lesson by a method name and navigates on Enter', async ({ p
   await expect(first).toContainText('Queues')
   await expect(first).toContainText('lesson')
   await box.press('Enter')
-  await expect(page).toHaveURL(/04-stacks-queues-and-priority-queues\/02-queues\/$/)
+  await expect(page).toHaveURL(/stacks-queues-and-priority-queues\/queues\/$/)
   await expect(page.locator('.markdown h1')).toHaveText('Queues')
   await expect(box).toHaveValue('')
 
@@ -186,7 +186,7 @@ test('tutor prompt carries the code and failing checks but never the reference',
 
 test('dark mode toggles the page and the editor, and persists', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'light' })
-  await page.goto('01-learn-python/01-getting-started/01-values-and-print/')
+  await page.goto('learn-python/getting-started/values-and-print/')
   await page.waitForSelector('.cm-editor')
   const bg = () => page.evaluate(() => getComputedStyle(document.body).backgroundColor)
   const editorBg = () => page.evaluate(() => getComputedStyle(document.querySelector('.cm-editor')!).backgroundColor)
@@ -210,7 +210,7 @@ test('path routing: in-app links push real URLs and old hash links redirect', as
   // Clicking a sidebar link changes the address without a full reload.
   await page.evaluate(() => ((window as unknown as { __alive: boolean }).__alive = true))
   await page.locator('.sidebar a', { hasText: 'Learn Python' }).first().click()
-  await expect(page).toHaveURL(`${baseURL}01-learn-python/`)
+  await expect(page).toHaveURL(`${baseURL}learn-python/`)
   await expect(page.locator('.markdown h1')).toHaveText('Learn Python')
   expect(await page.evaluate(() => (window as unknown as { __alive?: boolean }).__alive)).toBe(true)
   // Back button works.
@@ -218,8 +218,11 @@ test('path routing: in-app links push real URLs and old hash links redirect', as
   await expect(page).toHaveURL(baseURL!)
   // A legacy hash URL lands on the path form.
   await page.goto('#/01-learn-python/01-getting-started/02-names')
-  await expect(page).toHaveURL(`${baseURL}01-learn-python/01-getting-started/02-names/`)
+  await expect(page).toHaveURL(`${baseURL}learn-python/getting-started/names/`)
   await expect(page.locator('.markdown h1')).toHaveText('Names')
+  // A path that still carries the numeric ordering prefixes also lands on the clean form.
+  await page.goto('01-learn-python/01-getting-started/02-names/')
+  await expect(page).toHaveURL(`${baseURL}learn-python/getting-started/names/`)
 })
 
 test('problems list and settings render', async ({ page }) => {

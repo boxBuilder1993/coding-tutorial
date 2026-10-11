@@ -65,6 +65,28 @@ def sort_key(folder: str):
     return (0, int(m.group(1)), folder) if m else (1, 0, folder)
 
 
+def slugify(path: str) -> str:
+    """Folder path -> URL path: drop the numeric ordering prefix of each segment.
+
+    "01-learn-python/03-collections-and-loops/05-dictionaries"
+    -> "learn-python/collections-and-loops/dictionaries"
+    The same function exists in site/src/lib/router.ts; keep them identical.
+    """
+    return "/".join(re.sub(r"^\d+-", "", seg) for seg in path.split("/") if seg)
+
+
+def git_date(path: str) -> str | None:
+    """ISO date of the last commit touching path, or None outside git."""
+    try:
+        out = subprocess.run(
+            ["git", "log", "-1", "--format=%cI", "--", path],
+            cwd=ROOT, capture_output=True, text=True, timeout=30, check=False,
+        ).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return out or None
+
+
 # ------------------------------------------------------------- front block
 
 FRONT_KEYS = {"title", "description"}
@@ -116,6 +138,7 @@ def build_tree(dirpath: str, rel: str) -> dict:
     meta, md = split_front(md, where)
     node = {
         "path": rel,
+        "url": slugify(rel),
         "title": title_of(md, display_name(os.path.basename(dirpath)) if rel else "Home"),
         "problems": DIRECTIVE.findall(md),
         "links": LINK.findall(md),
@@ -125,6 +148,9 @@ def build_tree(dirpath: str, rel: str) -> dict:
         node["seoTitle"] = meta["title"]
     if "description" in meta:
         node["description"] = meta["description"]
+    lastmod = git_date(readme)
+    if lastmod:
+        node["lastmod"] = lastmod
     for child in sorted(os.listdir(dirpath), key=sort_key):
         full = os.path.join(dirpath, child)
         if os.path.isdir(full) and not child.startswith("."):
@@ -204,6 +230,7 @@ def parse_problem(pid: str, folder: str) -> dict | None:
         "hints": parse_hints(sections.get("Hints", "")),
         "approach": sections.get("Approach", "").strip(),
         "reference": reference or "",
+        "lastmod": git_date(folder),
     }
 
 
@@ -260,7 +287,7 @@ def build_search(tree: dict, problems: dict[str, dict]) -> list[dict]:
         extra = " ".join(f"{problems[pid]['title']} {plain_text(problems[pid]['statement'])}" for pid in node["problems"] if pid in problems)
         entries.append({
             "kind": "page",
-            "id": node["path"],
+            "id": node["url"],
             "title": node["title"],
             "headings": headings_of(md),
             "text": (plain_text(md) + " " + extra).strip(),
@@ -291,6 +318,12 @@ def main() -> int:
         return 1
 
     tree = build_tree(SITE_SRC, "")
+    # URLs drop the numeric prefixes, so two folders must not collapse to one URL.
+    seen_urls: dict[str, str] = {}
+    for node in walk_tree(tree):
+        if node["url"] in seen_urls:
+            err(f"content/site/{node['path']} and content/site/{seen_urls[node['url']]} would share the URL /{node['url']}/")
+        seen_urls[node["url"]] = node["path"]
 
     problems: dict[str, dict] = {}
     for pid in sorted(os.listdir(PROBLEMS_SRC)):

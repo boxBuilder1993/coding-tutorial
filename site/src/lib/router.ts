@@ -16,7 +16,21 @@ export type Route =
   | { kind: 'problems' }
   | { kind: 'settings' }
 
-/** Site-relative path with no leading or trailing slash, e.g. "01-learn-python/02-names". */
+/**
+ * Folder path -> URL path: drop the numeric ordering prefix of each segment.
+ * "01-learn-python/02-names" -> "learn-python/names". Mirrors slugify() in
+ * scripts/build_content.py; keep them identical. Applying it to an already
+ * clean path is a no-op, which is what makes legacy-URL redirects simple.
+ */
+export function slugify(path: string): string {
+  return path
+    .split('/')
+    .filter(Boolean)
+    .map((seg) => seg.replace(/^\d+-/, ''))
+    .join('/')
+}
+
+/** Site-relative URL path with no leading or trailing slash, e.g. "learn-python/names". */
 export function currentPath(pathname: string = window.location.pathname): string {
   let p = pathname
   if (p.startsWith(BASE)) p = p.slice(BASE.length)
@@ -53,10 +67,18 @@ export function settingsHref(): string {
   return `${BASE}settings/`
 }
 
-/** Convert a legacy "#/..." route to its path-form href. */
+/** Convert a legacy "#/..." route to its path-form href (numeric prefixes dropped). */
 export function hrefFromHash(hash: string): string {
-  const p = hash.replace(/^#\/?/, '').replace(/\/+$/, '')
+  const p = slugify(hash.replace(/^#\/?/, ''))
   return p ? `${BASE}${p}/` : BASE
+}
+
+/** The canonical href for the current address, or null if it is already canonical. */
+function canonicalHref(): string | null {
+  const p = currentPath()
+  if (p.startsWith('problem/') || p === 'problems' || p === 'settings') return null
+  const clean = slugify(p)
+  return clean === p ? null : clean ? `${BASE}${clean}/` : BASE
 }
 
 const NAVIGATE = 'app:navigate'
@@ -82,10 +104,13 @@ function isInternalLink(a: HTMLAnchorElement): boolean {
 /** The current site-relative path, kept in sync with the address bar. */
 export function usePath(): string {
   const [path, setPath] = useState(() => {
-    // Legacy hash links: rewrite to the path form once, before first render.
+    // Legacy links: "#/..." hashes and paths with numeric prefixes are
+    // rewritten to the clean form once, before first render.
     if (window.location.hash.startsWith('#/')) {
       window.history.replaceState(null, '', hrefFromHash(window.location.hash))
     }
+    const fixed = canonicalHref()
+    if (fixed) window.history.replaceState(null, '', fixed)
     return currentPath()
   })
 
@@ -132,5 +157,5 @@ export function resolveSiteLink(href: string, pagePath: string): string | null {
     return null
   }
   path = path.replace(/\/README\.md$/i, '').replace(/^\/+|\/+$/g, '')
-  return siteHref(path)
+  return siteHref(slugify(path))
 }

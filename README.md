@@ -64,8 +64,11 @@ and tells GitHub Pages which host to serve; the DNS records live at the
 registrar (four `A` records to GitHub's Pages addresses for the apex, a
 `CNAME` from `www` to the github.io host).
 
-URLs are path-based (`/01-learn-python/02-decisions-and-text/`); every page
-has a real file behind it. Old `#/...` links redirect in the browser.
+URLs are path-based with the folders' numeric ordering prefixes stripped:
+`content/site/01-learn-python/02-decisions-and-text/` is served at
+`/learn-python/decisions-and-text/`. Every page has a real file behind it.
+Old `#/...` links and prefixed paths redirect in the browser. The sitemap
+carries `lastmod` dates from git, so CI checks out full history.
 
 ## Local development
 

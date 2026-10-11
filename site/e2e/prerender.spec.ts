@@ -19,7 +19,7 @@ function expectedSite(baseURL: string | undefined): string {
 
 test('a lesson page is complete without JavaScript', async ({ page, baseURL }) => {
   const site = expectedSite(baseURL)
-  const res = await page.goto('01-learn-python/01-getting-started/02-names/')
+  const res = await page.goto('learn-python/getting-started/names/')
   expect(res?.status()).toBe(200)
   // The search-facing title and description come from the page's front block.
   await expect(page).toHaveTitle('Python variables: naming values and updating them · Learn Python')
@@ -33,7 +33,7 @@ test('a lesson page is complete without JavaScript', async ({ page, baseURL }) =
   expect(ld.learningResourceType).toBe('Lesson')
   expect(ld.isPartOf.name).toBe('Learn Python')
   const canonical = await page.locator('link[rel="canonical"]').getAttribute('href')
-  expect(canonical).toBe(`${site}01-learn-python/01-getting-started/02-names/`)
+  expect(canonical).toBe(`${site}learn-python/getting-started/names/`)
   expect(canonical).not.toContain('#')
   // The text is in the HTML itself, not fetched by script.
   await expect(page.locator('h1')).toHaveText('Names')
@@ -42,7 +42,7 @@ test('a lesson page is complete without JavaScript', async ({ page, baseURL }) =
   await expect(page.locator('body')).toContainText('Update stock')
   // Relative links in the markdown became absolute site paths.
   const next = await page.locator('a', { hasText: 'How a program runs' }).first().getAttribute('href')
-  expect(next).toBe(`${new URL(site).pathname}01-learn-python/01-getting-started/03-how-a-program-runs/`)
+  expect(next).toBe(`${new URL(site).pathname}learn-python/getting-started/how-a-program-runs/`)
 })
 
 test('a problem page and the home page are complete without JavaScript', async ({ page, baseURL }) => {
@@ -50,6 +50,8 @@ test('a problem page and the home page are complete without JavaScript', async (
   await page.goto('problem/p-binary-search/')
   await expect(page).toHaveTitle(/^Binary search \(Python exercise\) · /)
   await expect(page.locator('body')).toContainText('Keep two positions')
+  // An exercise page points search engines at the lesson that embeds it.
+  expect(await page.locator('link[rel="canonical"]').getAttribute('href')).toBe(`${site}learn-python/practice/hard/`)
   await page.goto('')
   await expect(page).toHaveTitle('Learn Python')
   const og = await page.locator('meta[property="og:title"]').getAttribute('content')
@@ -68,11 +70,16 @@ test('sitemap lists every page once, in path form, and robots points at it', asy
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])
   expect(new Set(locs).size).toBe(locs.length)
   expect(locs).toContain(site)
-  expect(locs).toContain(`${site}01-learn-python/05-practice/10-hard/`)
-  expect(locs).toContain(`${site}problem/p-two-sum-dict/`)
+  expect(locs).toContain(`${site}learn-python/practice/hard/`)
+  // Problem pages are canonical to the lesson that embeds them, so they are
+  // not listed; the problems index is.
+  expect(locs).not.toContain(`${site}problem/p-two-sum-dict/`)
   expect(locs).toContain(`${site}problems/`)
   expect(locs).not.toContain(`${site}settings/`)
   for (const loc of locs) expect(loc.startsWith(site)).toBe(true)
+  // No numeric ordering prefixes leak into URLs, and lastmod dates are present.
+  for (const loc of locs) expect(loc).not.toMatch(/\/\d\d-/)
+  expect(xml).toMatch(/<lastmod>\d{4}-\d\d-\d\dT/)
 
   const robots = await (await request.get('robots.txt')).text()
   expect(robots).toContain(`Sitemap: ${site}sitemap.xml`)

@@ -39,6 +39,15 @@ function flatten(node, out = []) {
   return out
 }
 
+/** Folder path -> URL path (mirrors slugify in scripts/build_content.py and the app router). */
+function slugify(path) {
+  return path
+    .split('/')
+    .filter(Boolean)
+    .map((seg) => seg.replace(/^\d+-/, ''))
+    .join('/')
+}
+
 function escapeHtml(s) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
@@ -69,7 +78,7 @@ function rewriteLinks(md, pagePath) {
     } catch {
       return m
     }
-    path = path.replace(/\/README\.md$/i, '').replace(/^\/+|\/+$/g, '')
+    path = slugify(path.replace(/\/README\.md$/i, '').replace(/^\/+|\/+$/g, ''))
     return `](${path ? basePath + path + '/' : basePath})`
   })
 }
@@ -120,12 +129,12 @@ function jsonLd({ url, title, description, kind }) {
   }
 }
 
-function html({ url, title, description, body, noindex = false, kind = 'page' }) {
+function html({ url, title, description, body, noindex = false, kind = 'page', canonical = url }) {
   const fullTitle = title === SITE_TITLE ? SITE_TITLE : `${title} · ${SITE_TITLE}`
   const head = [
     `<title>${escapeHtml(fullTitle)}</title>`,
     `<meta name="description" content="${escapeHtml(description)}" />`,
-    noindex ? `<meta name="robots" content="noindex" />` : `<link rel="canonical" href="${url}" />`,
+    noindex ? `<meta name="robots" content="noindex" />` : `<link rel="canonical" href="${canonical}" />`,
     `<meta property="og:type" content="article" />`,
     `<meta property="og:site_name" content="${escapeHtml(SITE_TITLE)}" />`,
     `<meta property="og:title" content="${escapeHtml(fullTitle)}" />`,
@@ -147,13 +156,16 @@ function writePage(relPath, markup) {
   writeFileSync(join(dir, 'index.html'), markup)
 }
 
+// Sitemap entries: { loc, lastmod }. Only canonical pages are listed.
 const urls = []
+const pages = flatten(tree)
 
 // Site pages. The search-facing title and hand-written description come from
 // the page's optional front block (parsed by build_content.py into tree.json).
-for (const node of flatten(tree)) {
+// Files are written at the clean URL (numeric prefixes dropped).
+for (const node of pages) {
   const md = pageMarkdown(node)
-  const url = node.path ? `${siteUrl}${node.path}/` : siteUrl
+  const url = node.url ? `${siteUrl}${node.url}/` : siteUrl
   const markup = html({
     url,
     title: node.path ? (node.seoTitle ?? node.title) : SITE_TITLE,
@@ -161,17 +173,23 @@ for (const node of flatten(tree)) {
     body: render(md),
     kind: node.path ? 'page' : 'home',
   })
-  if (node.path) writePage(node.path, markup)
+  if (node.url) writePage(node.url, markup)
   else writeFileSync(join(dist, 'index.html'), markup)
-  urls.push(url)
+  urls.push({ loc: url, lastmod: node.lastmod })
 }
 
-// Problem pages.
+// Problem pages. Each exercise also appears inline on the lesson that embeds
+// it, so the lesson is the canonical page and problem pages stay out of the
+// sitemap; problems embedded nowhere are canonical to themselves.
+const embeddedOn = new Map()
+for (const node of pages) for (const id of node.problems) if (!embeddedOn.has(id)) embeddedOn.set(id, node)
 for (const pr of Object.values(problems)) {
   const url = `${siteUrl}problem/${pr.id}/`
+  const host = embeddedOn.get(pr.id)
+  const canonical = host ? (host.url ? `${siteUrl}${host.url}/` : siteUrl) : url
   const md = rewriteLinks(`# ${pr.title}\n\n${pr.statement.replace(/^#\s+[^\n]*\n+/, '')}\n\n\`\`\`python\n${pr.starter}\n\`\`\`\n`, '')
-  writePage(`problem/${pr.id}`, html({ url, title: `${pr.title} (Python exercise)`, description: describe(md), body: render(md), kind: 'problem' }))
-  urls.push(url)
+  writePage(`problem/${pr.id}`, html({ url, canonical, title: `${pr.title} (Python exercise)`, description: describe(md), body: render(md), kind: 'problem' }))
+  if (!host) urls.push({ loc: url, lastmod: pr.lastmod })
 }
 
 // Problems index and settings.
@@ -183,7 +201,8 @@ for (const pr of Object.values(problems)) {
   const md = `# All problems\n\nEvery exercise on the site, in one list.\n\n${list}\n`
   const url = `${siteUrl}problems/`
   writePage('problems', html({ url, title: 'All problems', description: `Every exercise on ${SITE_TITLE}, in one list.`, body: render(md) }))
-  urls.push(url)
+  const newest = Object.values(problems).map((p) => p.lastmod).filter(Boolean).sort().pop()
+  urls.push({ loc: url, lastmod: newest })
   writePage('settings', html({ url: `${siteUrl}settings/`, title: 'Settings', description: 'Appearance and progress settings.', body: render('# Settings\n'), noindex: true }))
 }
 
@@ -193,9 +212,11 @@ writeFileSync(join(dist, '404.html'), html({ url: siteUrl, title: 'Page not foun
 // Sitemap and robots.
 writeFileSync(
   join(dist, 'sitemap.xml'),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`,
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
+    .map((u) => `  <url><loc>${u.loc}</loc>${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}</url>`)
+    .join('\n')}\n</urlset>\n`,
 )
 writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}sitemap.xml\n`)
 
 if (!existsSync(join(dist, 'sitemap.xml'))) throw new Error('sitemap not written')
-console.log(`prerendered ${urls.length} pages under ${siteUrl}`)
+console.log(`prerendered ${pages.length + Object.keys(problems).length + 2} pages under ${siteUrl}; sitemap lists ${urls.length}`)

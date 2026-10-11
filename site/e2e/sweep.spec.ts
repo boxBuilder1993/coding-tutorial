@@ -17,6 +17,7 @@ import { dirname, resolve } from 'node:path'
 
 interface TreeNode {
   path: string
+  url: string
   title: string
   problems: string[]
   children: TreeNode[]
@@ -53,7 +54,7 @@ test('every page, block, reference and link', async ({ page, baseURL }) => {
   const tree = (await (await page.request.get(base + 'content/tree.json')).json()) as TreeNode
   const problems = (await (await page.request.get(base + 'content/problems.json')).json()) as Record<string, Problem>
   const pages = flatten(tree)
-  const pagePaths = new Set(pages.map((p) => p.path))
+  const pagePaths = new Set(pages.map((p) => p.url))
 
   const consoleErrors: string[] = []
   page.on('pageerror', (e) => consoleErrors.push(`pageerror: ${e.message}`))
@@ -72,7 +73,7 @@ test('every page, block, reference and link', async ({ page, baseURL }) => {
       const lines: string[] = [`## ${node.title}  (${node.path || 'home'})`]
       // Navigate in-app (a real link click handled by the router) rather than
       // a full page load, so Pyodide stays loaded across all pages.
-      const href = new URL(base).pathname + (node.path ? node.path + '/' : '')
+      const href = new URL(base).pathname + (node.url ? node.url + '/' : '')
       await page.evaluate((h) => {
         const a = document.createElement('a')
         a.href = h
@@ -81,7 +82,7 @@ test('every page, block, reference and link', async ({ page, baseURL }) => {
         a.remove()
       }, href)
       // Wait for this page's own content (pages can share a title).
-      await page.waitForSelector(`article.page[data-path="${node.path}"] .markdown`, { timeout: 15_000 })
+      await page.waitForSelector(`article.page[data-path="${node.url}"] .markdown`, { timeout: 15_000 })
 
       // Internal links must resolve.
       const basePath = new URL(base).pathname

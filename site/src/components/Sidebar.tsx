@@ -44,21 +44,21 @@ export function Sidebar({ tree, route, onNavigate }: Props) {
     })
 
   const renderNode = (n: TreeNode, depth: number) => {
-    const isCurrent = current === n.path
+    const isCurrent = current === n.url
     const hasChildren = n.children.length > 0
-    const open = expanded.has(n.path)
+    const open = expanded.has(n.url)
     const st = pageStatus(n)
     return (
-      <li key={n.path} className={`nav-item depth-${depth}`}>
+      <li key={n.url} className={`nav-item depth-${depth}`}>
         <div className={`nav-row ${isCurrent ? 'current' : ''}`}>
           {hasChildren ? (
-            <button type="button" className="disclosure" aria-label={open ? 'Collapse' : 'Expand'} aria-expanded={open} onClick={() => toggle(n.path)}>
+            <button type="button" className="disclosure" aria-label={open ? 'Collapse' : 'Expand'} aria-expanded={open} onClick={() => toggle(n.url)}>
               {open ? '▾' : '▸'}
             </button>
           ) : (
             <span className="disclosure-spacer" />
           )}
-          <a href={siteHref(n.path)} onClick={onNavigate} aria-current={isCurrent ? 'page' : undefined}>
+          <a href={siteHref(n.url)} onClick={onNavigate} aria-current={isCurrent ? 'page' : undefined}>
             {n.title}
           </a>
           {st !== 'none' && (

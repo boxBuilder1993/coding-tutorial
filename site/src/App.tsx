@@ -49,7 +49,7 @@ function Shell({ content }: { content: Content }) {
       const stack = [content.tree]
       while (stack.length) {
         const n = stack.pop()!
-        if (n.path === route.path) {
+        if (n.url === route.path) {
           t = n.seoTitle ?? n.title
           break
         }
@@ -72,7 +72,7 @@ function Shell({ content }: { content: Content }) {
       page = <SettingsPage />
       break
     default:
-      page = <SitePage content={content} path={route.path} />
+      page = <SitePage content={content} url={route.path} />
   }
 
   return (

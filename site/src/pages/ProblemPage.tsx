@@ -23,9 +23,9 @@ export function ProblemPage({ content, id }: { content: Content; id: string }) {
           <>
             {' · appears in '}
             {pages.map((n, i) => (
-              <span key={n.path}>
+              <span key={n.url}>
                 {i > 0 && ', '}
-                <a href={siteHref(n.path)}>{n.title}</a>
+                <a href={siteHref(n.url)}>{n.title}</a>
               </span>
             ))}
           </>
