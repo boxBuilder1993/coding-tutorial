@@ -25,8 +25,8 @@ async function setEditor(page: Page, editor: ReturnType<Page['locator']>, code: 
 test('home loads, sidebar renders, Pyodide becomes ready', async ({ page }) => {
   await page.goto('#/')
   await expect(page.locator('.sidebar')).toContainText('Learn Python')
-  await expect(page.locator('.sidebar')).toContainText('Algorithms')
-  await expect(page.locator('.markdown h1')).toHaveText('Learn Python, then algorithms')
+  await expect(page.locator('.sidebar')).toContainText('All problems')
+  await expect(page.locator('.markdown h1')).toHaveText('Learn Python')
   await waitForPython(page)
   await page.screenshot({ path: `${SHOTS}/01-home.png`, fullPage: true })
 })
@@ -75,7 +75,7 @@ test('exercise: starter fails, hints reveal, correct code passes and persists', 
 })
 
 test('exercise: missing definition and syntax error are explained', async ({ page }) => {
-  await page.goto('#/problem/two-sum')
+  await page.goto('#/problem/p-two-sum-dict')
   await waitForPython(page)
   const card = page.locator('.exercise')
   await setEditor(page, card.locator('.editor'), 'def two_sun(nums, target):\n    return [0, 1]\n')
@@ -181,7 +181,7 @@ test('tutor prompt carries the code and failing checks but never the reference',
 
 test('problems list and settings render', async ({ page }) => {
   await page.goto('#/problems')
-  await expect(page.locator('.problems-table tbody tr')).toHaveCount(172)
+  await expect(page.locator('.problems-table tbody tr')).toHaveCount(171)
   await page.goto('#/settings')
   await expect(page.getByRole('button', { name: 'Export progress' })).toBeVisible()
   await page.screenshot({ path: `${SHOTS}/06-problems.png`, fullPage: true })

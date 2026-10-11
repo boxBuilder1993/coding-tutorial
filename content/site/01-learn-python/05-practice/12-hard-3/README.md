@@ -22,4 +22,4 @@ These problems move one or two positions through a list in a disciplined way: fr
 
 :::problem p-most-water
 
-That is the end of Learn Python. The [Algorithms](../../../02-algorithms) section, which builds on these thirty methods, is being written.
+That is the end of the course. If you solved all 120 without help, you can write Python. Go back to any you skipped, and then build something of your own.

@@ -66,8 +66,7 @@ for item in ["apple", "bread", "milk", "eggs", "flour"]:
 
 The standard shape: while the queue is not empty, take from the front, deal
 with it, and possibly add new things to the back. It is how you process work
-that generates more work, and it comes back in the algorithms track as
-breadth-first search.
+that generates more work.
 
 ```python
 from collections import deque

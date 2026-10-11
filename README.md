@@ -1,6 +1,6 @@
 # DSA Coding Tutorial
 
-A self-paced, test-driven repo for brushing up on data structures and algorithms.
+A browser-based, self-paced course that teaches Python from zero.
 Each topic has concept notes, a set of problems with hints, a stub you fill in,
 a reference solution, and tests that tell you when you got it right.
 

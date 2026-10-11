@@ -1,4 +1,4 @@
-# Learn Python, then algorithms
+# Learn Python
 
 A free, self-paced course that starts from "I have never written a program"
 and builds up to solving classic programming problems. Everything runs in
@@ -60,10 +60,6 @@ Sections 1 to 4 are about 20 pages and take most people a few hours each.
 Section 5 is where it sticks: the problems are grouped by difficulty, not by
 topic, and the last ten describe classic methods like binary search and
 sorting for you to build from the description.
-
-A section on **algorithms** follows and is being written. It will take the
-methods from the end of Practice and explain how they work, when to use
-them, and how to think about new problems.
 
 ## Advice from people who have done this before
 
