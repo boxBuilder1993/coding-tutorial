@@ -51,7 +51,7 @@ them, and how to think about new problems.
 - **Change the examples.** Every runnable block is an invitation. Break it on purpose and read the error.
 - **Do not skip the exercises.** Reading a page feels like understanding. The exercise is where you find out.
 - **Stuck for ten minutes? Take a hint.** Stuck for thirty with no hints left? Move on and come back tomorrow. It will be easier.
-- **Short sessions, often.** Half an hour a day beats four hours on Sunday.
+- **Sit for at least an hour, and give it your full attention.** Close other tabs, silence your phone, and stay with it. Programming needs a stretch of unbroken focus; ten-minute visits never get past the warm-up.
 
 ## Before you start
 
