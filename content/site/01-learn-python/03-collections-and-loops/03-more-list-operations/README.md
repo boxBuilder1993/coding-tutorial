@@ -54,8 +54,17 @@ prices.reverse()
 print(prices)
 ```
 
-`sort` and `reverse` change the list in place. If you want a sorted copy and
-the original untouched, use the `sorted` function, which returns a new list:
+`sort` and `reverse` change the list in place and return `None`, like
+`append`. This is the same trap as before:
+
+```python
+prices = [40, 2.5, 25]
+prices = prices.sort()
+print(prices)
+```
+
+If you want a sorted copy and the original untouched, use the `sorted`
+function, which returns a new list:
 
 ```python
 prices = [40, 2.5, 25]
@@ -64,8 +73,23 @@ print(cheapest_first)
 print(prices)
 ```
 
-Sorting strings puts them in alphabetical order, with capitals before
-lowercase. `sorted(items, reverse=True)` sorts descending.
+Strings sort alphabetically, but every capital letter comes before every
+lowercase one, so `"Milk"` sorts ahead of `"apple"`. `reverse=True` sorts
+descending.
+
+```python
+items = ["bread", "Milk", "apple"]
+print(sorted(items))
+print(sorted(items, reverse=True))
+```
+
+A list that mixes numbers and strings cannot be sorted at all. Python has no
+rule for whether `"apple"` is less than `40`, so it refuses:
+
+```python
+mixed = ["apple", 40, "bread"]
+mixed.sort()
+```
 
 ## Two names, one list
 
