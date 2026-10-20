@@ -27,3 +27,5 @@ These problems move one or two positions through a list in a disciplined way: fr
 :::problem p-most-water
 
 That is the end of the course. If you solved all 120 without help, you can write Python. Go back to any you skipped, and then build something of your own.
+
+When you are ready for more, [Algorithms](../../../02-algorithms) picks up where this leaves off: it starts by asking how much work your solutions do.
