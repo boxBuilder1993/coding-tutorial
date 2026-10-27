@@ -1,6 +1,6 @@
 ---
 title: Python lists, loops, dictionaries, tuples and sets
-description: Hold many values and do something with each: lists, for and while loops, dictionaries, tuples, sets, and the built-in functions that work on them.
+description: Hold many values and do something with each: lists, for and while loops, dictionaries, tuples, sets, the built-in functions that work on them, and Counter.
 ---
 # Collections and loops
 
@@ -15,3 +15,4 @@ hold many values and the loops that walk through them.
 5. [Dictionaries](05-dictionaries)
 6. [Tuples and sets](06-tuples-and-sets)
 7. [Built-in functions](07-built-in-functions)
+8. [Counting with Counter](08-counting-with-counter)

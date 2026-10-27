@@ -1,6 +1,6 @@
 ---
-title: Python string methods: upper, strip, replace, split, f-strings
-description: The string methods you use every day in Python, why strings cannot be changed in place, f-strings for building text, and a first look at split and join.
+title: Python string methods: upper, strip, replace, split, f-strings and format specs
+description: Everyday Python string methods, why strings cannot change in place, f-strings and format specs like :.2f, and a first look at split and join.
 ---
 # String methods
 
@@ -64,6 +64,37 @@ print(f"{quantity} x {item} = {quantity * price}")
 Anything inside `{}` is evaluated and converted to text for you. This is the
 way to build output from now on.
 
+## Controlling how numbers look
+
+A price of `2.5` should print as `2.50`, and a column of prices should line
+up. A **format spec** after a colon inside the braces does this:
+
+```python
+price = 2.5
+print(f"{price:.2f}")
+print(f"{1250:,}")
+print(f"{0.256:.1%}")
+```
+
+`.2f` means "a decimal number with 2 digits after the point". `,` puts
+thousands separators in. `.1%` multiplies by a hundred and adds the sign.
+They combine: `{1250.5:,.2f}` gives `1,250.50`.
+
+A number before the type sets a minimum width, and `<`, `>` or `^` push the
+value to the left, right or centre of it. That is how you line up columns:
+
+```python
+items = ["apple", "bread", "milk"]
+prices = [40, 25, 2.5]
+for i in range(3):
+    print(f"{items[i]:<8}{prices[i]:>8.2f}")
+```
+
+`{items[i]:<8}` is the item padded with spaces to 8 characters, left
+aligned; `{prices[i]:>8.2f}` is the price with two decimals, right aligned
+in 8 characters. You will not remember all of these. Remember that `.2f`
+exists and that the colon is where the rest goes.
+
 ## Splitting text into pieces
 
 `split()` breaks a string into a **list** of pieces wherever there is blank
@@ -84,6 +115,8 @@ print("-".join(["apple", "bread"]))
 :::problem normalise-name
 
 :::problem receipt-fstring
+
+:::problem money-format
 
 :::problem has-prefix
 

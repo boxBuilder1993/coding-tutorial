@@ -1,6 +1,6 @@
 ---
-title: Python built-in functions: len, range, sorted, enumerate, zip
-description: The built-ins worth knowing by heart: abs, round, min, max, sum, int, float, str, range, sorted with key and lambda, enumerate and zip.
+title: Python built-in functions: range, sorted, enumerate, zip, any, all
+description: The built-ins worth knowing by heart: abs, round, min, max, sum, int, float, str, range, sorted with key and lambda, enumerate, zip, any and all.
 ---
 # Built-in functions
 
@@ -130,7 +130,47 @@ print(dict(zip(items, prices)))
 
 That last line builds a dictionary from two lists in one step.
 
+## any and all: a yes-or-no about a whole list
+
+`any` returns `True` if at least one value in a list is true; `all` returns
+`True` only if every value is. On their own they look pointless, because
+lists of booleans are rare. They earn their place combined with a loop
+written inside the brackets, which produces one boolean per item:
+
+```python
+quantities = [3, 0, 5]
+print(any(q == 0 for q in quantities))
+print(all(q > 0 for q in quantities))
+
+prices = [40, 25, 2.5]
+print(all(p > 0 for p in prices))
+```
+
+Read `any(q == 0 for q in quantities)` as "is `q == 0` for any `q` in
+`quantities`?". The inside is a loop that produces `q == 0` for each
+quantity, and `any` says whether one of them came out `True`. It stops as
+soon as it knows, so `any` on a million items can finish after the first.
+
+Without them you would write a loop with a flag variable. Compare:
+
+```python
+quantities = [3, 0, 5]
+out_of_stock = False
+for q in quantities:
+    if q == 0:
+        out_of_stock = True
+        break
+print(out_of_stock)
+print(any(q == 0 for q in quantities))
+```
+
+Same answer, one line instead of six. `all` of an empty list is `True` and
+`any` of an empty list is `False`, which is usually what you want: "every
+item of nothing is in stock" is vacuously true.
+
 ## Try it
+
+:::problem all-in-stock
 
 :::problem total-with-sum
 
@@ -138,4 +178,4 @@ That last line builds a dictionary from two lists in one step.
 
 :::problem pair-up
 
-Next: [Stacks](../../04-stacks-queues-and-priority-queues/01-stacks).
+Next: [Counting with Counter](../08-counting-with-counter).
