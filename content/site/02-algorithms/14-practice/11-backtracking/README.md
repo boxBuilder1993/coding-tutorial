@@ -28,4 +28,4 @@ The lesson is [Backtracking](../../13-backtracking).
 
 :::problem q-digits-sum-k
 
-That is every practice page. The next step is to go back to anything you solved with hints and solve it clean.
+Next: [Hard 1: lists, strings and search](../12-hard-1).

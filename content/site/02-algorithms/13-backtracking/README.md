@@ -192,4 +192,4 @@ collection regardless of the order you produce it in.
 
 :::problem a-n-queens
 
-Next: [Algorithms practice](../14-practice), 112 problems grouped by topic.
+Next: [Algorithms practice](../14-practice), 143 problems grouped by topic, ending with three hard pages.

@@ -1,10 +1,10 @@
 ---
-title: Algorithms practice: 112 problems by topic in Python
-description: 112 practice problems, one page per algorithms lesson: searching, sorting, hashing, linked lists, trees, graphs, heaps, greedy, DP and backtracking.
+title: Algorithms practice: 143 problems by topic in Python
+description: 143 practice problems: one page per algorithms lesson, from searching and sorting to graphs, DP and backtracking, plus three pages of hard problems.
 ---
 # Algorithms practice
 
-One page of problems per algorithms lesson, ten or so each. Unlike the first practice section, these are grouped by topic, because the point is to drill one pattern until it is automatic. Do a page right after its lesson, or come back and do them all in order as a review.
+One page of problems per algorithms lesson, ten or so each, then three pages of hard problems that combine them. Unlike the first practice section, these are grouped by topic, because the point is to drill one pattern until it is automatic. Do a page right after its lesson, or come back and do them all in order as a review.
 
 As before, any correct solution passes unless the statement says a check is large. Where it does, the slow approach will run out of time, and that is the exercise.
 
@@ -19,3 +19,6 @@ As before, any correct solution passes unless the statement says a check is larg
 9. [Greedy](09-greedy): 10 problems.
 10. [Dynamic programming](10-dynamic-programming): 11 problems.
 11. [Backtracking](11-backtracking): 10 problems.
+12. [Hard 1: lists, strings and search](12-hard-1): 10 problems.
+13. [Hard 2: trees, graphs and heaps](13-hard-2): 10 problems.
+14. [Hard 3: dynamic programming and backtracking](14-hard-3): 11 problems.
