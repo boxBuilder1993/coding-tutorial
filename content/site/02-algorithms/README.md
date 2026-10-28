@@ -27,6 +27,7 @@ without them.
 11. [Greedy](11-greedy): when the obvious choice is right, and how to tell.
 12. [Dynamic programming](12-dynamic-programming): remembering answers, from memo to table.
 13. [Backtracking](13-backtracking): enumerating arrangements with undo and pruning.
+14. [Practice](14-practice): 112 more problems, one page per topic.
 
 Each page ends with exercises. Some of their checks use inputs large
 enough that the slow approach runs out of time; the problem statement

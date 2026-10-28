@@ -192,7 +192,4 @@ collection regardless of the order you produce it in.
 
 :::problem a-n-queens
 
-This is the end of the algorithms pages so far. Everything in the
-[practice](../../01-learn-python/05-practice) band is now fair game to redo
-with the faster method in mind: the checks there accept any correct
-answer, so time yourself instead.
+Next: [Algorithms practice](../14-practice), 112 problems grouped by topic.
