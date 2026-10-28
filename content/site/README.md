@@ -61,7 +61,7 @@ Work through the sections in order. Each builds on the one before.
 | 3 | [Collections and loops](01-learn-python/03-collections-and-loops) | Hold many values at once and do something with each of them. |
 | 4 | [Stacks, queues and priority queues](01-learn-python/04-stacks-queues-and-priority-queues) | Choose the right structure for "what comes out next". |
 | 5 | [Practice](01-learn-python/05-practice) | Reach for the right tool without being told which one. 120 mixed problems. |
-| 6 | [Algorithms](02-algorithms) | Tell slow code from fast code, and use recursion. In progress: more pages are being added. |
+| 6 | [Algorithms](02-algorithms) | Tell slow code from fast code: searching, sorting, hashing, trees, graphs, dynamic programming and more. 13 pages. |
 
 Sections 1 to 4 are about 20 pages and take most people a few hours each.
 Section 5 is where it sticks: the problems are grouped by difficulty, not by

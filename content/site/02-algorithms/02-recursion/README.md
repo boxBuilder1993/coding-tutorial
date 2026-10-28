@@ -195,4 +195,4 @@ function that calls itself, even where a loop would do.
 
 :::problem fib-recursive
 
-Next: more pages are on the way. Until then, the [practice problems](../../01-learn-python/05-practice) are a good place to try recursion on your own.
+Next: [Searching](../03-searching).
